@@ -15,5 +15,7 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - '**/*'
-  base-directory: build
+    - 'ahh.yml'
+  base-directory: 'build'
+  discard-paths: yes
+  
