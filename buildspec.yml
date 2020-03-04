@@ -7,7 +7,7 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - npm run build
+      - cd backend && npm run AWS-Build
   post_build:
     commands:
       - echo Build completed on `date`
