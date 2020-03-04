@@ -16,7 +16,6 @@ phases:
       - cd ..
 artifacts:
   files:
-    - 'ahh.yml'
-  base-directory: 'build'
-  discard-paths: yes
+    - '**/*'
+  name: $AWS_REGION-$(date +%Y-%m-%d) 
   
