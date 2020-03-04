@@ -3,6 +3,7 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
+      - pip install --upgrade awscli
       - cd backend && npm install
       - cd .. && ls 
       - cd frontend && npm install
