@@ -17,7 +17,7 @@ const URI =
   process.env.DB_USER +
   ':' +
   process.env.DB_PASS +
-  '@colincluster-wivqx.mongodb.net/test?retryWrites=true&w=majority';
+  '@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority';
 
 // Connect to MongoDB Atlas
 mongoose
