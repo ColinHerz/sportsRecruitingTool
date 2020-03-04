@@ -4,10 +4,12 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - cd backend && npm install
+      - cd ../frontend && npm install
   build:
     commands:
       - echo Build started on `date`
-      - npm run AWS-Build
+      - cd backend && npm start
+      - cd ../frontend && npm run build
   post_build:
     commands:
       - echo Build completed on `date`
