@@ -1,5 +1,5 @@
 {
-  "name": "contactmanager",
+  "name": "frontend",
   "license": "MIT",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",

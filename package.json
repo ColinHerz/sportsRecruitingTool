@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "AWS-Build" : "cd ../frontend && npm install && npm run build"
+    "AWS-Build": "cd ../frontend && npm install && npm run build"
   },
   "engines": {
     "node": ">= 13.8.0",
