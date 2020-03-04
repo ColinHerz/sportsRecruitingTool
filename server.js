@@ -1,6 +1,5 @@
 var compression = require('compression');
 var express = require('express');
-var helmet = require('helmet');
 var mongoose = require('mongoose');
 var path = require('path');
 
@@ -9,7 +8,6 @@ require('dotenv').config();
 // Create the express server
 var app = express();
 app.use(express.json());
-app.use(helmet());
 app.use(compression());
 
 const URI =
