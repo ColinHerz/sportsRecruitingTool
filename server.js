@@ -29,7 +29,11 @@ mongoose
   .then(() => console.log('MongoDB Atlas connection established successfully'))
   .catch(err => console.log(err));
 
-
+app.get('/testpoint', (req, res) => {
+  res.json({
+    text:"Tester testy test"
+  })
+});
 //var routes = require('./routes');
 //app.post('/users/login', routes.postUserLogin);
 //app.post('/users/register', routes.postUserRegister);
@@ -46,7 +50,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 8081;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
