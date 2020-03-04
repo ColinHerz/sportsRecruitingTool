@@ -3,11 +3,11 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install
+      - cd backend && npm install
   build:
     commands:
       - echo Build started on `date`
-      - cd backend && npm run AWS-Build
+      - npm run AWS-Build
   post_build:
     commands:
       - echo Build completed on `date`
