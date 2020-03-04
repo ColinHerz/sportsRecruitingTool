@@ -10,6 +10,7 @@ phases:
     commands:
       - echo Build started on `date`
       - ls -a
+      - cd frontend
       - npm run build
   post_build:
     commands:
