@@ -3,15 +3,14 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm install
+      - pip install --upgrade awscli
+      - npm install 
+      - cd frontend && npm install
   build:
     commands:
       - echo Build started on `date`
-      - npm run build
+      - cd frontend && npm run build
   post_build:
     commands:
       - echo Build completed on `date`
-  artifacts:
-          files:
-            - '**/*'
-          base-directory: build
+  

@@ -15,7 +15,8 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "AWS-Build" : "cd ../frontend && npm install && npm run build"
   },
   "engines": {
     "node": ">= 13.8.0",

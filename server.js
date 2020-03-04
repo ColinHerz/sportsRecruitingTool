@@ -17,7 +17,7 @@ const URI =
   process.env.DB_USER +
   ':' +
   process.env.DB_PASS +
-  '@colincluster-wivqx.mongodb.net/test?retryWrites=true&w=majority';
+  '@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority';
 
 // Connect to MongoDB Atlas
 mongoose
@@ -29,7 +29,11 @@ mongoose
   .then(() => console.log('MongoDB Atlas connection established successfully'))
   .catch(err => console.log(err));
 
-
+app.get('/testpoint', (req, res) => {
+  res.json({
+    text:"Tester testy test"
+  })
+});
 //var routes = require('./routes');
 //app.post('/users/login', routes.postUserLogin);
 //app.post('/users/register', routes.postUserRegister);
@@ -39,10 +43,9 @@ mongoose
 //app.post('/contacts/delete/:id', routes.postContactsDelete);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-
+  app.use(express.static('frontend/build'));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'))
   });
 }
 

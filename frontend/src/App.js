@@ -1,25 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faUser,
+  faLock,
+  faAddressBook,
+  faHome,
+  faPhone,
+  faExclamationTriangle,
+  faSearch,
+  faTrash,
+  faEdit,
+  faSignOutAlt,
+  faSignInAlt,
+  faPlus,
+  faSave,
+  faEnvelope,
+  faBan
+} from "@fortawesome/free-solid-svg-icons";
+import "./css/App.css";
+
+import Home from "./components/Home";
+import Register from "./components/Register/Register";
+import Contacts from "./components/Contacts/Contacts";
+
+library.add(
+  faUser,
+  faLock,
+  faAddressBook,
+  faHome,
+  faPhone,
+  faExclamationTriangle,
+  faSearch,
+  faTrash,
+  faEdit,
+  faSignOutAlt,
+  faSignInAlt,
+  faPlus,
+  faSave,
+  faEnvelope,
+  faBan
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div>
+        <Route path="/" exact component={Home} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/contacts" exact component={Contacts} />
+      </div>
+    </BrowserRouter>
   );
 }
 
