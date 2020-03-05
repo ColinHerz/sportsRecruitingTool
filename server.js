@@ -42,7 +42,8 @@ app.get('/testpoint', (req, res) => {
 //app.post('/contacts/delete/:id', routes.postContactsDelete);
 
 if (process.env.NODE_ENV === 'production') {
-  const root = require('path').join(__dirname, 'client', 'build')
+  const root = require('path').join(__dirname, 'build');
+  console.log(root);
   app.use(express.static(root));
   app.get("*", (req, res) => {
     res.sendFile('index.html', { root });
