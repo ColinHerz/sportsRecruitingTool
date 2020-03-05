@@ -8,6 +8,7 @@ require('dotenv').config();
 // Create the express server
 var app = express();
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
 
 const URI =
@@ -43,8 +44,8 @@ app.get('/testpoint', (req, res) => {
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('/build'));
   app.get('*', (req, res) => {
-    console.log(path.join(__dirname, '/build/index.html'));
-    res.sendFile(path.join(__dirname, '/build/index.html'))
+    console.log(path.join(__dirname, '/client/build/index.html'));
+    res.sendFile(path.join(__dirname, '/client/build/index.html'))
   });
 }
 
