@@ -22,7 +22,7 @@
   "scripts": {
     "start": "node server.js",
     "devstart": "react-scripts start",
-    "AWS-Deploy": "npm run build & node server",
+    "AWS-Deploy": "npm run build & nodemon server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

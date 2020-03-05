@@ -42,11 +42,11 @@ app.get('/testpoint', (req, res) => {
 //app.post('/contacts/delete/:id', routes.postContactsDelete);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('/build'));
-  app.get('*', (req, res) => {
-    console.log(path.join(__dirname, '/client/build/index.html'));
-    res.sendFile(path.join(__dirname, '/client/build/index.html'))
-  });
+  const root = require('path').join(__dirname, 'build')
+  app.use(express.static(root));
+  app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
+  })
 }
 
 const PORT = process.env.PORT || 5000;
