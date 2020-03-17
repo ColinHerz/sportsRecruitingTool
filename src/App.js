@@ -11,6 +11,9 @@ const App = props => {
 	return (
 		<Router>
 			<Switch>
+				<Route path="/example">
+					<p>This is for an example</p>
+				</Route>
 				<Route path="/">
 					<Landing />
 				</Route>
