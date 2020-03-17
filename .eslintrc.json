@@ -7,8 +7,7 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:react-hooks/recommended"
+        "plugin:react/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -25,6 +24,23 @@
         "react",
         "react-hooks"
     ],
+    "settings": {
+        "react": {
+            "createClass": "createReactClass",
+            "pragma": "React",
+            "version": "detect",
+            "flowVersion": "0.53"
+        },
+        "propWrapperFunctions": [
+            "forbidExtraProps",
+            {"property": "freeze", "object": "Object"},
+            {"property": "myFavoriteWrapper"}
+        ],
+        "linkComponents": [
+            "Hyperlink",
+            {"name": "Link", "linkAttribute": "to"}
+        ]
+    },
     "rules": {
         "indent": [
             "error",
@@ -63,6 +79,15 @@
         ],
         "no-trailing-spaces": [
             "error"
-        ]
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "local",
+                "argsIgnorePattern": "^props$"
+            }
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     }
 }
