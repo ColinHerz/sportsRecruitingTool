@@ -30,14 +30,14 @@ mongoose
 
 app.get('/testpoint', (req, res) => {
   res.json({
-    text:"Tester testy test"
+    text: "Tester testy test"
   })
 });
 
 var routes = require('./routes');
 app.post('/users/login', routes.postUserLogin);
 app.post('/users/register', routes.postUserRegister);
-app.post('/users/verify', routes.postUserVerify);
+app.get('/users/verify/:token', routes.getUserVerify);
 //app.post('/contacts/getAllContacts/:contact_for_user', routes.postContactsGetAll);
 //app.post('/contacts/add/:contact_for_user', routes.postContactsAdd);
 //app.post('/contacts/update/:id', routes.postContactsUpdate);

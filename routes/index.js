@@ -1,4 +1,4 @@
-const {postUserLogin, postUserRegister, postUserVerify} = require("./users");
+const { postUserLogin, postUserRegister, getUserVerify } = require("./users");
 
 // User
 exports.postUserLogin = async (req, res) => {
@@ -7,6 +7,6 @@ exports.postUserLogin = async (req, res) => {
 exports.postUserRegister = async (req, res) => {
   await postUserRegister(req, res);
 };
-exports.postUserVerify = async (req, res) => {
-  await postUserVerify(req, res);
+exports.getUserVerify = async (req, res) => {
+  await getUserVerify(req, res);
 };

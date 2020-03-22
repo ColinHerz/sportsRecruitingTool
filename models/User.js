@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+let UserDetail = require("./UserSubModels/UserDetail");
+let UserEquipment = require("./UserSubModels/UserEquipment");
+let UserFavorite = require("./UserSubModels/UserFavorite");
+
 const userSchema = new Schema({
   firstname: {
     type: String,
@@ -27,8 +31,12 @@ const userSchema = new Schema({
     unique: false
   },
   isVerified: {
-    type: Boolean
-  }
+    type: Boolean,
+    required: true
+  },
+  userDetail: UserDetail.schema,
+  userFavorite: UserFavorite.schema,
+  userEquipment: UserEquipment.schema
 });
 
 const User = mongoose.model("User", userSchema);
