@@ -8,8 +8,8 @@ const Header = props => {
 			<h1>Sporta</h1>
 
 			<div>
-				<button id="sign-up">Sign Up</button>
-				<button id="log-in">Log In</button>
+				<button className="sign-up">Sign Up</button>
+				<button className="log-in">Log In</button>
 			</div>
 		</header>
 	);
