@@ -35,7 +35,7 @@ function validateLogin(data) {
 
     return { errors, valid: errors };
 }
-exports.postUserLogin = async (req, res) => {
+exports.getUserLogin = async (req, res) => {
     const valid = validateLogin(req.body);
     const email = req.body.email;
     const password = req.body.password;
@@ -52,15 +52,13 @@ exports.postUserLogin = async (req, res) => {
                         if (!same) {
                             return res.status(400).json({ warning: "Incorrect Credentials" });
                         }
-                        if (!user.isVerified) {
-                            return res.status(400).json({ warning: "Email Not Verified" });
-                        }
 
                         const payload = {
                             id: user.id,
                             email: user.email,
                             firstname: user.firstname,
-                            lastname: user.lastname
+                            lastname: user.lastname,
+                            isVerified: user.isVerified
                         };
 
                         jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
@@ -137,7 +135,6 @@ exports.postUserRegister = async (req, res) => {
 };
 
 exports.getUserVerify = async (req, res) => {
-    console.log('hey');
     token = req.params.token;
     jwt.verify(token, process.env.JWT_KEY, function (err, user) {
         email = user.email;
