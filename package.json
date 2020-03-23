@@ -15,11 +15,11 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.2",
+    "node-sass": "^4.13.1",
     "nodemailer": "^6.4.5",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.0"
+    "react-router-dom": "^5.1.2"
   },
   "scripts": {
     "start": "node server.js",
@@ -27,7 +27,8 @@
     "AWS-Deploy": "npm run build & node server",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.js"
   },
   "proxy": "http://localhost:8081",
   "engines": {
@@ -45,5 +46,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-scripts": "^3.4.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.1",
+    "@testing-library/user-event": "^7.2.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.5.0"
   }
 }
