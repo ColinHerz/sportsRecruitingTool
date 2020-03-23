@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 let UserDetail = require("./UserSubModels/UserDetail");
 let UserEquipment = require("./UserSubModels/UserEquipment");
 let UserFavorite = require("./UserSubModels/UserFavorite");
+let UserSports = require("./UserSubModels/UserSports");
 
 const userSchema = new Schema({
   firstname: {
@@ -36,7 +37,8 @@ const userSchema = new Schema({
   },
   userDetail: UserDetail.schema,
   userFavorite: UserFavorite.schema,
-  userEquipment: UserEquipment.schema
+  userEquipment: UserEquipment.schema,
+  UserSports: UserSports.schema
 });
 
 const User = mongoose.model("User", userSchema);

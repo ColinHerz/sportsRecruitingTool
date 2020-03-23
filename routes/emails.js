@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-
+// We can call this again from button click for resend email.
 exports.sendVerificationEmail = async (recieverEmail, token) => {
 
     const transporter = nodemailer.createTransport({
