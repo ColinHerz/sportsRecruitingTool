@@ -5,7 +5,7 @@ import {
 	Switch
 } from "react-router-dom";
 
-import Landing from "./components/landing/Landing.js";
+import Landing from "./components/landing/landing.js";
 
 const App = props => {
 	return (

@@ -1,0 +1,48 @@
+@import "../../reset";
+@import "../../fonts";
+@import "../../colors";
+
+main {
+    display: flex;
+	flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    padding-top: 2em;
+
+    background-color: $white;
+    color: $black;
+
+    p {
+        font-family: "Open Sans";
+        text-align: left;
+    }
+
+    li {
+        font-size: 24px;
+        text-align: left;
+        font-weight: 100;
+    }
+    
+    ol {
+        padding-left: .9em;
+    }
+
+    .name {
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .usern {
+        font-size: 24px;
+        font-weight: 100;
+    }
+
+    .scoreEvent {
+        padding-top: 1em;
+        font-size: 32px;
+    }
+
+    .items {
+        font-size: 24px;
+    }
+}
