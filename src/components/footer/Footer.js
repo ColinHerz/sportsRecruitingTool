@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./footer.scss"
+import "./footer.scss";
 
 const Footer = props => {
 	const year = (new Date()).getFullYear();

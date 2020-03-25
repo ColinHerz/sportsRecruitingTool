@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./profile.scss"
+import "./profile.scss";
 
 const Profile = props => {
 	return (
