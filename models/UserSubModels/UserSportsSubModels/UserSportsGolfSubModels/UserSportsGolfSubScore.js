@@ -5,22 +5,22 @@ let userEquipmentGolfClub = require("../../UserEquipmentSubModels/UserEquipmentG
 
 // Storing each game in an array under its sport
 const UserSportsGolfSubScoreSchema = new Schema({
-    score:{
+    score: {
         type: Number,
         required: true
     },
-    club: [userEquipmentGolfClub.schema],
-    holeSubAnalytics: [GolfAnalyticsSchema],
-    greenInRegulation:{
+    greenInRegulation: {
         type: Boolean,
-    }
+    },
+    holeSubAnalytics: [GolfAnalyticsSchema]
     // any other analytics that are once per hole
 });
 
 const GolfAnalyticsSchema = new Schema({
-    fairwayHit:{
-        type:Boolean
-    }
+    fairwayHit: {
+        type: Boolean
+    },
+    clubUsed: userEquipmentGolfClub.schema
     // any other analytics that are once per swing
 });
 

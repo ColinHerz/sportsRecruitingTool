@@ -1,3 +1,5 @@
+// Need get and post for user details.
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
