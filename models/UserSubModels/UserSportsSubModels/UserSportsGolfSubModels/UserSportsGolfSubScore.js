@@ -9,9 +9,21 @@ const UserSportsGolfSubScoreSchema = new Schema({
         type: Number,
         required: true
     },
-    club: [userEquipmentGolfClub.schema]
-    // Other sports go here.
+    club: [userEquipmentGolfClub.schema],
+    holeSubAnalytics: [GolfAnalyticsSchema],
+    greenInRegulation:{
+        type: Boolean,
+    }
+    // any other analytics that are once per hole
 });
+
+const GolfAnalyticsSchema = new Schema({
+    fairwayHit:{
+        type:Boolean
+    }
+    // any other analytics that are once per swing
+});
+
 
 const UserSportsGolfSubScore = mongoose.model("UserSportsGolfSubScore", UserSportsGolfSubScoreSchema);
 
