@@ -5,19 +5,22 @@ import {
 	Switch
 } from "react-router-dom";
 
-import Landing from "./components/landing/landing.js";
+import Footer from "./components/footer/Footer.js";
+import Header from "./components/header/Header.js";
+import Hero from "./components/hero/Hero.js";
 
 const App = props => {
 	return (
 		<Router>
+			<Header />
+
 			<Switch>
-				<Route path="/example">
-					<p>This is for an example</p>
-				</Route>
 				<Route path="/">
-					<Landing />
+					<Hero />
 				</Route>
 			</Switch>
+
+			<Footer />
 		</Router>
 	);
 };
