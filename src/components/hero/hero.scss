@@ -1,0 +1,48 @@
+@import "../../reset";
+@import "../../fonts";
+@import "../../colors";
+
+main {
+	background-color: $white;
+	color: $black;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+
+	p {
+		width: 670px;
+
+		font-family: "Ubuntu";
+		font-weight: 700;
+		font-size: 48px;
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	button {
+		width: 10em;
+		height: 2em;
+
+		font-family: "Open Sans";
+		font-weight: 700;
+		font-size: 30px;
+
+		border: 5px solid $orange;
+		border-radius: 30px;
+	}
+
+	.sign-up {
+		background-color: $orange;
+		color: $white;
+
+		margin-top: 0.6em;
+		margin-bottom: 0.2em;
+	}
+
+	.log-in {
+		margin-top: 0.2em;
+	}
+}
