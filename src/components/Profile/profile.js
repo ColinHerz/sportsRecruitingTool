@@ -34,7 +34,7 @@ const Profile = props => {
 
 			<section id="past-events" class="stats">
 				<h3>Past Events</h3>
-				<ol>
+				<ul>
 					<li>
 						Event 1
 					</li>
@@ -44,7 +44,7 @@ const Profile = props => {
 					<li>
 						Event 3
 					</li>
-				</ol>
+				</ul>
 			</section>
 		</main>
 	);
