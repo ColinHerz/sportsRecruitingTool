@@ -4,31 +4,36 @@ import "./profile.scss";
 
 const Profile = props => {
 	return (
-		<main>
-			<p className="name">
-				First Name Last Name
-			</p>
-			<p className="usern">
-				Username
-			</p>
-			<div>
-				<p className="scoreEvent">
-					Top Scores
-					<ol>
-						<li>
-							Score 1
-						</li>
-						<li>
-							Score 2
-						</li>
-						<li>
-							Score 3
-						</li>
-					</ol>
-				</p>
-			</div>
-			<p className="scoreEvent">
-				Past Events
+		<main id="profile">
+			<section id="login-info">
+				<h2>First Name Last Name</h2>
+				<p>Username</p>
+			</section>
+
+			<section id="personal-info">
+				<p><span>Gender:</span> Male</p>
+				<p><span>Height:</span> 5' 10"</p>
+				<p><span>Weight:</span> 140 lbs</p>
+				<p><span>Age:</span> 21</p>
+			</section>
+
+			<section id="top-scores" class="stats">
+				<h3>Top Scores</h3>
+				<ol>
+					<li>
+						Score 1
+					</li>
+					<li>
+						Score 2
+					</li>
+					<li>
+						Score 3
+					</li>
+				</ol>
+			</section>
+
+			<section id="past-events" class="stats">
+				<h3>Past Events</h3>
 				<ol>
 					<li>
 						Event 1
@@ -40,7 +45,7 @@ const Profile = props => {
 						Event 3
 					</li>
 				</ol>
-			</p>
+			</section>
 		</main>
 	);
 };

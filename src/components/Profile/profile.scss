@@ -1,41 +1,60 @@
 @import "../../reset";
 
-main {
+#profile {
 	display: flex;
 	flex-direction: column;
 	justify-content: left;
+	align-items: flex-start;
+
 	text-align: left;
+	font-family: "Open Sans";
+
 	margin: auto;
 	width: 60%;
+
 	background-color: $white;
 	color: $black;
 
-	p {
-		font-family: "Open Sans";
-		text-align: left;
+	h2, h3 {
+		font-family: "Ubuntu";
 	}
 
-	li {
-		font-size: 24px;
-		text-align: left;
-		font-weight: 100;
-	}
-
-	.name {
+	h2 {
 		font-size: 40px;
-		font-weight: bold;
 	}
 
-	.usern {
+	span {
+		font-weight: 700;
+	}
+
+	section {
+		margin-bottom: 1em;
+	}
+
+	#login-info {
+		p {
+			margin-top: -14px;
+			font-size: 22px;
+			color: $gray;
+		}
+	}
+
+	#personal-info {
+		font-size: 26px;
+	}
+
+	.stats {
 		font-size: 24px;
-		font-weight: 100;
+
+		h3 {
+			font-size: 32px;
+		}
 	}
 
-	.scoreEvent {
-		font-size: 32px;
-	}
-
-	.items {
-		font-size: 24px;
+	#past-events {
+		ol {
+			list-style: none;
+			padding: 0;
+		}
 	}
 }
