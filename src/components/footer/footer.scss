@@ -6,6 +6,7 @@ footer {
 	justify-content: space-between;
 	align-items: flex-start;
 	align-content: flex-start;
+	padding-bottom: 1em;
 
 	background-color: $black;
 	color: $white;
@@ -41,7 +42,7 @@ footer {
 		margin: 0.3em 0;
 	}
 
-	.logo {
+	#logo {
 		margin-left: 15px;
 
 		p {
@@ -49,7 +50,7 @@ footer {
 		}
 	}
 
-	.get-started {
+	#get-started {
 		margin-right: 15px;
 	}
 }
