@@ -2,6 +2,7 @@ var compression = require('compression');
 var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
+var cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -10,6 +11,7 @@ var app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
+app.use(cookieParser());
 
 const URI =
   'mongodb+srv://' +
