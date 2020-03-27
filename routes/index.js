@@ -1,5 +1,6 @@
 const { getUserLogin, postUserRegister, getUserVerify } = require("./users");
 const { resendVerificationEmail } = require("./emails");
+const { postUserDetails } = require("./userdetail");
 
 // User
 exports.getUserLogin = async (req, res) => {
@@ -19,4 +20,8 @@ exports.postUserDetails = async (req, res) => {
 };
 exports.getUserDetails = async (req, res) => {
   await getUserDetails(req, res);
+};
+
+exports.postUserDetails = async (req, res) => {
+  await postUserDetails(req, res);
 };
