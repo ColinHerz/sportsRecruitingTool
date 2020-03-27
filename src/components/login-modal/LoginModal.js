@@ -4,8 +4,8 @@ import "./login-modal.scss";
 
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState(``);
+	const [password, setPassword] = useState(``);
 
 	const registering = event => {
 		event.preventDefault();

@@ -12,12 +12,12 @@ const Profile = props => {
 
 			<section id="personal-info">
 				<p><span>Gender:</span> Male</p>
-				<p><span>Height:</span> 5' 10"</p>
+				<p><span>Height:</span> 5&apos; 10&quot;</p>
 				<p><span>Weight:</span> 140 lbs</p>
 				<p><span>Age:</span> 21</p>
 			</section>
 
-			<section id="top-scores" class="stats">
+			<section id="top-scores" className="stats">
 				<h3>Top Scores</h3>
 				<ol>
 					<li>
@@ -32,7 +32,7 @@ const Profile = props => {
 				</ol>
 			</section>
 
-			<section id="past-events" class="stats">
+			<section id="past-events" className="stats">
 				<h3>Past Events</h3>
 				<ul>
 					<li>

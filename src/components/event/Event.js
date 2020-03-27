@@ -17,7 +17,7 @@ const Event = props => {
 			</section>
 
 			<section id="in">
-				<h3>Events I'm In</h3>
+				<h3>Events I&apos;m In</h3>
 				<ul>
 					<li>Event 1</li>
 					<li>Event 2</li>
@@ -28,4 +28,4 @@ const Event = props => {
 	);
 };
 
-export default Event
+export default Event;
