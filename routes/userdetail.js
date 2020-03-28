@@ -44,7 +44,7 @@ exports.getUserDetails = async (req, res) => {
   jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
     const filter = { _id: user.id };
     const details = { userDetail: userDetail };
-    User.findOneAndUpdate(filter, details).then(query => {
+    User.findOne(filter, details).then(query => {
       if (!query) {
         return res.status(400).json({ warning: "User Not Found" });
       }
