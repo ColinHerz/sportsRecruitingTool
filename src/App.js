@@ -10,7 +10,8 @@ import Footer from "./components/footer/Footer.js";
 import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
 import LoginModal from "./components/login-modal/LoginModal.js";
-import Profile from "./components/profile/Profile.js";
+import Profile from "./components/Profile/Profile.js";
+import TopScores from "./components/topScores/TopScores.js";
 
 const App = props => {
 	return (
@@ -26,6 +27,10 @@ const App = props => {
 
 				<Route path="/event/:id/">
 					<Event />
+				</Route>
+
+				<Route path="/topScores/">
+					<TopScores />
 				</Route>
 
 				<Route path="/">
