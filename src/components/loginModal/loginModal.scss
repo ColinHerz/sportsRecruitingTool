@@ -29,11 +29,28 @@
 		font-family: "Ubuntu";
 		font-size: 40px;
 		text-align: center;
+
 		color: $orange;
 	}
 
+	#close {
+		color: $white;
+		background-color: $orange;
+
+		width: 30px;
+		height: 30px;
+		font-size: 16px;
+
+		position: relative;
+		bottom: 75px;
+		left: 385px;
+
+		border: none;
+		border-radius: 50%;
+	}
+
 	#btn-sec {
-		margin: 0.5em 1.2em 2em 19px;
+		margin: -20px 1.2em 2em 19px;
 	}
 
 	button {
@@ -69,7 +86,6 @@
 		align-items: flex-start;
 
 		font-size: 20px;
-
 		margin-left: 19px;
 	}
 
@@ -83,7 +99,6 @@
 		border-radius: 4px;
 
 		font-weight: 400;
-
 		margin-bottom: 1em;
 	}
 

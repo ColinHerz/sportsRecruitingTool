@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -14,11 +14,43 @@ import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
 
 const App = props => {
+	const [showModal, setShowModal] = useState(false);
+	const [isRegistering, setIsRegistering] = useState(false);
+
+	const logIn = event => {
+		event.preventDefault();
+
+		setShowModal(true);
+		setIsRegistering(false);
+	};
+
+	const register = event => {
+		event.preventDefault();
+
+		setShowModal(true);
+		setIsRegistering(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
 	return (
 		<Router>
-			<Header />
+			<Header
+				logIn={logIn}
+				register={register}
+				loggedIn={false}
+			/>
 
-			<LoginModal isRegistering={true} />
+			{
+				showModal ?
+					<LoginModal
+						isRegistering={isRegistering}
+						closeModal={closeModal}
+					/>:
+					null
+			}
 
 			<Switch>
 				<Route path="/profile/:id/">
@@ -38,7 +70,11 @@ const App = props => {
 				</Route>
 			</Switch>
 
-			<Footer />
+			<Footer
+				logIn={logIn}
+				register={register}
+				loggedIn={false}
+			/>
 		</Router>
 	);
 };

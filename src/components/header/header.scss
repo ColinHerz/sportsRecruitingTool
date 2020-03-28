@@ -11,7 +11,7 @@ header {
 	h1 {
 		font-family: "Ubuntu";
 		font-weight: 700;
-		font-size: 64px;
+		font-size: 60px;
 
 		color: $white;
 
@@ -38,14 +38,14 @@ header {
 		}
 	}
 
-	.sign-up {
+	#log-in {
 		background-color: $orange;
 		border-color: $black;
 
 		margin-right: 0.3em;
 	}
 
-	.log-in {
+	#sign-up {
 		background-color: $black;
 		border-color: $black;
 

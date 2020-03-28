@@ -8,13 +8,22 @@ const LoginModal = props => {
 	const [email, setEmail] = useState(``);
 	const [password, setPassword] = useState(``);
 
+	// this will not be same as submit eventually
+	const handleClose = event => {
+		event.preventDefault();
+
+		props.closeModal();
+	};
+
 	const registering = event => {
 		event.preventDefault();
+
 		setIsRegistering(true);
 	};
 
 	const loggingIn = event => {
 		event.preventDefault();
+
 		setIsRegistering(false);
 	};
 
@@ -32,12 +41,22 @@ const LoginModal = props => {
 
 	const handleSubmit = event => {
 		event.preventDefault();
+
+		props.closeModal();
 	};
 
 	return (
 		<div id="gray-background">
 			<div id="login-modal">
 				<h2>Sporta</h2>
+
+				{ /* This will have to be improved */ }
+				<button
+					id="close"
+					onClick={handleClose}
+				>
+					X
+				</button>
 
 				<div id="btn-sec">
 					<button
@@ -76,7 +95,11 @@ const LoginModal = props => {
 						/>
 					</label>
 
-					<input type="submit" value="Submit" />
+					<input
+						type="submit"
+						value="Submit"
+						onClick={handleSubmit}
+					/>
 				</form>
 			</div>
 		</div>
@@ -84,7 +107,8 @@ const LoginModal = props => {
 };
 
 LoginModal.propTypes = {
-	isRegistering: PropTypes.bool
+	isRegistering: PropTypes.bool.isRequired,
+	closeModal: PropTypes.func.isRequired
 };
 
 export default LoginModal;
