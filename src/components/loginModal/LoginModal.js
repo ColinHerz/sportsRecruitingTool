@@ -82,8 +82,11 @@ const LoginModal = props => {
 						<input
 							type="text"
 							value={email}
+							pattern="^.+\@.+\..+$"
+							required
 							onChange={handleEmailChange}
 						/>
+						{ /* matches at least on char, @, at least one char, ., at least one char in that order */ }
 					</label>
 
 					<label>
@@ -91,8 +94,12 @@ const LoginModal = props => {
 						<input
 							type="password"
 							value={password}
+							minlength="8"
+							pattern="^(?=.{12,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$"
+							required
 							onChange={handlePasswordChange}
 						/>
+						{ /* Matches >12 chars, 1 lowercase, 1 uppercase, 1 special, 1 digit in any order */ }
 					</label>
 
 					<input
