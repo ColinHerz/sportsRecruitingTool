@@ -71,7 +71,7 @@ select {
 	font: inherit;
 }
 
-button {
+button, input[type="submit"] {
 	cursor: pointer;
 }
 

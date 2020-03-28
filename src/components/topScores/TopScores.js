@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./TopScores.scss";
+import "./topScores.scss";
 
 const TopScores = props => {
 	return (

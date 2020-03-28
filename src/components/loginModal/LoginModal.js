@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-import "./login-modal.scss";
+import "./loginModal.scss";
 
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
@@ -34,36 +35,56 @@ const LoginModal = props => {
 	};
 
 	return (
-		<div id="login-modal">
-			<h2>Sporta</h2>
+		<div id="gray-background">
+			<div id="login-modal">
+				<h2>Sporta</h2>
 
-			<button onClick={loggingIn}>Log In</button>
+				<div id="btn-sec">
+					<button
+						id="login-btn"
+						onClick={loggingIn}
+						className={!isRegistering ? `selected`:``}
+					>
+						Log In
+					</button>
 
-			<button onClick={registering}>Register</button>
+					<button
+						id="register-btn"
+						onClick={registering}
+						className={isRegistering ? `selected`:``}
+					>
+						Register
+					</button>
+				</div>
 
-			<form onSubmit={handleSubmit}>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={handleEmailChange}
-					/>
-				</label>
+				<form onSubmit={handleSubmit}>
+					<label>
+						Email:
+						<input
+							type="text"
+							value={email}
+							onChange={handleEmailChange}
+						/>
+					</label>
 
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={handlePasswordChange}
-					/>
-				</label>
+					<label>
+						Password:
+						<input
+							type="password"
+							value={password}
+							onChange={handlePasswordChange}
+						/>
+					</label>
 
-				<input type="submit" value="Submit" />
-			</form>
+					<input type="submit" value="Submit" />
+				</form>
+			</div>
 		</div>
 	);
+};
+
+LoginModal.propTypes = {
+	isRegistering: PropTypes.bool
 };
 
 export default LoginModal;
