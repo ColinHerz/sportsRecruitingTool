@@ -94,7 +94,7 @@ const LoginModal = props => {
 						<input
 							type="password"
 							value={password}
-							minlength="8"
+							minLength="8"
 							pattern="^(?=.{12,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$"
 							required
 							onChange={handlePasswordChange}
