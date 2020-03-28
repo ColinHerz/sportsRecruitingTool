@@ -43,7 +43,7 @@ app.post('/users/register', routes.postUserRegister);
 app.get('/users/verify/:token', routes.getUserVerify);
 app.get('/emails/resendVerificationEmail', routes.resendVerificationEmail);
 app.post('/users/detail/update', routes.postUserDetails);
-app.get('/users/detail/info', routes.getUserDetails);
+app.get('/users/detail/get', routes.getUserDetails);
 
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');
