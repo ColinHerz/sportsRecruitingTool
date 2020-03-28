@@ -42,13 +42,15 @@ exports.postUserDetails = async (req, res) => {
 
 exports.getUserDetails = async (req, res) => {
   jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
-    email = user.email;
-    User.findOne({ email }).then(foundUser => {
-      if (foundUser) {
-        return foundUser.userDetail;
+    const filter = { _id: user.id };
+    const details = { userDetail: userDetail };
+    User.findOneAndUpdate(filter, details).then(query => {
+      if (!query) {
+        return res.status(400).json({ warning: "User Not Found" });
       }
-      else
-        return res.status(400).json({ warning: "Error in query" + id });
-    });
+      else {
+        res.status(200).json({ userDetail });
+      }
+    }).catch(err => res.status(500).json("Error" + err));
   });
 }
