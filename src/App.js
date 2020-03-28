@@ -66,7 +66,10 @@ const App = props => {
 				</Route>
 
 				<Route path="/">
-					<Hero />
+					<Hero
+						logIn={logIn}
+						register={register}
+					/>
 				</Route>
 			</Switch>
 
