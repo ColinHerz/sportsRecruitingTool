@@ -13,6 +13,8 @@ import LoginModal from "./components/loginModal/LoginModal.js";
 import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
 
+import "./reset.scss";
+
 const App = props => {
 	const [showModal, setShowModal] = useState(false);
 	const [isRegistering, setIsRegistering] = useState(false);
