@@ -73,6 +73,10 @@ select {
 
 button, input[type="submit"] {
 	cursor: pointer;
+
+	&:hover, &:focus {
+		text-decoration: underline;
+	}
 }
 
 // Remove all animations and transitions for people that prefer not to see them
