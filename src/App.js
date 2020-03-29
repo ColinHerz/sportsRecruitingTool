@@ -12,6 +12,7 @@ import Hero from "./components/hero/Hero.js";
 import LoginModal from "./components/login-modal/LoginModal.js";
 import Profile from "./components/Profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
+import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
 const App = props => {
 	return (
@@ -31,6 +32,10 @@ const App = props => {
 
 				<Route path="/topScores/">
 					<TopScores />
+				</Route>
+
+				<Route path="/viewEvent/">
+					<ViewEvent />
 				</Route>
 
 				<Route path="/">
