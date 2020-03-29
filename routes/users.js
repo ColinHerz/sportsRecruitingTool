@@ -130,9 +130,9 @@ exports.postUserRegister = async (req, res) => {
                         EmailRoutes.sendVerificationEmail(user.email, token);
                     });
 
-                    res.json({
+                    return res.json({
                         Message: user.email + " is now registered."
-                    });
+                    }).status(200);
                 })
                 .catch(err => res.status(400).json("Error " + err));
         });
