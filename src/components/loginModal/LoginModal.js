@@ -7,6 +7,8 @@ const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
 	const [email, setEmail] = useState(``);
 	const [password, setPassword] = useState(``);
+	const [firstName, setFirstName] = useState(``);
+	const [lastName, setLastName] = useState(``);
 
 	// this will not be same as submit eventually
 	const handleClose = event => {
@@ -37,6 +39,18 @@ const LoginModal = props => {
 		event.preventDefault();
 
 		setPassword(event.target.value);
+	};
+
+	const handleFirstNameChange = event => {
+		event.preventDefault();
+
+		setFirstName(event.target.value);
+	};
+
+	const handleLastNameChange = event => {
+		event.preventDefault();
+
+		setLastName(event.target.value);
 	};
 
 	const handleSubmit = event => {
@@ -77,6 +91,31 @@ const LoginModal = props => {
 				</div>
 
 				<form onSubmit={handleSubmit}>
+					{
+						isRegistering ?
+							<React.Fragment>
+								<label>
+								First Name
+									<input
+										type="text"
+										value={firstName}
+										required
+										onChange={handleFirstNameChange}
+									/>
+								</label>
+								<label>
+								Last Name
+									<input
+										type="text"
+										value={lastName}
+										required
+										onChange={handleLastNameChange}
+									/>
+								</label>
+							</React.Fragment>:
+							null
+					}
+
 					<label>
 						Email:
 						<input

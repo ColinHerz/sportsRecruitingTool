@@ -14,29 +14,29 @@ const ViewEvent = props => {
 					<h3>Scores</h3>
 					<h4><a href="#">Player 1</a></h4>
 					<ol>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
 					</ol>
 					<p><span>Total:</span> 20</p>
 					<h4><a href="#">Player 2</a></h4>
 					<ol>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
 					</ol>
 					<p><span>Total:</span> 20</p>
 					<h4><a href="#">Player 3</a></h4>
 					<ol>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
-						<li><input type="text" maxLength="2" size="2"></input></li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
+						<li>3</li>
 					</ol>
 					<p><span>Total:</span> 20</p>
 				</section>

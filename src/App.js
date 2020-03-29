@@ -5,7 +5,7 @@ import {
 	Switch
 } from "react-router-dom";
 
-import Event from "./components/event/Event.js";
+import Events from "./components/event/Events.js";
 import Footer from "./components/footer/Footer.js";
 import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
@@ -56,20 +56,20 @@ const App = props => {
 			}
 
 			<Switch>
-				<Route path="/profile/:id/">
+				<Route path="/event/view/:eid/">
+					<ViewEvent />
+				</Route>
+
+				<Route path="/profile/:uid/">
 					<Profile />
 				</Route>
 
-				<Route path="/event/:id/">
-					<Event />
+				<Route path="/event/:uid/">
+					<Events />
 				</Route>
 
 				<Route path="/topScores/">
 					<TopScores />
-				</Route>
-
-				<Route path="/viewEvent/">
-					<ViewEvent />
 				</Route>
 
 				<Route path="/">

@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./event.scss";
+import "./events.scss";
 
 const Event = props => {
 	return (
