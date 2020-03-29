@@ -37,12 +37,12 @@ app.get('/testpoint', (req, res) => {
   })
 });
 var routes = require('./routes');
-app.post('/users/login', routes.postUserLogin);
-app.post('/users/register', routes.postUserRegister);
-app.get('/users/verify/:token', routes.getUserVerify);
-app.get('/emails/resendVerificationEmail', routes.resendVerificationEmail);
-app.post('/users/detail/update', routes.postUserDetails);
-app.get('/users/detail/get', routes.getUserDetails);
+app.post('/api/users/login', routes.postUserLogin);
+app.post('/api/users/register', routes.postUserRegister);
+app.get('/api/users/verify/:token', routes.getUserVerify);
+app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
+app.post('/api/users/detail/update', routes.postUserDetails);
+app.get('/api/users/detail/get', routes.getUserDetails);
 
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');

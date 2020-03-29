@@ -56,6 +56,13 @@ const App = props => {
 			}
 
 			<Switch>
+				<Route exact path="/">
+					<Hero
+						logIn={logIn}
+						register={register}
+					/>
+				</Route>
+
 				<Route path="/event/view/:eid/">
 					<ViewEvent />
 				</Route>
@@ -70,13 +77,6 @@ const App = props => {
 
 				<Route path="/topScores/">
 					<TopScores />
-				</Route>
-
-				<Route path="/">
-					<Hero
-						logIn={logIn}
-						register={register}
-					/>
 				</Route>
 			</Switch>
 
