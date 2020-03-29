@@ -1,0 +1,67 @@
+@import "../../colors";
+
+footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	align-content: flex-start;
+	padding-bottom: 1em;
+
+	background-color: $black;
+	color: $white;
+
+	font-family: "Open Sans";
+
+	h1, h2 {
+		font-family: "Ubuntu";
+		font-weight: 700;
+
+		color: $orange;
+	}
+
+	h1 {
+		font-size: 56px;
+	}
+
+	h2 {
+		font-size: 36px;
+	}
+
+	p {
+		font-size: 20px;
+	}
+
+	ul {
+		list-style-type: none;
+		list-style-position: outside;
+		padding: 0;
+	}
+
+	li {
+		margin: 0.3em 0;
+	}
+
+	button {
+		border: none;
+		background: none;
+
+		color: $white;
+		text-decoration: underline;
+
+		margin: 0;
+		padding: 0;
+	}
+
+	#logo {
+		margin-left: 15px;
+
+		p {
+			font-size: 14px;
+		}
+	}
+
+	#get-started {
+		margin-right: 15px;
+	}
+}

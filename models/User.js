@@ -38,7 +38,7 @@ const userSchema = new Schema({
   userDetail: UserDetail.schema,
   userFavorite: UserFavorite.schema,
   userEquipment: UserEquipment.schema,
-  UserSports: UserSports.schema
+  userSports: UserSports.schema
 });
 
 const User = mongoose.model("User", userSchema);

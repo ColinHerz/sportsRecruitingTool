@@ -37,7 +37,7 @@ function validateLogin(data) {
 
     return { errors, valid: errors };
 }
-exports.getUserLogin = async (req, res) => {
+exports.postUserLogin = async (req, res) => {
     const valid = validateLogin(req.body);
     const email = req.body.email;
     const password = req.body.password;
@@ -93,6 +93,7 @@ exports.postUserRegister = async (req, res) => {
     if (!validateName(firstname) || !validateName(lastname))
         return res.status(400).json({ warning: "Invalid character used" });
 
+
     const user = new User({
         firstname,
         lastname,
@@ -100,6 +101,8 @@ exports.postUserRegister = async (req, res) => {
         password,
         isVerified
     });
+
+
 
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(user.password, salt, (err, hash) => {
@@ -127,9 +130,9 @@ exports.postUserRegister = async (req, res) => {
                         EmailRoutes.sendVerificationEmail(user.email, token);
                     });
 
-                    res.json({
+                    return res.json({
                         Message: user.email + " is now registered."
-                    });
+                    }).status(200);
                 })
                 .catch(err => res.status(400).json("Error " + err));
         });
