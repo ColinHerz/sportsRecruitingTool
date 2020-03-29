@@ -1,5 +1,3 @@
-// Need get and post for user details.
-
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -37,19 +35,17 @@ function validateLogin(data) {
 
     return { errors, valid: errors };
 }
-exports.postUserLogin = async (req, res) => {
+exports.getUserLogin = async (req, res) => {
     const valid = validateLogin(req.body);
     const email = req.body.email;
     const password = req.body.password;
-
     if (valid.valid) {
         User.findOne({ email })
             .then(user => {
                 if (!user)
                     return res.status(400).json({ warning: "Incorrect Credentials" });
 
-                bcrypt
-                    .compare(password, user.password)
+                bcrypt.compare(password, user.password)
                     .then(same => {
                         if (!same) {
                             return res.status(400).json({ warning: "Incorrect Credentials" });
@@ -64,7 +60,7 @@ exports.postUserLogin = async (req, res) => {
                         };
 
                         jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
-                            res.status(200)
+                            return res.status(200)
                                 .cookie('session', token, { httpOnly: true, expires: 0 })
                                 .json({ success: true });
                         });
@@ -85,58 +81,58 @@ exports.postUserRegister = async (req, res) => {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
     const isVerified = false;
+    User.findOne({ email })
+        .then(doesUserExist => {
+            if (doesUserExist)
+                return res.status(400).json({ warning: "User name taken" });
 
-    User.findOne({ email }).then(user => {
-        if (user) return res.status(400).json({ warning: "User name taken" });
-    });
+            if (!validateName(firstname) || !validateName(lastname))
+                return res.status(400).json({ warning: "Invalid character used" });
 
-    if (!validateName(firstname) || !validateName(lastname))
-        return res.status(400).json({ warning: "Invalid character used" });
+            const user = new User({
+                firstname,
+                lastname,
+                email,
+                password,
+                isVerified
+            });
 
+            bcrypt.genSalt(10)
+                .then(salt => {
+                    bcrypt.hash(user.password, salt)
+                        .then(hash => {
+                            user.password = hash;
+                            user.save()
+                                .then(user => {
+                                    // Payload for the jwt coming for the email end point
+                                    const payload = {
+                                        id: user.id,
+                                        email: user.email,
+                                        firstname: user.firstname,
+                                        lastname: user.lastname
+                                    };
 
-    const user = new User({
-        firstname,
-        lastname,
-        email,
-        password,
-        isVerified
-    });
+                                    jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
+                                        if (err) {
+                                            console.log("Error " + err);
+                                        }
+                                        // Calling the email gererator and sender
+                                        EmailRoutes.sendVerificationEmail(user.email, token)
+                                            .catch(err => res.status(500).json("Error sending email " + err));
+                                    });
 
-
-
-    bcrypt.genSalt(10, (err, salt) => {
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) {
-                throw err;
-            }
-            user.password = hash;
-            user
-                .save()
-                .then(user => {
-
-                    // Payload for the jwt coming for the email end point
-                    const payload = {
-                        id: user.id,
-                        email: user.email,
-                        firstname: user.firstname,
-                        lastname: user.lastname
-                    };
-
-                    jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
-                        if (err) {
-                            console.log("Error " + err);
-                        }
-                        // Calling the email gererator and sender
-                        EmailRoutes.sendVerificationEmail(user.email, token);
-                    });
-
-                    return res.json({
-                        Message: user.email + " is now registered."
-                    }).status(200);
+                                    return res.json({
+                                        Message: user.email + " is now registered."
+                                    });
+                                })
+                                .catch(err => res.status(400).json("Error saving to db " + err));
+                        })
+                        .catch(err => res.status(400).json("Error bcrpyt hash " + err));
                 })
-                .catch(err => res.status(400).json("Error " + err));
-        });
-    });
+                .catch(err => res.status(400).json("Error bcrpyt salt " + err));
+        })
+        .catch((err => res.status(400).json("Error checking if username is valid. " + err)));
+
 };
 
 exports.getUserVerify = async (req, res) => {
