@@ -3,6 +3,25 @@ import React, { useState } from "react";
 
 import "./loginModal.scss";
 
+const SUBMIT_INFO_URL = `${window.location.host}/users/`;
+const SUBMIT_INFO_REGISTERING = `register`;
+const SUBMIT_INFO_LOGIN = `login`;
+
+const submitInfo = (info, isRegistering) => {
+	return new Promise((resolve, reject) => {
+		const request = new XMLHttpRequest();
+		const url = `${SUBMIT_INFO_URL}${isRegistering ? SUBMIT_INFO_REGISTERING:SUBMIT_INFO_LOGIN}`;
+
+		console.log(url);
+
+		request.open(`POST`, url);
+		request.setRequestHeader(`Content-type`, `application/json`);
+		request.onload = () => resolve(JSON.parse(request.responseText));
+		request.onerror = () => reject(request.statusText);
+		request.send(JSON.stringify(info));
+	});
+};
+
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
 	const [email, setEmail] = useState(``);
@@ -55,6 +74,26 @@ const LoginModal = props => {
 
 	const handleSubmit = event => {
 		event.preventDefault();
+
+		const info = {
+			email: email,
+			password: password
+		};
+
+		if (isRegistering) {
+			info.firstName = firstName;
+			info.lastName = lastName;
+		}
+
+		submitInfo(info, isRegistering).then(
+			data => {
+				console.log(data);
+			}
+		).catch(
+			reason => {
+				console.error(reason);
+			}
+		);
 
 		props.closeModal();
 	};
@@ -121,7 +160,7 @@ const LoginModal = props => {
 						<input
 							type="text"
 							value={email}
-							pattern="^.+\@.+\..+$"
+							pattern="^.+@.+\..+$"
 							required
 							onChange={handleEmailChange}
 						/>

@@ -12,7 +12,7 @@ const ViewEvent = props => {
 			<div>
 				<section id="scores">
 					<h3>Scores</h3>
-					<h4><a href="#">Player 1</a></h4>
+					<h4><button>Player 1</button></h4>
 					<ol>
 						<li>3</li>
 						<li>3</li>
@@ -21,7 +21,7 @@ const ViewEvent = props => {
 						<li>3</li>
 					</ol>
 					<p><span>Total:</span> 20</p>
-					<h4><a href="#">Player 2</a></h4>
+					<h4><button>Player 2</button></h4>
 					<ol>
 						<li>3</li>
 						<li>3</li>
@@ -30,7 +30,7 @@ const ViewEvent = props => {
 						<li>3</li>
 					</ol>
 					<p><span>Total:</span> 20</p>
-					<h4><a href="#">Player 3</a></h4>
+					<h4><button>Player 3</button></h4>
 					<ol>
 						<li>3</li>
 						<li>3</li>
