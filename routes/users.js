@@ -1,3 +1,5 @@
+// Need get and post for user details.
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -91,6 +93,7 @@ exports.postUserRegister = async (req, res) => {
     if (!validateName(firstname) || !validateName(lastname))
         return res.status(400).json({ warning: "Invalid character used" });
 
+    
     const user = new User({
         firstname,
         lastname,
@@ -98,6 +101,8 @@ exports.postUserRegister = async (req, res) => {
         password,
         isVerified
     });
+
+    
 
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(user.password, salt, (err, hash) => {
