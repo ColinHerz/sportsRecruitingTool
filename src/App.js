@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -9,17 +9,51 @@ import Event from "./components/event/Event.js";
 import Footer from "./components/footer/Footer.js";
 import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
-import LoginModal from "./components/login-modal/LoginModal.js";
-import Profile from "./components/Profile/Profile.js";
+import LoginModal from "./components/loginModal/LoginModal.js";
+import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
+import "./reset.scss";
+
 const App = props => {
+	const [showModal, setShowModal] = useState(false);
+	const [isRegistering, setIsRegistering] = useState(false);
+
+	const logIn = event => {
+		event.preventDefault();
+
+		setShowModal(true);
+		setIsRegistering(false);
+	};
+
+	const register = event => {
+		event.preventDefault();
+
+		setShowModal(true);
+		setIsRegistering(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
 	return (
 		<Router>
-			<Header />
+			<Header
+				logIn={logIn}
+				register={register}
+				loggedIn={false}
+			/>
 
-			<LoginModal isRegistering={true} />
+			{
+				showModal ?
+					<LoginModal
+						isRegistering={isRegistering}
+						closeModal={closeModal}
+					/>:
+					null
+			}
 
 			<Switch>
 				<Route path="/profile/:id/">
@@ -39,11 +73,18 @@ const App = props => {
 				</Route>
 
 				<Route path="/">
-					<Hero />
+					<Hero
+						logIn={logIn}
+						register={register}
+					/>
 				</Route>
 			</Switch>
 
-			<Footer />
+			<Footer
+				logIn={logIn}
+				register={register}
+				loggedIn={false}
+			/>
 		</Router>
 	);
 };

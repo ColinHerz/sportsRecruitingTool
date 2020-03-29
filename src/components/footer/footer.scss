@@ -1,4 +1,4 @@
-@import "../../reset";
+@import "../../colors";
 
 footer {
 	display: flex;
@@ -21,7 +21,7 @@ footer {
 	}
 
 	h1 {
-		font-size: 64px;
+		font-size: 56px;
 	}
 
 	h2 {
@@ -40,6 +40,17 @@ footer {
 
 	li {
 		margin: 0.3em 0;
+	}
+
+	button {
+		border: none;
+		background: none;
+
+		color: $white;
+		text-decoration: underline;
+
+		margin: 0;
+		padding: 0;
 	}
 
 	#logo {
