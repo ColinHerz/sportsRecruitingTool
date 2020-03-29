@@ -33,12 +33,11 @@ mongoose
 
 app.get('/testpoint', (req, res) => {
   res.json({
-    text: "Tester testy test"
+    text:"Tester testy test"
   })
 });
-
 var routes = require('./routes');
-app.get('/users/login', routes.getUserLogin);
+app.post('/users/login', routes.postUserLogin);
 app.post('/users/register', routes.postUserRegister);
 app.get('/users/verify/:token', routes.getUserVerify);
 app.get('/emails/resendVerificationEmail', routes.resendVerificationEmail);

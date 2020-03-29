@@ -1,57 +1,92 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import React, { useState } from "react";
 import {
-  faUser,
-  faLock,
-  faAddressBook,
-  faHome,
-  faPhone,
-  faExclamationTriangle,
-  faSearch,
-  faTrash,
-  faEdit,
-  faSignOutAlt,
-  faSignInAlt,
-  faPlus,
-  faSave,
-  faEnvelope,
-  faBan
-} from "@fortawesome/free-solid-svg-icons";
-import "./css/App.css";
+	BrowserRouter as Router,
+	Route,
+	Switch
+} from "react-router-dom";
 
-import Home from "./components/Home";
-import Register from "./components/Register/Register";
-import Contacts from "./components/Contacts/Contacts";
+import Events from "./components/event/Events.js";
+import Footer from "./components/footer/Footer.js";
+import Header from "./components/header/Header.js";
+import Hero from "./components/hero/Hero.js";
+import LoginModal from "./components/loginModal/LoginModal.js";
+import Profile from "./components/profile/Profile.js";
+import TopScores from "./components/topScores/TopScores.js";
+import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
-library.add(
-  faUser,
-  faLock,
-  faAddressBook,
-  faHome,
-  faPhone,
-  faExclamationTriangle,
-  faSearch,
-  faTrash,
-  faEdit,
-  faSignOutAlt,
-  faSignInAlt,
-  faPlus,
-  faSave,
-  faEnvelope,
-  faBan
-);
+import "./reset.scss";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <div>
-        <Route path="/" exact component={Home} />
-        <Route path="/register" exact component={Register} />
-        <Route path="/contacts" exact component={Contacts} />
-      </div>
-    </BrowserRouter>
-  );
-}
+const App = props => {
+	const [showModal, setShowModal] = useState(false);
+	const [isRegistering, setIsRegistering] = useState(false);
+
+	const logIn = event => {
+		event.preventDefault();
+
+		setShowModal(true);
+		setIsRegistering(false);
+	};
+
+	const register = event => {
+		event.preventDefault();
+
+		setShowModal(true);
+		setIsRegistering(true);
+	};
+
+	const closeModal = () => {
+		setShowModal(false);
+	};
+
+	return (
+		<Router>
+			<Header
+				logIn={logIn}
+				register={register}
+				loggedIn={false}
+			/>
+
+			{
+				showModal ?
+					<LoginModal
+						isRegistering={isRegistering}
+						closeModal={closeModal}
+					/>:
+					null
+			}
+
+			<Switch>
+				<Route path="/event/view/:eid/">
+					<ViewEvent />
+				</Route>
+
+				<Route path="/profile/:uid/">
+					<Profile />
+				</Route>
+
+				<Route path="/event/:uid/">
+					<Events />
+				</Route>
+
+				<Route path="/topScores/">
+					<TopScores />
+				</Route>
+
+				<Route path="/">
+					<Hero
+						logIn={logIn}
+						register={register}
+					/>
+				</Route>
+			</Switch>
+
+			<Footer
+				logIn={logIn}
+				register={register}
+				loggedIn={false}
+			/>
+		</Router>
+	);
+};
 
 export default App;

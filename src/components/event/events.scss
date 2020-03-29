@@ -1,0 +1,35 @@
+@import "../../colors";
+
+#event {
+	background-color: $white;
+	color: $black;
+
+	width: 60%;
+	margin: auto;
+
+	font-family: "Open Sans";
+
+	h2, h3 {
+		font-family: "Ubuntu";
+		font-weight: 700;
+	}
+
+	h2 {
+		font-size: 40px;
+	}
+
+	section {
+		font-size: 24px;
+		margin-top: 1em;
+
+		h3 {
+			font-size: 30px;
+		}
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+		margin-bottom: 1em;
+	}
+}

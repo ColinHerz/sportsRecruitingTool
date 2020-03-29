@@ -1,0 +1,54 @@
+@import "../../colors";
+
+#event {
+	margin: auto;
+	width: 60%;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	align-items: flex-start;
+
+	background-color: $white;
+	color: $black;
+
+	font-family: "Open Sans";
+
+	h2 {
+		font-family: "Ubuntu";
+		font-size: 48px;
+	}
+
+	h3 {
+		font-family: "Open Sans";
+		color: $gray;
+		margin-top: -.4em;
+	}
+
+	#scores {
+		width: 100%;
+		text-align: left;
+	}
+
+	#scores h3 {
+		color: $black;
+	}
+
+	span {
+		color: $black;
+		font-weight: 700;
+	}
+
+	ol li {
+		font-size: 24px;
+		float: left;
+		margin: 0 12px;
+		padding: 0px 20px 0px 0;
+	}
+	ol {
+		margin-left: -25px;
+	}
+	p {
+		font-weight: 400;
+	}
+}
