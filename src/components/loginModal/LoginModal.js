@@ -3,24 +3,9 @@ import React, { useState } from "react";
 
 import "./loginModal.scss";
 
-const SUBMIT_INFO_URL = `${window.location.host}/users/`;
+const SUBMIT_INFO_URL = `${window.location.host}/api/users/`;
 const SUBMIT_INFO_REGISTERING = `register`;
 const SUBMIT_INFO_LOGIN = `login`;
-
-const submitInfo = (info, isRegistering) => {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-		const url = `${SUBMIT_INFO_URL}${isRegistering ? SUBMIT_INFO_REGISTERING:SUBMIT_INFO_LOGIN}`;
-
-		console.log(url);
-
-		request.open(`POST`, url);
-		request.setRequestHeader(`Content-type`, `application/json`);
-		request.onload = () => resolve(JSON.parse(request.responseText));
-		request.onerror = () => reject(request.statusText);
-		request.send(JSON.stringify(info));
-	});
-};
 
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
@@ -79,19 +64,31 @@ const LoginModal = props => {
 			email: email,
 			password: password
 		};
+		let url;
 
 		if (isRegistering) {
-			info.firstName = firstName;
-			info.lastName = lastName;
+			info.firstname = firstName;
+			info.lastname = lastName;
+
+			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_REGISTERING}`;
+		}
+		else {
+			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
 		}
 
-		submitInfo(info, isRegistering).then(
-			data => {
-				console.log(data);
+		fetch(url, {
+			method: `POST`,
+			headers: {
+				"Content-Type": `application/json`
+			},
+			body: JSON.stringify(info)
+		}).then(
+			response => {
+				console.log(response.json());
 			}
 		).catch(
-			reason => {
-				console.error(reason);
+			error => {
+				console.error(error);
 			}
 		);
 
@@ -134,8 +131,9 @@ const LoginModal = props => {
 						isRegistering ?
 							<React.Fragment>
 								<label>
-								First Name
+								First Name:
 									<input
+										id="first-name"
 										type="text"
 										value={firstName}
 										required
@@ -143,8 +141,9 @@ const LoginModal = props => {
 									/>
 								</label>
 								<label>
-								Last Name
+								Last Name:
 									<input
+										id="last-name"
 										type="text"
 										value={lastName}
 										required
@@ -158,13 +157,15 @@ const LoginModal = props => {
 					<label>
 						Email:
 						<input
+							id="email"
 							type="text"
 							value={email}
-							pattern="^.+@.+\..+$"
 							required
 							onChange={handleEmailChange}
 						/>
-						{ /* matches at least on char, @, at least one char, ., at least one char in that order */ }
+						{ /* matches at least on char, @, at least one char, ., at least one char in that order
+							pattern="^.+@.+\..+$"
+						*/ }
 					</label>
 
 					<label>
@@ -172,12 +173,13 @@ const LoginModal = props => {
 						<input
 							type="password"
 							value={password}
-							minLength="8"
-							pattern="^(?=.{12,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$"
 							required
 							onChange={handlePasswordChange}
 						/>
-						{ /* Matches >12 chars, 1 lowercase, 1 uppercase, 1 special, 1 digit in any order */ }
+						{ /* Matches >12 chars, 1 lowercase, 1 uppercase, 1 special, 1 digit in any order
+							minLength="8"
+							pattern="^(?=.{12,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$"
+						*/ }
 					</label>
 
 					<input

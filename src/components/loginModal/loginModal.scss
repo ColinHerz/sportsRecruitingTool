@@ -90,7 +90,7 @@
 	}
 
 	input[type="text"], input[type="password"] {
-		width: 252px;
+		width: 240px;
 
 		background-color: $white;
 		color: $black;
@@ -104,12 +104,20 @@
 		padding-left: 0.2em;
 	}
 
-	input[type="text"] {
-		margin-left: 45px;
+	#first-name {
+		margin-left: 6px;
+	}
+
+	#last-name {
+		margin-left: 9px;
+	}
+
+	#email {
+		margin-left: 59px;
 	}
 
 	input[type="password"] {
-		margin-left: 6px;
+		margin-left: 19px;
 	}
 
 	input[type="submit"] {
