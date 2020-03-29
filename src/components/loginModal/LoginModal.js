@@ -76,19 +76,23 @@ const LoginModal = props => {
 			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
 		}
 
-		fetch(url, {
-			method: `POST`,
-			headers: {
-				"Content-Type": `application/json`
-			},
-			body: JSON.stringify(info)
-		}).then(
-			response => {
-				console.log(response.json());
+		const promise = new Promise((resolve, reject) => {
+			const request = new XMLHttpRequest();
+
+			request.open(`POST`, url);
+			request.setRequestHeader(`Content-type`, `application/json`)
+			request.onload = () => resolve(JSON.parse(request.responseText));
+			request.onerror = () => reject(request.statusText);
+			request.send(JSON.stringify(info));
+		});
+
+		promise.then(
+			data => {
+				console.log(data);
 			}
 		).catch(
-			error => {
-				console.error(error);
+			reason => {
+				console.error(reason);
 			}
 		);
 
