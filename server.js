@@ -30,15 +30,16 @@ mongoose
 
 app.get('/testpoint', (req, res) => {
   res.json({
-    text: "Tester testy test"
+    text:"Tester testy test"
   })
 });
-
 var routes = require('./routes');
-app.get('/users/login', routes.getUserLogin);
+app.post('/users/login', routes.postUserLogin);
 app.post('/users/register', routes.postUserRegister);
-app.get('/users/verify/:token', routes.getUserVerify);
-app.get('/emails/resendVerificationEmail', routes.resendVerificationEmail);
+//app.post('/contacts/getAllContacts/:contact_for_user', routes.postContactsGetAll);
+//app.post('/contacts/add/:contact_for_user', routes.postContactsAdd);
+//app.post('/contacts/update/:id', routes.postContactsUpdate);
+//app.post('/contacts/delete/:id', routes.postContactsDelete);
 
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');

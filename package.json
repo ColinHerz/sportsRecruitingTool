@@ -10,7 +10,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.2",
     "node-sass": "^4.13.1",
-    "nodemailer": "^6.4.5",
+    "nodemailer": "^6.4.6",
+    "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2"
