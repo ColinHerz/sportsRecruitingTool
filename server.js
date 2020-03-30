@@ -31,13 +31,9 @@ mongoose
   .then(() => console.log('MongoDB Atlas connection established successfully'))
   .catch(err => console.log(err));
 
-app.get('/testpoint', (req, res) => {
-  res.json({
-    text:"Tester testy test"
-  })
-});
+
 var routes = require('./routes');
-app.post('/api/users/login', routes.postUserLogin);
+app.get('/api/users/login', routes.getUserLogin);
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
