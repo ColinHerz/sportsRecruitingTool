@@ -33,7 +33,7 @@ mongoose
 
 
 var routes = require('./routes');
-app.get('/api/users/login', routes.getUserLogin);
+app.post('/api/users/login', routes.postUserLogin);
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
