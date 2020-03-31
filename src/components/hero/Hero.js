@@ -1,11 +1,28 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 
 import "./hero.scss";
 
 const Hero = props => {
+	if (props.loggedIn) {
+		return (
+			<main id="hero-logged-in">
+				<h2>Welcome to Sporta</h2>
+
+				<p>You can view...</p>
+
+				<ul>
+					<li><Link to="/myevents/garbage/">Events</Link></li>
+					<li><Link to="/scores/">Top Scores</Link></li>
+					<li><Link to="/profile/garbage/">Your Profile</Link></li>
+				</ul>
+			</main>
+		);
+	}
+
 	return (
-		<main id="hero">
+		<main id="hero-logged-out">
 			<p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy.</p>
 
 			<button
@@ -27,7 +44,8 @@ const Hero = props => {
 
 Hero.propTypes = {
 	logIn: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired
+	register: PropTypes.func.isRequired,
+	loggedIn: PropTypes.bool.isRequired
 };
 
 export default Hero;

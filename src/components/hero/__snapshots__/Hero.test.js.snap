@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hero component renders correctly when logged in 1`] = `
+<main
+  id="hero-logged-in"
+>
+  <h2>
+    Welcome to Sporta
+  </h2>
+  <p>
+    You can view...
+  </p>
+  <ul>
+    <li>
+      <a
+        href="/myevents/garbage/"
+        onClick={[Function]}
+      >
+        Events
+      </a>
+    </li>
+    <li>
+      <a
+        href="/scores/"
+        onClick={[Function]}
+      >
+        Top Scores
+      </a>
+    </li>
+    <li>
+      <a
+        href="/profile/garbage/"
+        onClick={[Function]}
+      >
+        Your Profile
+      </a>
+    </li>
+  </ul>
+</main>
+`;
+
+exports[`Hero component renders correctly when not logged in 1`] = `
+<main
+  id="hero-logged-out"
+>
+  <p>
+    Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy.
+  </p>
+  <button
+    className="sign-up"
+    onClick={[MockFunction]}
+  >
+    Sign Up
+  </button>
+  <button
+    className="log-in"
+    onClick={[MockFunction]}
+  >
+    Log In
+  </button>
+</main>
+`;
