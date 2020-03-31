@@ -22,7 +22,7 @@ exports[`Footer component renders correctly when logged in 1`] = `
     <ul>
       <li>
         <a
-          href="/events/"
+          href="/myevents/garbage/"
           onClick={[Function]}
         >
           Events
@@ -45,7 +45,9 @@ exports[`Footer component renders correctly when logged in 1`] = `
         </a>
       </li>
       <li>
-        <button>
+        <button
+          onClick={[MockFunction]}
+        >
           Log Out
         </button>
       </li>

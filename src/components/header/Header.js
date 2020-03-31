@@ -13,7 +13,7 @@ const Header = props => {
 				// profile will need to change to logged in user
 				props.loggedIn ?
 					<nav>
-						<NavLink to="/events/">Events</NavLink>
+						<NavLink to="/myevents/garbage/">Events</NavLink>
 
 						<NavLink to="/scores/">Top Scores</NavLink>
 

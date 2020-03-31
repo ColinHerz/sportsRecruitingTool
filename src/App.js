@@ -71,6 +71,7 @@ const App = props => {
 					<Hero
 						logIn={logIn}
 						register={register}
+						loggedIn={loggedIn}
 					/>
 				</Route>
 

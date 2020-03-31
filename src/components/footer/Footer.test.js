@@ -12,7 +12,8 @@ const genProps = loggedIn => {
 	return {
 		logIn: jest.fn(),
 		register: jest.fn(),
-		loggedIn: loggedIn
+		loggedIn: loggedIn,
+		logOut: jest.fn()
 	};
 };
 

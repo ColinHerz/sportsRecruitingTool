@@ -17,7 +17,7 @@ exports[`Header component renders correctly when logged in 1`] = `
   <nav>
     <a
       aria-current={null}
-      href="/events/"
+      href="/myevents/garbage/"
       onClick={[Function]}
     >
       Events
@@ -36,7 +36,9 @@ exports[`Header component renders correctly when logged in 1`] = `
     >
       My Profile
     </a>
-    <button>
+    <button
+      onClick={[MockFunction]}
+    >
       Log Out
     </button>
   </nav>

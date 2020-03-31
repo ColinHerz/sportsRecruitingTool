@@ -20,7 +20,7 @@ const Footer = props => {
 						<h2>Menu</h2>
 
 						<ul>
-							<li><Link to="/events/">Events</Link></li>
+							<li><Link to="/myevents/garbage/">Events</Link></li>
 							<li><Link to="/scores/">Top Scores</Link></li>
 							<li><Link to="/profile/garbage/">My Profile</Link></li>
 							<li><button onClick={props.logOut}>Log Out</button></li>
