@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component renders correctly when logged in 1`] = `
+<footer>
+  <div
+    id="logo"
+  >
+    <h1>
+      Sporta
+    </h1>
+    <p>
+      © Sporta 
+      2020
+    </p>
+  </div>
+  <div
+    id="links"
+  >
+    <h2>
+      Menu
+    </h2>
+    <a
+      href="/events/"
+      onClick={[Function]}
+    >
+      Events
+    </a>
+    <a
+      href="/scores/"
+      onClick={[Function]}
+    >
+      Top Scores
+    </a>
+    <a
+      href="/profile/garbage/"
+      onClick={[Function]}
+    >
+      My Profile
+    </a>
+  </div>
+</footer>
+`;
+
+exports[`Footer component renders correctly when not logged in 1`] = `
+<footer>
+  <div
+    id="logo"
+  >
+    <h1>
+      Sporta
+    </h1>
+    <p>
+      © Sporta 
+      2020
+    </p>
+  </div>
+  <div
+    id="links"
+  >
+    <h2>
+      Get Started
+    </h2>
+    <ul>
+      <li>
+        <button
+          onClick={[MockFunction]}
+        >
+          Log In
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={[MockFunction]}
+        >
+          Sign Up
+        </button>
+      </li>
+    </ul>
+  </div>
+</footer>
+`;
