@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -13,13 +14,24 @@ const Footer = props => {
 				<p>&copy; Sporta {year}</p>
 			</div>
 
-			<div id="get-started">
-				<h2>Get Started</h2>
-				<ul>
-					<li><button onClick={props.logIn}>Log In</button></li>
-					<li><button onClick={props.register}>Sign Up</button></li>
-				</ul>
-			</div>
+			{
+				props.loggedIn ?
+					<div id="links">
+						<h2>Menu</h2>
+						<Link to="/events/">Events</Link>
+
+						<Link to="/scores/">Top Scores</Link>
+
+						<Link to="/profile/garbage/">My Profile</Link>
+					</div>
+					:<div id="links">
+						<h2>Get Started</h2>
+						<ul>
+							<li><button onClick={props.logIn}>Log In</button></li>
+							<li><button onClick={props.register}>Sign Up</button></li>
+						</ul>
+					</div>
+			}
 		</footer>
 	);
 };
