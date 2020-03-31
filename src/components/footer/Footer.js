@@ -18,14 +18,17 @@ const Footer = props => {
 				props.loggedIn ?
 					<div id="links">
 						<h2>Menu</h2>
-						<Link to="/events/">Events</Link>
 
-						<Link to="/scores/">Top Scores</Link>
-
-						<Link to="/profile/garbage/">My Profile</Link>
+						<ul>
+							<li><Link to="/events/">Events</Link></li>
+							<li><Link to="/scores/">Top Scores</Link></li>
+							<li><Link to="/profile/garbage/">My Profile</Link></li>
+							<li><button onClick={props.logOut}>Log Out</button></li>
+						</ul>
 					</div>
 					:<div id="links">
 						<h2>Get Started</h2>
+
 						<ul>
 							<li><button onClick={props.logIn}>Log In</button></li>
 							<li><button onClick={props.register}>Sign Up</button></li>
@@ -38,6 +41,7 @@ const Footer = props => {
 
 Footer.propTypes = {
 	logIn: PropTypes.func.isRequired,
+	logOut: PropTypes.func.isRequired,
 	register: PropTypes.func.isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };

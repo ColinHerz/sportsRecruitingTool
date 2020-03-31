@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import React from "react";
 
-import "./events.scss";
+import "./myEvents.scss";
 
-const Event = props => {
+const MyEvents = props => {
 	return (
 		<main id="event">
 			<h2>My Events</h2>
@@ -28,4 +29,8 @@ const Event = props => {
 	);
 };
 
-export default Event;
+MyEvents.propTypes = {
+	user: PropTypes.object.isRequired
+};
+
+export default MyEvents;

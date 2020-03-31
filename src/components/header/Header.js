@@ -18,6 +18,8 @@ const Header = props => {
 						<NavLink to="/scores/">Top Scores</NavLink>
 
 						<NavLink to="/profile/garbage/">My Profile</NavLink>
+
+						<button onClick={props.logOut}>Log Out</button>
 					</nav>:
 					<div>
 						<button
@@ -41,6 +43,7 @@ const Header = props => {
 
 Header.propTypes = {
 	logIn: PropTypes.func.isRequired,
+	logOut: PropTypes.func.isRequired,
 	register: PropTypes.func.isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };

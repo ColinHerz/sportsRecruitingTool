@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 
 import "./ViewEvent.scss";
@@ -43,6 +44,10 @@ const ViewEvent = props => {
 			</div>
 		</main>
 	);
+};
+
+ViewEvent.propTypes = {
+	user: PropTypes.object.isRequired
 };
 
 export default ViewEvent;

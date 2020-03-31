@@ -36,6 +36,9 @@ exports[`Header component renders correctly when logged in 1`] = `
     >
       My Profile
     </a>
+    <button>
+      Log Out
+    </button>
   </nav>
 </header>
 `;

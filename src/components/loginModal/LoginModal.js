@@ -58,6 +58,7 @@ const LoginModal = props => {
 			data => {
 				console.log(data);
 
+				// purposefully loose matching
 				if (data.warning != undefined) {
 					setIsError(true);
 					setErrorText(data.warning);

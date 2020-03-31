@@ -5,11 +5,11 @@ import {
 	Switch
 } from "react-router-dom";
 
-import Events from "./components/event/Events.js";
 import Footer from "./components/footer/Footer.js";
 import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
 import LoginModal from "./components/loginModal/LoginModal.js";
+import MyEvents from "./components/myEvents/MyEvents.js";
 import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
@@ -18,20 +18,30 @@ import "./reset.scss";
 
 const App = props => {
 	const [showModal, setShowModal] = useState(false);
-	const [isRegistering, setIsRegistering] = useState(false);
+	const [clickedRegister, setClickedRegister] = useState(false);
+
+	const [user, setUser] = useState(null);
+	const [loggedIn, setLoggedIn] = useState(false);
 
 	const logIn = event => {
 		event.preventDefault();
 
 		setShowModal(true);
-		setIsRegistering(false);
+		setClickedRegister(false);
 	};
 
 	const register = event => {
 		event.preventDefault();
 
 		setShowModal(true);
-		setIsRegistering(true);
+		setClickedRegister(true);
+	};
+
+	const logOut = event => {
+		event.preventDefault();
+
+		setUser(null);
+		setLoggedIn(false);
 	};
 
 	const closeModal = () => {
@@ -42,14 +52,15 @@ const App = props => {
 		<Router>
 			<Header
 				logIn={logIn}
+				logOut={logOut}
 				register={register}
-				loggedIn={false}
+				loggedIn={loggedIn}
 			/>
 
 			{
 				showModal ?
 					<LoginModal
-						isRegistering={isRegistering}
+						isRegistering={clickedRegister}
 						closeModal={closeModal}
 					/>:
 					null
@@ -63,16 +74,22 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/event/view/:eid/">
-					<ViewEvent />
+				<Route path="/event/:eid/">
+					<ViewEvent
+						user={user}
+					/>
 				</Route>
 
 				<Route path="/profile/:uid/">
-					<Profile />
+					<Profile
+						user={user}
+					/>
 				</Route>
 
-				<Route path="/event/:uid/">
-					<Events />
+				<Route path="/myevents/:uid/">
+					<MyEvents
+						user={user}
+					/>
 				</Route>
 
 				<Route path="/topScores/">
@@ -82,8 +99,9 @@ const App = props => {
 
 			<Footer
 				logIn={logIn}
+				logOut={logOut}
 				register={register}
-				loggedIn={false}
+				loggedIn={loggedIn}
 			/>
 		</Router>
 	);
