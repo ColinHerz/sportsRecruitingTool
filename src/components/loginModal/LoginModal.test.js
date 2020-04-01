@@ -11,15 +11,15 @@ const genProps = isRegistering => {
 		logIn: jest.fn(),
 		isRegistering: isRegistering,
 		closeModal: jest.fn()
-	}
+	};
 };
 
-describe("rendering", () => {
+describe(`rendering`, () => {
 	beforeEach(() => {
 		jest.resetModules();
 	});
 
-	it("renders without first and last name when logging in", () => {
+	it(`renders without first and last name when logging in`, () => {
 		const props = genProps(false);
 
 		const component = renderer.create(<LoginModal {... props} />);
@@ -28,7 +28,7 @@ describe("rendering", () => {
 		expect(tree).toMatchSnapshot();
 	});
 
-	it("renders with first and last name when registering", () => {
+	it(`renders with first and last name when registering`, () => {
 		const props = genProps(true);
 
 		const component = renderer.create(<LoginModal {... props} />);
@@ -38,6 +38,6 @@ describe("rendering", () => {
 	});
 });
 
-describe("functionality", () => {
+describe(`functionality`, () => {
 
 });
