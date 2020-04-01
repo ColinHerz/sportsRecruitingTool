@@ -24,14 +24,14 @@ const Header = props => {
 					<div>
 						<button
 							id="log-in"
-							onClick={props.logIn}
+							onClick={props.loggingIn}
 						>
 						Log In
 						</button>
 
 						<button
 							id="sign-up"
-							onClick={props.register}
+							onClick={props.registering}
 						>
 						Sign Up
 						</button>
@@ -42,9 +42,9 @@ const Header = props => {
 };
 
 Header.propTypes = {
-	logIn: PropTypes.func.isRequired,
+	loggingIn: PropTypes.func.isRequired,
 	logOut: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired,
+	registering: PropTypes.func.isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };
 

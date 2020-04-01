@@ -56,8 +56,6 @@ const LoginModal = props => {
 
 		promise.then(
 			data => {
-				console.log(data);
-
 				// purposefully loose matching
 				if (data.warning != undefined) {
 					setIsError(true);
@@ -65,11 +63,11 @@ const LoginModal = props => {
 					return;
 				}
 
+				props.logIn({});
 				props.closeModal();
 			}
 		).catch(
 			reason => {
-				console.error(reason);
 				setIsError(true);
 				setErrorText(reason.warning);
 			}
@@ -208,6 +206,7 @@ const LoginModal = props => {
 };
 
 LoginModal.propTypes = {
+	logIn: PropTypes.func.isRequired,
 	isRegistering: PropTypes.bool.isRequired,
 	closeModal: PropTypes.func.isRequired
 };

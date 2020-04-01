@@ -10,8 +10,8 @@ import Footer from "./Footer.js";
 
 const genProps = loggedIn => {
 	return {
-		logIn: jest.fn(),
-		register: jest.fn(),
+		loggingIn: jest.fn(),
+		registering: jest.fn(),
 		loggedIn: loggedIn,
 		logOut: jest.fn()
 	};

@@ -24,24 +24,29 @@ const App = props => {
 	const [user, setUser] = useState({});
 	const [loggedIn, setLoggedIn] = useState(false);
 
-	const logIn = event => {
+	const loggingIn = event => {
 		event.preventDefault();
 
 		setShowModal(true);
 		setClickedRegister(false);
 	};
 
-	const register = event => {
+	const registering = event => {
 		event.preventDefault();
 
 		setShowModal(true);
 		setClickedRegister(true);
 	};
 
+	const logIn = user => {
+		setLoggedIn(true);
+		setUser(user);
+	};
+
 	const logOut = event => {
 		event.preventDefault();
 
-		setUser(null);
+		setUser({});
 		setLoggedIn(false);
 	};
 
@@ -52,15 +57,16 @@ const App = props => {
 	return (
 		<Router>
 			<Header
-				logIn={logIn}
+				loggingIn={loggingIn}
 				logOut={logOut}
-				register={register}
+				registering={registering}
 				loggedIn={loggedIn}
 			/>
 
 			{
 				showModal ?
 					<LoginModal
+						logIn={logIn}
 						isRegistering={clickedRegister}
 						closeModal={closeModal}
 					/>:
@@ -70,8 +76,8 @@ const App = props => {
 			<Switch>
 				<Route exact path="/">
 					<Hero
-						logIn={logIn}
-						register={register}
+						loggingIn={loggingIn}
+						registering={registering}
 						loggedIn={loggedIn}
 					/>
 				</Route>
@@ -104,9 +110,9 @@ const App = props => {
 			</Switch>
 
 			<Footer
-				logIn={logIn}
+				loggingIn={loggingIn}
 				logOut={logOut}
-				register={register}
+				registering={registering}
 				loggedIn={loggedIn}
 			/>
 		</Router>

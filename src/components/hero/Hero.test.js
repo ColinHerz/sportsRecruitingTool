@@ -10,8 +10,8 @@ import Hero from "./Hero.js";
 
 const genProps = loggedIn => {
 	return {
-		logIn: jest.fn(),
-		register: jest.fn(),
+		loggingIn: jest.fn(),
+		registering: jest.fn(),
 		loggedIn: loggedIn
 	};
 };

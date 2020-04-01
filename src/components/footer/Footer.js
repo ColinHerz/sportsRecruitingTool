@@ -30,8 +30,8 @@ const Footer = props => {
 						<h2>Get Started</h2>
 
 						<ul>
-							<li><button onClick={props.logIn}>Log In</button></li>
-							<li><button onClick={props.register}>Sign Up</button></li>
+							<li><button onClick={props.loggingIn}>Log In</button></li>
+							<li><button onClick={props.registering}>Sign Up</button></li>
 						</ul>
 					</div>
 			}
@@ -40,9 +40,9 @@ const Footer = props => {
 };
 
 Footer.propTypes = {
-	logIn: PropTypes.func.isRequired,
+	loggingIn: PropTypes.func.isRequired,
 	logOut: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired,
+	registering: PropTypes.func.isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };
 

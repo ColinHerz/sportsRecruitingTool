@@ -27,14 +27,14 @@ const Hero = props => {
 
 			<button
 				className="sign-up"
-				onClick={props.register}
+				onClick={props.registering}
 			>
 				Sign Up
 			</button>
 
 			<button
 				className="log-in"
-				onClick={props.logIn}
+				onClick={props.loggingIn}
 			>
 				Log In
 			</button>
@@ -43,8 +43,8 @@ const Hero = props => {
 };
 
 Hero.propTypes = {
-	logIn: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired,
+	loggingIn: PropTypes.func.isRequired,
+	registering: PropTypes.func.isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };
 
