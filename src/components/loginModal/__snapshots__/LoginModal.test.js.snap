@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendering renders with first and last name when registering 1`] = `
+<div
+  id="gray-background"
+>
+  <div
+    id="login-modal"
+  >
+    <h2>
+      Sporta
+    </h2>
+    <button
+      id="close"
+      onClick={[Function]}
+    >
+      X
+    </button>
+    <div
+      id="btn-sec"
+    >
+      <button
+        className=""
+        id="login-btn"
+        onClick={[Function]}
+      >
+        Log In
+      </button>
+      <button
+        className="selected"
+        id="register-btn"
+        onClick={[Function]}
+      >
+        Register
+      </button>
+    </div>
+    <form
+      onSubmit={[Function]}
+    >
+      <label>
+        First Name:
+        <input
+          id="first-name"
+          name="firstname"
+          type="text"
+        />
+      </label>
+      <label>
+        Last Name:
+        <input
+          id="last-name"
+          name="lastname"
+          type="text"
+        />
+      </label>
+      <label>
+        Email:
+        <input
+          id="email"
+          name="email"
+          type="text"
+        />
+      </label>
+      <label>
+        Password:
+        <input
+          name="password"
+          type="password"
+        />
+      </label>
+      <input
+        type="submit"
+        value="Submit"
+      />
+    </form>
+  </div>
+</div>
+`;
+
+exports[`rendering renders without first and last name when logging in 1`] = `
+<div
+  id="gray-background"
+>
+  <div
+    id="login-modal"
+  >
+    <h2>
+      Sporta
+    </h2>
+    <button
+      id="close"
+      onClick={[Function]}
+    >
+      X
+    </button>
+    <div
+      id="btn-sec"
+    >
+      <button
+        className="selected"
+        id="login-btn"
+        onClick={[Function]}
+      >
+        Log In
+      </button>
+      <button
+        className=""
+        id="register-btn"
+        onClick={[Function]}
+      >
+        Register
+      </button>
+    </div>
+    <form
+      onSubmit={[Function]}
+    >
+      <label>
+        Email:
+        <input
+          id="email"
+          name="email"
+          type="text"
+        />
+      </label>
+      <label>
+        Password:
+        <input
+          name="password"
+          type="password"
+        />
+      </label>
+      <input
+        type="submit"
+        value="Submit"
+      />
+    </form>
+  </div>
+</div>
+`;
