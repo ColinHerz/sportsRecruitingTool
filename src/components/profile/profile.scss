@@ -1,0 +1,60 @@
+@import "../../colors";
+
+#profile {
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	align-items: flex-start;
+
+	text-align: left;
+	font-family: "Open Sans";
+
+	margin: auto;
+	width: 60%;
+
+	background-color: $white;
+	color: $black;
+
+	h2, h3 {
+		font-family: "Ubuntu";
+	}
+
+	h2 {
+		font-size: 40px;
+	}
+
+	span {
+		font-weight: 700;
+	}
+
+	section {
+		margin-bottom: 1em;
+	}
+
+	#login-info {
+		p {
+			margin-top: -14px;
+			font-size: 22px;
+			color: $gray;
+		}
+	}
+
+	#personal-info {
+		font-size: 26px;
+	}
+
+	.stats {
+		font-size: 24px;
+
+		h3 {
+			font-size: 32px;
+		}
+	}
+
+	#past-events {
+		ol {
+			list-style: none;
+			padding: 0;
+		}
+	}
+}

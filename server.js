@@ -2,6 +2,7 @@ var compression = require('compression');
 var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
+var cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
@@ -10,6 +11,7 @@ var app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
+app.use(cookieParser());
 
 const URI =
   'mongodb+srv://' +
@@ -23,22 +25,20 @@ mongoose
   .connect(URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   })
   .then(() => console.log('MongoDB Atlas connection established successfully'))
   .catch(err => console.log(err));
 
-app.get('/testpoint', (req, res) => {
-  res.json({
-    text: "Tester testy test"
-  })
-});
 
 var routes = require('./routes');
-app.get('/users/login', routes.getUserLogin);
-app.post('/users/register', routes.postUserRegister);
-app.get('/users/verify/:token', routes.getUserVerify);
-app.get('/emails/resendVerificationEmail', routes.resendVerificationEmail);
+app.post('/api/users/login', routes.postUserLogin);
+app.post('/api/users/register', routes.postUserRegister);
+app.get('/api/users/verify/:token', routes.getUserVerify);
+app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
+app.post('/api/users/detail/update', routes.postUserDetails);
+app.get('/api/users/detail/get', routes.getUserDetails);
 
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');
