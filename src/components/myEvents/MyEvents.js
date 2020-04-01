@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -5,8 +6,10 @@ import "./myEvents.scss";
 
 const MyEvents = props => {
 	return (
-		<main id="event">
+		<main id="my-events">
 			<h2>My Events</h2>
+
+			<button><Link to="/myevents/create/">Create Event</Link></button>
 
 			<section id="controlled">
 				<h3>Events I Control</h3>
