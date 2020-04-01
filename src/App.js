@@ -10,6 +10,7 @@ import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
 import LoginModal from "./components/loginModal/LoginModal.js";
 import MyEvents from "./components/myEvents/MyEvents.js";
+import NoMatch from "./components/noMatch/NoMatch.js";
 import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
@@ -20,7 +21,7 @@ const App = props => {
 	const [showModal, setShowModal] = useState(false);
 	const [clickedRegister, setClickedRegister] = useState(false);
 
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState({});
 	const [loggedIn, setLoggedIn] = useState(false);
 
 	const logIn = event => {
@@ -95,6 +96,10 @@ const App = props => {
 
 				<Route path="/topScores/">
 					<TopScores />
+				</Route>
+
+				<Route>
+					<NoMatch />
 				</Route>
 			</Switch>
 
