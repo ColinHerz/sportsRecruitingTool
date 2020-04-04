@@ -92,4 +92,23 @@
 			background-color: $white;
 		}
 	}
+
+	#pars {
+		width: 90%;
+		margin: auto;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		grid-column-gap: 10px;
+		justify-items: center;
+		align-items: center;
+
+		label {
+			width: max-content;
+		}
+
+		input {
+			margin-left: 6px;
+			width: 3em;
+		}
+	}
 }

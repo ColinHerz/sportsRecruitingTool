@@ -8,20 +8,53 @@ const CreateEvent = props => {
 	const { register, handleSubmit, errors } = useForm();
 
 	const [holeCount, setHoleCount] = useState(1);
+	const [pars, setPars] = useState([3]);
 
 	const [playerName, setPlayerName] = useState(``);
 	const [showPlayerInput, setShowPlayerInput] = useState(false);
 	const [players, setPlayers] = useState([]);
 
 	const updateHoleCount = event => {
-		const count = parseInt(event.target.value);
+		let count = parseInt(event.target.value);
 
-		if (count > 0) {
-			setHoleCount(count);
+		if (count < 1) {
+			count = 1;
+		}
+
+		const diff = count - holeCount;
+		let newPars = [... pars];
+
+		if (diff < 0) {
+			const removals = diff * -1;
+
+			newPars.splice(newPars.length - removals, newPars.length);
 		}
 		else {
-			setHoleCount(1);
+			const additions = new Array(diff);
+			additions.fill(3, 0, additions.length);
+
+			newPars = newPars.concat(additions);
 		}
+
+		setPars(newPars);
+		setHoleCount(count);
+	};
+
+	const updatePar = event => {
+		event.preventDefault();
+
+		const par = parseInt(event.target.value);
+		const index = event.target.name.split(`-`)[1];
+		const newPars = [... pars];
+
+		if (par < 1) {
+			newPars[index] = 1;
+		}
+		else {
+			newPars[index] = par;
+		}
+
+		setPars(newPars);
 	};
 
 	const toggleShowPlayerInput = event => {
@@ -62,6 +95,7 @@ const CreateEvent = props => {
 
 	const onSubmit = info => {
 		setShowPlayerInput(false);
+		console.log(info);
 	};
 
 	return (
@@ -115,6 +149,28 @@ const CreateEvent = props => {
 				{errors.holeCount && <p>A hole count greater than 0 is required.</p>}
 
 				<h3>Hole Pars</h3>
+
+				<div id="pars">
+					{
+						pars.map((par, index) =>
+							<label key={index}>
+								{index + 1}.
+								<input
+									type="number"
+									name={`par-${index}`}
+									onChange={updatePar}
+									value={par}
+									ref={
+										register({
+											required: true,
+											min: 1
+										})
+									}
+								/>
+							</label>
+						)
+					}
+				</div>
 
 				<h3>Players</h3>
 
