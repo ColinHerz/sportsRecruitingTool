@@ -3,9 +3,9 @@
 // MemoryRouter needed because header contains NavLinks, which need to
 // be rendered within a Router
 import { MemoryRouter } from "react-router-dom";
+import { mount } from "../../../enzyme.js";
 import React from "react";
 import renderer from "react-test-renderer";
-import { mount } from "../../../enzyme.js";
 
 import Hero from "./Hero.js";
 

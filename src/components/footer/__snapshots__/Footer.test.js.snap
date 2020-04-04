@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Footer component renders correctly when logged in 1`] = `
+exports[`Rendering renders correctly when logged in 1`] = `
 <footer>
   <div
     id="logo"
@@ -56,7 +56,7 @@ exports[`Footer component renders correctly when logged in 1`] = `
 </footer>
 `;
 
-exports[`Footer component renders correctly when not logged in 1`] = `
+exports[`Rendering renders correctly when not logged in 1`] = `
 <footer>
   <div
     id="logo"
@@ -78,6 +78,7 @@ exports[`Footer component renders correctly when not logged in 1`] = `
     <ul>
       <li>
         <button
+          id="log-in"
           onClick={[MockFunction]}
         >
           Log In
@@ -85,6 +86,7 @@ exports[`Footer component renders correctly when not logged in 1`] = `
       </li>
       <li>
         <button
+          id="sign-up"
           onClick={[MockFunction]}
         >
           Sign Up

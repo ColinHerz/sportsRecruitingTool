@@ -30,8 +30,22 @@ const Footer = props => {
 						<h2>Get Started</h2>
 
 						<ul>
-							<li><button onClick={props.loggingIn}>Log In</button></li>
-							<li><button onClick={props.registering}>Sign Up</button></li>
+							<li>
+								<button
+									id="log-in"
+									onClick={props.loggingIn}
+								>
+									Log In
+								</button>
+							</li>
+							<li>
+								<button
+									id="sign-up"
+									onClick={props.registering}
+								>
+									Sign Up
+								</button>
+							</li>
 						</ul>
 					</div>
 			}

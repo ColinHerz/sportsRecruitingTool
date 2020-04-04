@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header component renders correctly when logged in 1`] = `
+exports[`Rendering renders correctly when logged in 1`] = `
 <header>
   <a
     aria-current="page"
@@ -45,7 +45,7 @@ exports[`Header component renders correctly when logged in 1`] = `
 </header>
 `;
 
-exports[`Header component renders correctly when not logged in 1`] = `
+exports[`Rendering renders correctly when not logged in 1`] = `
 <header>
   <a
     aria-current="page"
