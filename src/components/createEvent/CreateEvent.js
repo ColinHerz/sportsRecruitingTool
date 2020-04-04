@@ -6,7 +6,12 @@ import "./createEvent.scss";
 
 const CreateEvent = props => {
 	const { register, handleSubmit, errors } = useForm();
+
 	const [holeCount, setHoleCount] = useState(1);
+
+	const [playerName, setPlayerName] = useState(``);
+	const [showPlayerInput, setShowPlayerInput] = useState(false);
+	const [players, setPlayers] = useState([]);
 
 	const updateHoleCount = event => {
 		const count = parseInt(event.target.value);
@@ -19,8 +24,44 @@ const CreateEvent = props => {
 		}
 	};
 
-	const onSubmit = info => {
+	const toggleShowPlayerInput = event => {
+		event.preventDefault();
 
+		// @TODO
+		// will need to make api call to check if player exists
+		if (showPlayerInput && playerName !== ``) {
+			const newPlayers = [... players];
+
+			if (newPlayers.includes(playerName)) {
+				return;
+			}
+
+			newPlayers.push(playerName);
+
+			setPlayers(newPlayers);
+			setPlayerName(``);
+		}
+
+		setShowPlayerInput(!showPlayerInput);
+	};
+
+	const updatePlayerName = event => {
+		setPlayerName(event.target.value);
+	};
+
+	const deletePlayer = event => {
+		event.preventDefault();
+
+		const index = event.target.parentElement.id.split(`-`)[1];
+		const newPlayers = [... players];
+
+		newPlayers.splice(index, 1);
+
+		setPlayers(newPlayers);
+	};
+
+	const onSubmit = info => {
+		setShowPlayerInput(false);
 	};
 
 	return (
@@ -73,19 +114,41 @@ const CreateEvent = props => {
 				</label>
 				{errors.holeCount && <p>A hole count greater than 0 is required.</p>}
 
-				<label>
-					Hole Pars
-				</label>
+				<h3>Hole Pars</h3>
 
 				<h3>Players</h3>
 
 				<ul>
-					<li>Player 1</li>
-					<li>Player 2</li>
-					<li>Player 3</li>
+					{
+						players.map((player, index) =>
+							<li
+								key={index}
+								id={`player-${index}`}
+							>
+								<span>{player}</span>
+								<button onClick={deletePlayer}>Delete</button>
+							</li>
+						)
+					}
 				</ul>
 
-				<button>Add Players</button>
+				{
+					showPlayerInput ?
+						<input
+							type="text"
+							onChange={updatePlayerName}
+							value={playerName}
+						/>:
+						null
+				}
+
+				<button onClick={toggleShowPlayerInput}>
+					{
+						showPlayerInput ?
+							`Done`:
+							`Add Player`
+					}
+				</button>
 
 				<input type="submit" value="Create" />
 			</form>
