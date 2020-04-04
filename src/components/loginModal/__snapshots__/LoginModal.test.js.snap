@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`functionality switches to logging on log in button clicked 1`] = `"<div id=\\"gray-background\\"><div id=\\"login-modal\\"><h2>Sporta</h2><button id=\\"close\\">X</button><div id=\\"btn-sec\\"><button id=\\"login-btn\\" class=\\"\\">Log In</button><button id=\\"register-btn\\" class=\\"selected\\">Register</button></div><form><label>First Name:<input type=\\"text\\" id=\\"first-name\\" name=\\"firstname\\"/></label><label>Last Name:<input type=\\"text\\" id=\\"last-name\\" name=\\"lastname\\"/></label><label>Email:<input type=\\"text\\" id=\\"email\\" name=\\"email\\"/></label><label>Password:<input type=\\"password\\" name=\\"password\\"/></label><input type=\\"submit\\" value=\\"Submit\\"/></form></div></div>"`;
+
+exports[`functionality switches to logging on log in button clicked 2`] = `"<div id=\\"gray-background\\"><div id=\\"login-modal\\"><h2>Sporta</h2><button id=\\"close\\">X</button><div id=\\"btn-sec\\"><button id=\\"login-btn\\" class=\\"selected\\">Log In</button><button id=\\"register-btn\\" class=\\"\\">Register</button></div><form><label>Email:<input type=\\"text\\" id=\\"email\\" name=\\"email\\"/></label><label>Password:<input type=\\"password\\" name=\\"password\\"/></label><input type=\\"submit\\" value=\\"Submit\\"/></form></div></div>"`;
+
+exports[`functionality switches to registering when registering clicked 1`] = `"<div id=\\"gray-background\\"><div id=\\"login-modal\\"><h2>Sporta</h2><button id=\\"close\\">X</button><div id=\\"btn-sec\\"><button id=\\"login-btn\\" class=\\"selected\\">Log In</button><button id=\\"register-btn\\" class=\\"\\">Register</button></div><form><label>Email:<input type=\\"text\\" id=\\"email\\" name=\\"email\\"/></label><label>Password:<input type=\\"password\\" name=\\"password\\"/></label><input type=\\"submit\\" value=\\"Submit\\"/></form></div></div>"`;
+
+exports[`functionality switches to registering when registering clicked 2`] = `"<div id=\\"gray-background\\"><div id=\\"login-modal\\"><h2>Sporta</h2><button id=\\"close\\">X</button><div id=\\"btn-sec\\"><button id=\\"login-btn\\" class=\\"\\">Log In</button><button id=\\"register-btn\\" class=\\"selected\\">Register</button></div><form><label>First Name:<input type=\\"text\\" id=\\"first-name\\" name=\\"firstname\\"/></label><label>Last Name:<input type=\\"text\\" id=\\"last-name\\" name=\\"lastname\\"/></label><label>Email:<input type=\\"text\\" id=\\"email\\" name=\\"email\\"/></label><label>Password:<input type=\\"password\\" name=\\"password\\"/></label><input type=\\"submit\\" value=\\"Submit\\"/></form></div></div>"`;
+
 exports[`rendering renders with first and last name when registering 1`] = `
 <div
   id="gray-background"
