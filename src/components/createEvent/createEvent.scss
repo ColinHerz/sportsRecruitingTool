@@ -93,6 +93,10 @@
 		}
 	}
 
+	span, p {
+		color: $error;
+	}
+
 	#pars {
 		width: 90%;
 		margin: auto;
@@ -109,6 +113,10 @@
 		input {
 			margin-left: 6px;
 			width: 3em;
+		}
+
+		span {
+			font-size: 14px;
 		}
 	}
 }

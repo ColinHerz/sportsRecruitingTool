@@ -153,7 +153,7 @@ const CreateEvent = props => {
 				<div id="pars">
 					{
 						pars.map((par, index) =>
-							<label key={index}>
+							<label>
 								{index + 1}.
 								<input
 									type="number"
@@ -167,6 +167,7 @@ const CreateEvent = props => {
 										})
 									}
 								/>
+								{errors[`par-${index}`] && <span>Required</span>}
 							</label>
 						)
 					}
