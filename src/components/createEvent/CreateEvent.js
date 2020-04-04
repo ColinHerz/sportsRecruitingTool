@@ -153,7 +153,7 @@ const CreateEvent = props => {
 				<div id="pars">
 					{
 						pars.map((par, index) =>
-							<label>
+							<label key={index}>
 								{index + 1}.
 								<input
 									type="number"
