@@ -26,14 +26,14 @@ const Hero = props => {
 			<p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy.</p>
 
 			<button
-				className="sign-up"
+				id="sign-up"
 				onClick={props.registering}
 			>
 				Sign Up
 			</button>
 
 			<button
-				className="log-in"
+				id="log-in"
 				onClick={props.loggingIn}
 			>
 				Log In

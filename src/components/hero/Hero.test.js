@@ -5,6 +5,7 @@
 import { MemoryRouter } from "react-router-dom";
 import React from "react";
 import renderer from "react-test-renderer";
+import { mount } from "../../../enzyme.js";
 
 import Hero from "./Hero.js";
 
@@ -16,11 +17,11 @@ const genProps = loggedIn => {
 	};
 };
 
-describe(`Hero component`, () => {
-	beforeEach(() => {
-		jest.resetModules();
-	});
+beforeEach(() => {
+	jest.resetModules();
+});
 
+describe(`rendering`, () => {
 	it(`renders correctly when not logged in`, () => {
 		const props = genProps(false);
 
@@ -45,5 +46,39 @@ describe(`Hero component`, () => {
 		const tree = component.toJSON();
 
 		expect(tree).toMatchSnapshot();
+	});
+});
+
+describe(`functionality`, () => {
+	it(`opens login modal for registering`, () => {
+		const props = genProps(false);
+
+		const component = mount(
+			<MemoryRouter>
+				<Hero {... props} />
+			</MemoryRouter>
+		);
+
+		component.find(`#sign-up`).simulate(`click`);
+
+		expect(props.registering).toHaveBeenCalled();
+
+		component.unmount();
+	});
+
+	it(`opens login modal for logging in`, () => {
+		const props = genProps(false);
+
+		const component = mount(
+			<MemoryRouter>
+				<Hero {... props} />
+			</MemoryRouter>
+		);
+
+		component.find(`#log-in`).simulate(`click`);
+
+		expect(props.loggingIn).toHaveBeenCalled();
+
+		component.unmount();
 	});
 });
