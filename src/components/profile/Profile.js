@@ -1,9 +1,40 @@
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import React from "react";
 
 import "./profile.scss";
 
+const USER_INFO_URL = `${window.location.host}/api/users/detail/get`;
+
+const buildPromise = body => {
+	return new Promise((resolve, reject) => {
+		const request = new XMLHttpRequest();
+
+		request.open(`GET`, USER_INFO_URL);
+		request.setRequestHeader(`Content-type`, `application/json`);
+		request.onload = () => resolve(request);
+		request.onerror = () => reject(request);
+		request.send(JSON.stringify(body));
+	});
+};
+
 const Profile = props => {
+	const { uid } = useParams();
+
+	const promise = buildPromise({
+		id: uid
+	});
+
+	promise.then(
+		data => {
+			console.log(data);
+		}
+	).catch(
+		reason => {
+			console.error(reason);
+		}
+	);
+
 	return (
 		<main id="profile">
 			<section id="login-info">
