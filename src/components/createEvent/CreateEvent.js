@@ -22,7 +22,7 @@ const CreateEvent = props => {
 		}
 
 		const diff = count - holeCount;
-		let newPars = [... pars];
+		let newPars = [...pars];
 
 		if (diff < 0) {
 			const removals = diff * -1;
@@ -45,7 +45,7 @@ const CreateEvent = props => {
 
 		const par = parseInt(event.target.value);
 		const index = event.target.name.split(`-`)[1];
-		const newPars = [... pars];
+		const newPars = [...pars];
 
 		if (par < 1) {
 			newPars[index] = 1;
@@ -63,7 +63,7 @@ const CreateEvent = props => {
 		// @TODO
 		// will need to make api call to check if player exists
 		if (showPlayerInput && playerName !== ``) {
-			const newPlayers = [... players];
+			const newPlayers = [...players];
 
 			if (newPlayers.includes(playerName)) {
 				return;
@@ -86,7 +86,7 @@ const CreateEvent = props => {
 		event.preventDefault();
 
 		const index = event.target.parentElement.id.split(`-`)[1];
-		const newPlayers = [... players];
+		const newPlayers = [...players];
 
 		newPlayers.splice(index, 1);
 

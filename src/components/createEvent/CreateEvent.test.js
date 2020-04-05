@@ -18,7 +18,7 @@ describe(`Rendering`, () => {
 	it(`Renders beginning page correctly`, () => {
 		const props = genProps();
 
-		const component = renderer.create(<CreateEvent {... props} />);
+		const component = renderer.create(<CreateEvent {...props} />);
 		const tree = component.toJSON();
 
 		expect(tree).toMatchSnapshot();

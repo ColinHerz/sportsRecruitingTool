@@ -27,7 +27,7 @@ describe(`rendering`, () => {
 
 		const component = renderer.create(
 			<MemoryRouter>
-				<Hero {... props} />
+				<Hero {...props} />
 			</MemoryRouter>
 		);
 		const tree = component.toJSON();
@@ -40,7 +40,7 @@ describe(`rendering`, () => {
 
 		const component = renderer.create(
 			<MemoryRouter>
-				<Hero {... props} />
+				<Hero {...props} />
 			</MemoryRouter>
 		);
 		const tree = component.toJSON();
@@ -55,7 +55,7 @@ describe(`functionality`, () => {
 
 		const component = mount(
 			<MemoryRouter>
-				<Hero {... props} />
+				<Hero {...props} />
 			</MemoryRouter>
 		);
 
@@ -71,7 +71,7 @@ describe(`functionality`, () => {
 
 		const component = mount(
 			<MemoryRouter>
-				<Hero {... props} />
+				<Hero {...props} />
 			</MemoryRouter>
 		);
 

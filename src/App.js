@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import CreateEvent from "./components/createEvent/CreateEvent.js";
+import EditEvent from "./components/editEvent/EditEvent.js";
 import Footer from "./components/footer/Footer.js";
 import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
@@ -83,8 +84,14 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/myevents/create/">
+				<Route path="/MyEvents/create/">
 					<CreateEvent
+						user={user}
+					/>
+				</Route>
+
+				<Route path="/event/edit/:eid/">
+					<EditEvent
 						user={user}
 					/>
 				</Route>
@@ -101,13 +108,13 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/myevents/">
+				<Route path="/MyEvents/">
 					<MyEvents
 						user={user}
 					/>
 				</Route>
 
-				<Route path="/topScores/">
+				<Route path="/TopScores/">
 					<TopScores />
 				</Route>
 
