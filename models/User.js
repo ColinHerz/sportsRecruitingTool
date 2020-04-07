@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let UserDetail = require("./UserSubModels/UserDetail");
-let UserEquipment = require("./UserSubModels/UserEquipment");
+let GolfBag = require("./UserSubModels/GolfBag");
 let UserFavorite = require("./UserSubModels/UserFavorite");
 let UserSports = require("./UserSubModels/UserSports");
 
@@ -37,7 +37,7 @@ const userSchema = new Schema({
   },
   userDetail: UserDetail.schema,
   userFavorite: UserFavorite.schema,
-  userEquipment: UserEquipment.schema,
+  golfBags: [GolfBag.schema],
   userSports: UserSports.schema
 });
 

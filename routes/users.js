@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken');
 
 
 let User = require("../models/User");
+let UserSports = require("../models/UserSubModels/UserSports");
 let EmailRoutes = require("./emails");
+
 
 
 function validateName(name) {
@@ -81,6 +83,8 @@ exports.postUserRegister = async (req, res) => {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
     const isVerified = false;
+    const userSports = new UserSports();
+
     User.findOne({ email })
         .then(doesUserExist => {
             if (doesUserExist)
@@ -94,7 +98,8 @@ exports.postUserRegister = async (req, res) => {
                 lastname,
                 email,
                 password,
-                isVerified
+                isVerified,
+                userSports
             });
 
             bcrypt.genSalt(10)
@@ -138,6 +143,9 @@ exports.postUserRegister = async (req, res) => {
 exports.getUserVerify = async (req, res) => {
     token = req.params.token;
     jwt.verify(token, process.env.JWT_KEY, function (err, user) {
+        if (err) {
+            return res.status(401).json({ "Error": "Invalid Credentials" });
+        }
         email = user.email;
         User.findOne({ email }).then(foundUser => {
             if (foundUser) {
@@ -153,3 +161,26 @@ exports.getUserVerify = async (req, res) => {
         });
     });
 };
+
+exports.getUser = async (req, res) => {
+    const authToken = req.cookies.session;
+    jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
+        if (err) {
+            return res.status(401).json({ "Error": "Invalid Credentials" });
+        }
+        const filter = { _id: user.id };
+        User.findOne(filter).then(foundUser => {
+            if (!foundUser) {
+                return res.status(400).json({ warning: "User Not Found" });
+            }
+            else {
+                res.status(200).json(
+                    {
+                        "firstname": foundUser.firstname,
+                        "lastname": foundUser.lastname,
+                        "email": foundUser.email
+                    });
+            }
+        }).catch(err => res.status(500).json("Error" + err));
+    });
+}
