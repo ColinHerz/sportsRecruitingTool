@@ -12,7 +12,7 @@ const buildPromise = (url, body) => {
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 
-		request.open(`POST`, url);
+		request.open(`GET`, url);
 		request.setRequestHeader(`Content-type`, `application/json`);
 		request.onload = () => resolve(request);
 		request.onerror = () => reject(request);
