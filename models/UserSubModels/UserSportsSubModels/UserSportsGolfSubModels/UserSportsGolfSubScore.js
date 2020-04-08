@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let userEquipmentGolfClub = require("../../UserEquipmentSubModels/UserEquipmentGolfClub");
+let GolfClub = require("../../GolfClub");
 
 const GolfAnalyticsSchema = new Schema({
     fairwayHit: {
         type: Boolean
     },
-    clubUsed: userEquipmentGolfClub.schema
+    clubUsed: GolfClub.schema
     // any other analytics that are once per swing
 });
 

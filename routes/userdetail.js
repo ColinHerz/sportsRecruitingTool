@@ -24,6 +24,9 @@ exports.postUserDetails = async (req, res) => {
   });
 
   jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
+    if (err) {
+      return res.status(401).json({ "Error": "Invalid Credentials" });
+    }
     const filter = { _id: user.id };
     const update = { userDetail: userDetail };
     User.findOneAndUpdate(filter, update, {
@@ -43,13 +46,16 @@ exports.postUserDetails = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
   const authToken = req.cookies.session;
   jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
+    if (err) {
+      return res.status(401).json({ "Error": "Invalid Credentials" });
+    }
     const filter = { _id: user.id };
     User.findOne(filter).then(foundUser => {
       if (!foundUser) {
         return res.status(400).json({ warning: "User Not Found" });
       }
       else {
-        res.status(200).json( foundUser.userDetail );
+        res.status(200).json(foundUser.userDetail);
       }
     }).catch(err => res.status(500).json("Error" + err));
   });
