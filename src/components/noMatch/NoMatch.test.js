@@ -18,7 +18,7 @@ describe(`No match component`, () => {
 
 		const component = renderer.create(
 			<MemoryRouter>
-				<NoMatch {... props} />
+				<NoMatch {...props} />
 			</MemoryRouter>
 		);
 		const tree = component.toJSON();

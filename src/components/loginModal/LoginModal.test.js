@@ -22,7 +22,7 @@ describe(`rendering`, () => {
 	it(`renders without first and last name when logging in`, () => {
 		const props = genProps(false);
 
-		const component = renderer.create(<LoginModal {... props} />);
+		const component = renderer.create(<LoginModal {...props} />);
 		const tree = component.toJSON();
 
 		expect(tree).toMatchSnapshot();
@@ -31,7 +31,7 @@ describe(`rendering`, () => {
 	it(`renders with first and last name when registering`, () => {
 		const props = genProps(true);
 
-		const component = renderer.create(<LoginModal {... props} />);
+		const component = renderer.create(<LoginModal {...props} />);
 		const tree = component.toJSON();
 
 		expect(tree).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe(`functionality`, () => {
 	it(`closes when close button clicked`, () => {
 		const props = genProps(false);
 
-		const component = shallow(<LoginModal {... props} />);
+		const component = shallow(<LoginModal {...props} />);
 
 		component.find(`#close`).simulate(`click`, {
 			preventDefault: jest.fn()
@@ -56,7 +56,7 @@ describe(`functionality`, () => {
 	it(`switches to logging on log in button clicked`, () => {
 		const props = genProps(true);
 
-		const component = shallow(<LoginModal {... props} />);
+		const component = shallow(<LoginModal {...props} />);
 
 		expect(component.html()).toMatchSnapshot();
 
@@ -72,7 +72,7 @@ describe(`functionality`, () => {
 	it(`switches to registering when registering clicked`, () => {
 		const props = genProps(false);
 
-		const component = shallow(<LoginModal {... props} />);
+		const component = shallow(<LoginModal {...props} />);
 
 		expect(component.html()).toMatchSnapshot();
 
