@@ -1,82 +1,58 @@
-import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./profile.scss";
 
-const USER_INFO_URL = `${window.location.host}/api/users/detail/get`;
+const USER_INFO_URL = `${window.location.protocol}//${window.location.host}/api/golf/getAllGolfBags`;
 
-const buildPromise = body => {
+const buildPromise = () => {
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 
 		request.open(`GET`, USER_INFO_URL);
-		request.setRequestHeader(`Content-type`, `application/json`);
 		request.onload = () => resolve(request);
 		request.onerror = () => reject(request);
-		request.send(JSON.stringify(body));
+		request.send();
 	});
 };
 
 const Profile = props => {
-	const { uid } = useParams();
+	const bags = useState(null);
 
-	const promise = buildPromise({
-		id: uid
+	useEffect(() => {
+		if (bags === null) {
+			const promise = buildPromise();
+
+			promise.then(
+				data => {
+					if (data.status !== 200) {
+						console.error(`status`);
+						console.error(data);
+						return;
+					}
+
+					console.log(data);
+				}
+			).catch(
+				reason => {
+					console.error(`catch`);
+					console.error(reason);
+				}
+			);
+		}
 	});
-
-	promise.then(
-		data => {
-			console.log(data);
-		}
-	).catch(
-		reason => {
-			console.error(reason);
-		}
-	);
 
 	return (
 		<main id="profile">
 			<section id="login-info">
-				<h2>First Name Last Name</h2>
-				<p>Username</p>
+				<h2>{`${props.user.firstname} ${props.user.lastname}`}</h2>
+				<p>{`${props.user.email}`}</p>
 			</section>
 
 			<section id="personal-info">
-				<p><span>Gender:</span> Male</p>
 				<p><span>Height:</span> 5&apos; 10&quot;</p>
 				<p><span>Weight:</span> 140 lbs</p>
 				<p><span>Age:</span> 21</p>
-			</section>
-
-			<section id="top-scores" className="stats">
-				<h3>Top Scores</h3>
-				<ol>
-					<li>
-						Score 1
-					</li>
-					<li>
-						Score 2
-					</li>
-					<li>
-						Score 3
-					</li>
-				</ol>
-			</section>
-
-			<section id="past-events" className="stats">
-				<h3>Past Events</h3>
-				<ul>
-					<li>
-						Event 1
-					</li>
-					<li>
-						Event 2
-					</li>
-					<li>
-						Event 3
-					</li>
-				</ul>
 			</section>
 		</main>
 	);
