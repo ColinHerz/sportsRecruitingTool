@@ -12,22 +12,15 @@ const IRON = 2;
 const WEDGE = 3;
 const PUTTER = 4;
 
-const buildPromise = (url, type, body) => {
+const buildPromise = (url, body) => {
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 
-		request.open(type, url);
-
-		let requestBody = body;
-
-		if (body !== null) {
-			request.setRequestHeader(`Content-type`, `application/json`);
-			requestBody = JSON.stringify(body);
-		}
-
+		request.open(`POST`, url);
+		request.setRequestHeader(`Content-type`, `application/json`);
 		request.onload = () => resolve(request);
 		request.onerror = () => reject(JSON.parse(request.response));
-		request.send(requestBody);
+		request.send(JSON.stringify(body));
 	});
 };
 
@@ -45,30 +38,104 @@ const ViewBag = props => {
 
 	useEffect(() => {
 		if (updateBag) {
-			const promise = buildPromise(`${GOLF_URL}getGolfBag`, `POST`, { golfBag: bid });
-
-			promise.then(
-				data => {
-					console.log(data);
-
-					if (data.status !== 200) {
-						console.error(JSON.parse(data.response).warning);
-						setShowError(true);
-						return;
-					}
-
-					setBag(JSON.parse(data.response));
-				}
-			).catch(
-				reason => {
-					console.error(reason.warning);
-					setShowError(true);
-				}
-			);
-
+			apiCall(`getGolfBag`, { golfBag: bid });
 			setUpdateBag(false);
 		}
-	}, [updateBag, bid]);
+	});
+
+	const submitClub = event => {
+		event.preventDefault();
+
+		if (clubType === NO_CLUB) {
+			setShowError(true);
+			return;
+		}
+
+		const body = {
+			golfBag: bid,
+			clubName: clubName,
+			clubType: clubType
+		};
+
+		apiCall(`createGolfclub`, body);
+
+		setAddClub(false);
+		setClubName(``);
+		setClubType(NO_CLUB);
+	};
+
+	const handleDeleteClub = event => {
+		event.preventDefault();
+
+		const clubId = event.target.parentElement.id;
+
+		const body = {
+			golfClub: clubId,
+			golfBag: bid
+		};
+
+		apiCall(`deleteGolfclub`, body);
+	};
+
+	const apiCall = async (endpoint, body) => {
+		const url = `${GOLF_URL}${endpoint}`;
+		const promise = buildPromise(url, body);
+
+		switch (endpoint) {
+		case `getGolfBag`:
+			await getGolfBag(promise);
+			break;
+		default:
+			await genericApiCall(promise);
+			break;
+		}
+	};
+
+	const getGolfBag = async promise => {
+		promise.then(
+			data => {
+				if (data.status !== 200) {
+					console.error(JSON.parse(data.response).warning);
+					setShowError(true);
+					return;
+				}
+
+				setBag(JSON.parse(data.response));
+			}
+		).catch(
+			reason => {
+				console.error(reason);
+				setShowError(true);
+			}
+		);
+	};
+
+	const genericApiCall = async promise => {
+		promise.then(
+			data => {
+				if (data.status !== 200) {
+					console.error(JSON.parse(data.response).warning);
+					setShowError(true);
+					return;
+				}
+
+				setUpdateBag(true);
+			}
+		).catch(
+			reason => {
+				console.error(reason);
+				setShowError(true);
+			}
+		);
+	};
+
+	const cancelAddClub = event => {
+		event.preventDefault();
+
+		setAddClub(false);
+		setClubName(``);
+		setClubType(NO_CLUB);
+	};
 
 	const handleAddClubClick = event => {
 		event.preventDefault();
@@ -85,23 +152,7 @@ const ViewBag = props => {
 	const handleChangeClubType = event => {
 		event.preventDefault();
 
-		setClubType(event.target.value);
-	};
-
-	const submitClub = event => {
-		event.preventDefault();
-
-		setAddClub(false);
-		setClubName(``);
-		setClubType(NO_CLUB);
-	};
-
-	const cancelAddClub = event => {
-		event.preventDefault();
-
-		setAddClub(false);
-		setClubName(``);
-		setClubType(NO_CLUB);
+		setClubType(parseInt(event.target.value));
 	};
 
 	return (
@@ -116,11 +167,35 @@ const ViewBag = props => {
 
 			<ul>
 				{
-					bag.golfClub.map((club, index) =>
-						<li key={index}>
-							{index}
-						</li>
-					)
+					bag.golfClub.map(club => {
+						let typeName = ``;
+
+						switch(club.clubType) {
+						case WOOD:
+							typeName = `Wood`;
+							break;
+						case IRON:
+							typeName = `Iron`;
+							break;
+						case WEDGE:
+							typeName = `Wedge`;
+							break;
+						case PUTTER:
+							typeName = `Putter`;
+							break;
+						default:
+							console.error(`Incorrect putter type`);
+							setShowError(true);
+							break;
+						}
+
+						return (
+							<li key={club._id} id={club._id}>
+								<p>{club.clubName}: {typeName}</p>
+								<button onClick={handleDeleteClub}>Delete</button>
+							</li>
+						);
+					})
 				}
 			</ul>
 
