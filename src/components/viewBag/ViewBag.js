@@ -156,10 +156,10 @@ const ViewBag = props => {
 	};
 
 	return (
-		<main>
+		<main id="view-bag">
 			{
 				showError ?
-					<p>An error occurred. Please try again later.</p>:
+					<p id="error-message">An error occurred. Please try again later.</p>:
 					null
 			}
 
@@ -199,11 +199,16 @@ const ViewBag = props => {
 				}
 			</ul>
 
-			<button onClick={handleAddClubClick}>Add Club</button>
+			<button
+				onClick={handleAddClubClick}
+				id="add-club-btn"
+			>
+				Add Club
+			</button>
 
 			{
 				addClub ?
-					<div>
+					<div id="add-club-div">
 						<label>
 							Name:
 							<input
@@ -227,8 +232,10 @@ const ViewBag = props => {
 							</select>
 						</label>
 
-						<button onClick={submitClub}>Add</button>
-						<button onClick={cancelAddClub}>Cancel</button>
+						<div>
+							<button onClick={submitClub}>Add</button>
+							<button onClick={cancelAddClub}>Cancel</button>
+						</div>
 					</div>:
 					null
 			}
