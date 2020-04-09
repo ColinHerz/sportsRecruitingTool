@@ -32,27 +32,25 @@ const Profile = props => {
 	const [bags, setBags] = useState([]);
 	const [updatedBags, setUpdatedBags] = useState(false);
 
+	const [showError, setShowError] = useState(false);
+
 	useEffect(() => {
 		if (!updatedBags) {
-			console.log(`update bags`);
 			const promise = buildPromise(`${USER_INFO_URL}getAllGolfBags`, `GET`, null);
 
 			promise.then(
 				data => {
 					if (data.status !== 200) {
-						console.error(`status`);
-						console.error(JSON.parse(data.response));
+						setShowError(true);
 						setBags([]);
 						return;
 					}
 
-					console.log(data);
 					setBags(JSON.parse(data.response));
 				}
 			).catch(
-				reason => {
-					console.error(`catch`);
-					console.error(reason);
+				() => {
+					setShowError(true);
 					setBags([]);
 				}
 			);
@@ -79,14 +77,10 @@ const Profile = props => {
 
 		const promise = buildPromise(`${USER_INFO_URL}createGolfBag`, `POST`, { bagName: newBagName });
 
-		console.log(`add bag`);
 		promise.then(
 			data => {
-				console.log(data);
-
 				if (data.status !== 200) {
-					console.error(`status`);
-					console.error(JSON.stringify(data.response).warning);
+					setShowError(true);
 				}
 
 				setNewBagName(``);
@@ -94,9 +88,8 @@ const Profile = props => {
 				setUpdatedBags(false);
 			}
 		).catch(
-			reason => {
-				console.error(`catch`);
-				console.error(reason.warning);
+			() => {
+				setShowError(true);
 			}
 		);
 	};
@@ -109,6 +102,12 @@ const Profile = props => {
 
 	return (
 		<main id="profile">
+			{
+				showError ?
+					<p id="error-message">Something went wrong. Please try again latter.</p>:
+					null
+			}
+
 			<section id="login-info">
 				<h2>{`${props.user.firstname} ${props.user.lastname}`}</h2>
 				<p>{`${props.user.email}`}</p>
@@ -124,15 +123,14 @@ const Profile = props => {
 				<h3>Bags</h3>
 
 				{
-					bags.map((bag, index) => {
-						console.log(bag);
+					bags.map(bag => {
 						return (
-							<div
+							<Link
 								key={bag._id}
-								id={`bag-${index}`}
+								to={`/profile/bag/edit/${bag._id}`}
 							>
-								<Link to={`/profile/bag/edit/${bag._id}`}>{bag.bagName}</Link>
-							</div>
+								{bag.bagName}
+							</Link>
 						);
 					})
 				}

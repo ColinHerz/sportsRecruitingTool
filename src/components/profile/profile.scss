@@ -35,6 +35,11 @@
 		margin-bottom: 1em;
 	}
 
+	#error-message {
+		color: $error;
+		font-size: 28px;
+	}
+
 	#login-info {
 		p {
 			margin-top: -14px;
@@ -73,6 +78,10 @@
 			border: 2px solid $orange;
 			border-radius: 4px;
 		}
+
+		.bag-delete {
+			font-size: 18px;
+		}
 	}
 
 	#adding-bag-dialogue {
@@ -91,5 +100,7 @@
 		font-weight: 600;
 
 		padding: 0.1em 0.5em;
+
+		margin: 0.5em 0;
 	}
 }
