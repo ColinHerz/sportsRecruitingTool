@@ -16,6 +16,7 @@ import MyEvents from "./components/myEvents/MyEvents.js";
 import NoMatch from "./components/noMatch/NoMatch.js";
 import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
+import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
 import "./reset.scss";
@@ -55,14 +56,17 @@ const App = props => {
 	const [user, setUser] = useState({});
 	const [loggedIn, setLoggedIn] = useState(false);
 
+	const [cookie, setCookie] = useState(document.cookie);
+
 	useEffect(() => {
-		if (document.cookie !== `` && !loggedIn) {
+		if (cookie !== `` && !loggedIn) {
 			const promise = buildPromise();
 
 			promise.then(
 				data => {
 					if (data.status !== 200) {
 						document.cookie = ``;
+						setCookie(``);
 					}
 
 					const userData = fixCapitalization(JSON.parse(data.response));
@@ -73,6 +77,7 @@ const App = props => {
 			).catch(
 				() => {
 					document.cookie = ``;
+					setCookie(``);
 				}
 			);
 		}
@@ -104,6 +109,7 @@ const App = props => {
 
 				const userData = fixCapitalization(JSON.parse(data.response));
 
+				setCookie(document.cookie);
 				setUser(userData);
 				setLoggedIn(true);
 			}
@@ -117,6 +123,8 @@ const App = props => {
 	const logOut = event => {
 		event.preventDefault();
 
+		setCookie(``);
+		document.cookie = ``;
 		setUser({});
 		setLoggedIn(false);
 	};
@@ -178,6 +186,16 @@ const App = props => {
 					<ViewEvent
 						user={user}
 					/>
+				</Route>
+
+				<Route path="/profile/bag/:bid/">
+					{
+						loggedIn ?
+							<ViewBag
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/profile/">
