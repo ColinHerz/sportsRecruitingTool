@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	BrowserRouter as Router,
 	Redirect,
@@ -23,7 +23,6 @@ import "./reset.scss";
 const SUBMIT_INFO_URL = `${window.location.protocol}//${window.location.host}/api/users/get`;
 
 const buildPromise = () => {
-	console.log(SUBMIT_INFO_URL);
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 
@@ -56,6 +55,29 @@ const App = props => {
 	const [user, setUser] = useState({});
 	const [loggedIn, setLoggedIn] = useState(false);
 
+	useEffect(() => {
+		if (document.cookie !== `` && !loggedIn) {
+			const promise = buildPromise();
+
+			promise.then(
+				data => {
+					if (data.status !== 200) {
+						document.cookie = ``;
+					}
+
+					const userData = fixCapitalization(JSON.parse(data.response));
+
+					setUser(userData);
+					setLoggedIn(true);
+				}
+			).catch(
+				() => {
+					document.cookie = ``;
+				}
+			);
+		}
+	});
+
 	const loggingIn = event => {
 		event.preventDefault();
 
@@ -82,7 +104,6 @@ const App = props => {
 
 				const userData = fixCapitalization(JSON.parse(data.response));
 
-				console.log(userData);
 				setUser(userData);
 				setLoggedIn(true);
 			}
