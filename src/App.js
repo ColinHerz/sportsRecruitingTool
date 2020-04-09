@@ -19,6 +19,20 @@ import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
 import "./reset.scss";
 
+const SUBMIT_INFO_URL = `${window.location.protocol}//${window.location.host}/api/users/get`;
+
+const buildPromise = () => {
+	console.log(SUBMIT_INFO_URL);
+	return new Promise((resolve, reject) => {
+		const request = new XMLHttpRequest();
+
+		request.open(`GET`, SUBMIT_INFO_URL);
+		request.onload = () => resolve(request);
+		request.onerror = () => reject(JSON.parse(request.response));
+		request.send();
+	});
+};
+
 const App = props => {
 	const [showModal, setShowModal] = useState(false);
 	const [clickedRegister, setClickedRegister] = useState(false);
@@ -40,9 +54,25 @@ const App = props => {
 		setClickedRegister(true);
 	};
 
-	const logIn = user => {
-		setLoggedIn(true);
-		setUser(user);
+	const logIn = () => {
+		const promise = buildPromise();
+
+		promise.then(
+			data => {
+				if (data.status !== 200) {
+					console.error(JSON.parse(data.response).warning);
+					return;
+				}
+
+				console.log(JSON.parse(data.response));
+				setUser(JSON.parse(data.response));
+				setLoggedIn(true);
+			}
+		).catch(
+			reason => {
+				console.error(reason.warning);
+			}
+		);
 	};
 
 	const logOut = event => {

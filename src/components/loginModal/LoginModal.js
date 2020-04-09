@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import "./loginModal.scss";
 
-const SUBMIT_INFO_URL = `${window.location.host}/api/users/`;
+const SUBMIT_INFO_URL = `${window.location.protocol}//${window.location.host}/api/users/`;
 const SUBMIT_INFO_REGISTERING = `register`;
 const SUBMIT_INFO_LOGIN = `login`;
 
@@ -12,10 +12,10 @@ const buildPromise = (url, body) => {
 	return new Promise((resolve, reject) => {
 		const request = new XMLHttpRequest();
 
-		request.open(`GET`, url);
+		request.open(`POST`, url);
 		request.setRequestHeader(`Content-type`, `application/json`);
 		request.onload = () => resolve(request);
-		request.onerror = () => reject(request);
+		request.onerror = () => reject(JSON.parse(request.response));
 		request.send(JSON.stringify(body));
 	});
 };
@@ -56,14 +56,13 @@ const LoginModal = props => {
 
 		promise.then(
 			data => {
-				// purposefully loose matching
-				if (data.warning != undefined) {
+				if (data.status !== 200) {
 					setIsError(true);
-					setErrorText(data.warning);
+					setErrorText(JSON.parse(data.response).warning);
 					return;
 				}
 
-				props.logIn({});
+				props.logIn();
 				props.closeModal();
 			}
 		).catch(
@@ -75,10 +74,10 @@ const LoginModal = props => {
 	};
 
 	const buildURL = () => {
-		let url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
+		let url = `${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
 
 		if (isRegistering) {
-			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_REGISTERING}`;
+			url = `${SUBMIT_INFO_URL}${SUBMIT_INFO_REGISTERING}`;
 		}
 
 		return url;
