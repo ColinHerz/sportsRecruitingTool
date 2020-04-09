@@ -15,7 +15,7 @@ const buildPromise = (url, type, body) => {
 		let requestBody = body;
 
 		if (body !== null) {
-			request.setRequestHeader(`Content-Type`, `application/json`);
+			request.setRequestHeader(`Content-type`, `application/json`);
 			requestBody = JSON.stringify(body);
 		}
 
@@ -127,7 +127,7 @@ const Profile = props => {
 						return (
 							<Link
 								key={bag._id}
-								to={`/profile/bag/edit/${bag._id}`}
+								to={`/profile/bag/${bag._id}/`}
 							>
 								{bag.bagName}
 							</Link>
