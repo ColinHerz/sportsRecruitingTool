@@ -3,6 +3,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 require('dotenv').config();
 
@@ -12,6 +14,8 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
 app.use(cookieParser());
+// Link used for Swagger Documentation
+app.use('/swagger', swaggerUi.serve);
 
 const URI =
   'mongodb+srv://' +
@@ -55,6 +59,29 @@ app.get('/api/golf/getGolfBag', routes.getGolfBag);
 app.get('/api/golf/getAllGolfBags', routes.getAllGolfBags);
 app.post('/api/golf/createGolfclub', routes.postGolfClubAdd);
 app.post('/api/golf/deleteGolfclub', routes.postGolfClubDelete);
+
+
+// Swagger set up
+const options = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Sporta App Documentation",
+      version: "1.0.0",
+      description:
+        "COP 4331 Spring 2020 Group 22 Project"
+    },
+    servers: [
+      {
+        url: "https://localhost8081.com/api"
+      }
+    ]
+  },
+  apis: ["./models/schemas.yaml"]
+};
+const specs = swaggerJsdoc(options);
+// API call for swagger docs 
+app.get("/swagger", swaggerUi.setup(specs, { explorer: true}));
 
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');

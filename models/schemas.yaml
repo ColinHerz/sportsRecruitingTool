@@ -1,0 +1,126 @@
+  components:
+    schemas:
+      User:
+        type: object
+        required:
+          - firstname
+          - lastname
+          - email
+          - password
+          - isVerified
+        properties:
+          firstname:
+            type: string
+          lastname:
+            type: string
+          email:
+            type: string
+            format: email
+            description: Email for the user - This is the user name.
+          password:
+            type: string
+            description: Note that this is normally encrypted
+          isVerified:
+            type: boolean
+            description: E-mail Verification
+          userDetails:
+            $ref: '#/components/schemas/UserDetails'
+          userFavorite:
+            $ref: '#/components/schemas/UserFavorite'
+          golfBags:
+            type: array
+            $ref: '#/components/schemas/GolfBag'
+          userSports:
+            $ref: '#/components/schemas/UserSports'        
+        example:
+            firstname: Swagger
+            lastname: Test
+            email: swaggertest852@gmail.com
+            password: test
+            isVerified: True
+
+      UserDetails:
+        type: object
+        properties:
+          age:
+            type: int
+          height:
+            type: string
+          weight:
+             type: int
+        example:
+          age: 25
+          height: 6'0"
+          weight: 180
+
+      UserSports:
+        type: object
+        properties:
+          golf:
+            $ref: '#/components/schemas/UserSportsGolf'
+
+      UserSportsGolf:
+        type: object
+        properties:
+          datePlayed: 
+            type: string
+            format: date
+          golfMatch:
+            type: array
+            $ref: '#/components/schemas/GolfSubScore'
+          GolfBagUsed:
+            $ref: '#/components/schemas/GolfBag'
+
+      UserFavorite:
+        type: object
+        properties:
+          userFavoriteGolf:
+            type: object
+            properties:
+              favoriteGolfCourse:
+                $ref: '#/components/schemas/GolfCourse'
+              favoriteGolfClub:
+                $ref: '#/compenents/schemas/UserEquipmentGolfClub'
+
+      GolfBag:
+        type: object
+        properties:
+          bagname:
+            type: string
+            unique: False
+            trim: True
+          golfClub:
+            type: array
+            $ref:  '#/compenents/schemas/GolfClub'
+
+      GolfClub:
+        type: object
+        properties:
+          clubType: 
+            type: number
+          clubName:
+            type: string
+            trim: True
+            unique: False
+        example:
+          clubType: 3
+          clubName: wood
+
+      GolfCourseSchema:
+        type: object
+        required:
+        - courseName
+        properties:
+          courseName:
+            type: string
+            unique: True
+        example:
+          courseName: Twin Rivers
+
+      
+
+      
+
+
+
+ 

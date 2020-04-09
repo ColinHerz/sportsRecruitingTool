@@ -19,7 +19,7 @@ exports.sendVerificationEmail = async (recieverEmail, token) => {
     });
 
     const mailOptions = {
-        from: '"Spota Services" <Verification@Sporta.com>', // sender address
+        from: '"Sporta Services" <Verification@Sporta.com>', // sender address
         to: recieverEmail, // list of receivers
         subject: "Verifying Your Email", // Subject line
         text: "hi", // plain text body
