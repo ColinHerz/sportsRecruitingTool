@@ -26,9 +26,6 @@ exports.postUserDetails = async (req, res) => {
 exports.getUserDetails = async (req, res) => {
   await getUserDetails(req, res);
 };
-exports.postUserDetails = async (req, res) => {
-  await postUserDetails(req, res);
-};
 exports.postGolfMatch = async (req, res) => {
   await postGolfMatch(req, res);
 };
