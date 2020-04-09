@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
 	BrowserRouter as Router,
+	Redirect,
 	Route,
 	Switch
 } from "react-router-dom";
@@ -31,6 +32,21 @@ const buildPromise = () => {
 		request.onerror = () => reject(JSON.parse(request.response));
 		request.send();
 	});
+};
+
+const fixCapitalization = user => {
+	const newUser = Object.assign({}, user);
+
+	let firstname = newUser.firstname;
+	firstname = firstname.charAt(0).toUpperCase() + firstname.slice(1);
+
+	let lastname = newUser.lastname;
+	lastname = lastname.charAt(0).toUpperCase() + lastname.slice(1);
+
+	newUser.firstname = firstname;
+	newUser.lastname = lastname;
+
+	return newUser;
 };
 
 const App = props => {
@@ -64,8 +80,10 @@ const App = props => {
 					return;
 				}
 
-				console.log(JSON.parse(data.response));
-				setUser(JSON.parse(data.response));
+				const userData = fixCapitalization(JSON.parse(data.response));
+
+				console.log(userData);
+				setUser(userData);
 				setLoggedIn(true);
 			}
 		).catch(
@@ -115,15 +133,24 @@ const App = props => {
 				</Route>
 
 				<Route path="/MyEvents/create/">
-					<CreateEvent
-						user={user}
-					/>
+					{
+						loggedIn ?
+							<CreateEvent
+								user={user}
+							/>:
+							<Redirect to="/" />
+
+					}
 				</Route>
 
 				<Route path="/event/edit/:eid/">
-					<EditEvent
-						user={user}
-					/>
+					{
+						loggedIn ?
+							<EditEvent
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/event/:eid/">
@@ -132,16 +159,24 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/profile/:uid/">
-					<Profile
-						user={user}
-					/>
+				<Route path="/profile/">
+					{
+						loggedIn ?
+							<Profile
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/MyEvents/">
-					<MyEvents
-						user={user}
-					/>
+					{
+						loggedIn ?
+							<MyEvents
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/TopScores/">
