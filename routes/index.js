@@ -1,6 +1,6 @@
 const { postUserLogin, postUserRegister, getUserVerify, getUser } = require("./users");
 const { resendVerificationEmail } = require("./emails");
-const { postUserDetails } = require("./userdetail");
+const { getUserDetails, postUserDetails } = require("./userdetail");
 const { postGolfMatch, getGolfMatch } = require("./GolfRoutes/GolfMatch");
 const { postGolfCourse, getGolfCourse } = require("./GolfRoutes/GolfCourse");
 const { postGolfBag, postGolfBagDelete, getGolfBag, getAllGolfBags, postGolfClubAdd, postGolfClubDelete } = require("./GolfRoutes/GolfBag");
