@@ -52,7 +52,7 @@ app.get('/api/golf/getGolfCourse', routes.getGolfCourse);
 // Making a golf bag, get a bags contents, and add or remove clubs
 app.post('/api/golf/createGolfBag', routes.postGolfBag);
 app.post('/api/golf/deleteGolfBag', routes.postGolfBagDelete);
-app.get('/api/golf/getGolfBag', routes.getGolfBag);
+app.post('/api/golf/getGolfBag', routes.getGolfBag);
 app.get('/api/golf/getAllGolfBags', routes.getAllGolfBags);
 app.post('/api/golf/createGolfclub', routes.postGolfClubAdd);
 app.post('/api/golf/deleteGolfclub', routes.postGolfClubDelete);
