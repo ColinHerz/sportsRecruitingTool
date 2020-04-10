@@ -63,7 +63,7 @@ exports.postUserLogin = async (req, res) => {
 
                         jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
                             return res.status(200)
-                                .cookie('session', token, { expires: 0 })
+                                .cookie('session', token, { httpOnly: true, expires: 0 })
                                 .json({ success: true });
                         });
                     })

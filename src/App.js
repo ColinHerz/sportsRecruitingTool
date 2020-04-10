@@ -55,33 +55,30 @@ const App = props => {
 
 	const [user, setUser] = useState({});
 	const [loggedIn, setLoggedIn] = useState(false);
-
-	const [cookie, setCookie] = useState(document.cookie);
+	const [initialLoad, setInitialLoad] = useState(true);
 
 	useEffect(() => {
-		if (cookie !== `` && !loggedIn) {
+		if (initialLoad && !loggedIn) {
 			const promise = buildPromise();
 
 			promise.then(
 				data => {
-					if (data.status !== 200) {
-						document.cookie = ``;
-						setCookie(``);
+					if (data.status === 200) {
+						const userData = fixCapitalization(JSON.parse(data.response));
+
+						setUser(userData);
+						setLoggedIn(true);
 					}
-
-					const userData = fixCapitalization(JSON.parse(data.response));
-
-					setUser(userData);
-					setLoggedIn(true);
 				}
 			).catch(
 				() => {
-					document.cookie = ``;
-					setCookie(``);
+					return;
 				}
 			);
+
+			setInitialLoad(false);
 		}
-	});
+	}, [initialLoad, loggedIn]);
 
 	const loggingIn = event => {
 		event.preventDefault();
@@ -109,7 +106,6 @@ const App = props => {
 
 				const userData = fixCapitalization(JSON.parse(data.response));
 
-				setCookie(document.cookie);
 				setUser(userData);
 				setLoggedIn(true);
 			}
@@ -123,8 +119,6 @@ const App = props => {
 	const logOut = event => {
 		event.preventDefault();
 
-		setCookie(``);
-		document.cookie = ``;
 		setUser({});
 		setLoggedIn(false);
 	};
