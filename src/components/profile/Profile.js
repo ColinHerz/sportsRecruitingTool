@@ -94,6 +94,30 @@ const Profile = props => {
 		);
 	};
 
+	const deleteBag = event => {
+		event.preventDefault();
+
+		const id = event.target.parentElement.id;
+
+		const promise = buildPromise(`${USER_INFO_URL}deleteGolfBag`, `POST`, { golfBag: id });
+
+		promise.then(
+			data => {
+				if (data.status !== 200) {
+					console.error(data);
+					setShowError(true);
+				}
+
+				setUpdatedBags(false);
+			}
+		).catch(
+			data => {
+				console.error(data);
+				setShowError(true);
+			}
+		);
+	};
+
 	const handleBagNameChange = event => {
 		event.preventDefault();
 
@@ -122,18 +146,23 @@ const Profile = props => {
 			<section id="bags">
 				<h3>Bags</h3>
 
-				{
-					bags.map(bag => {
-						return (
-							<Link
-								key={bag._id}
-								to={`/profile/bag/${bag._id}/`}
-							>
-								{bag.bagName}
-							</Link>
-						);
-					})
-				}
+				<ul>
+					{
+						bags.map(bag => {
+							return (
+								<li key={bag._id} id={bag._id}>
+									<Link
+										to={`/profile/bag/${bag._id}/`}
+									>
+										{bag.bagName}
+									</Link>
+
+									<button onClick={deleteBag}>Delete</button>
+								</li>
+							);
+						})
+					}
+				</ul>
 
 				{
 					addingBag ?
