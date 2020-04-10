@@ -1,28 +1,15 @@
+import apiCall from "../../api/api.js";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import "./viewBag.scss";
 
-const GOLF_URL = `${window.location.protocol}//${window.location.host}/api/golf/`;
-
 const NO_CLUB = 0;
 const WOOD = 1;
 const IRON = 2;
 const WEDGE = 3;
 const PUTTER = 4;
-
-const buildPromise = (url, body) => {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-
-		request.open(`POST`, url);
-		request.setRequestHeader(`Content-type`, `application/json`);
-		request.onload = () => resolve(request);
-		request.onerror = () => reject(JSON.parse(request.response));
-		request.send(JSON.stringify(body));
-	});
-};
 
 const ViewBag = props => {
 	const { bid } = useParams();
@@ -38,7 +25,27 @@ const ViewBag = props => {
 
 	useEffect(() => {
 		if (updateBag) {
-			apiCall(`getGolfBag`, { golfBag: bid });
+			apiCall(
+				{
+					endpoint: `/golf/getGolfBag`,
+					type: `POST`,
+					body: {
+						golfBag: bid
+					}
+				},
+				data => {
+					if (data.status !== 200) {
+						setShowError(true);
+						return;
+					}
+
+					setBag(JSON.parse(data.response));
+				},
+				reason => {
+					setShowError(true);
+				}
+			);
+
 			setUpdateBag(false);
 		}
 	});
@@ -51,13 +58,28 @@ const ViewBag = props => {
 			return;
 		}
 
-		const body = {
-			golfBag: bid,
-			clubName: clubName,
-			clubType: clubType
-		};
+		apiCall(
+			{
+				endpoint: `/golf/createGolfclub`,
+				type: `POST`,
+				body: {
+					golfBag: bid,
+					clubName: clubName,
+					clubType: clubType
+				}
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
 
-		apiCall(`createGolfclub`, body);
+				setUpdateBag(true);
+			},
+			reason => {
+				setShowError(true);
+			}
+		);
 
 		setAddClub(false);
 		setClubName(``);
@@ -74,56 +96,24 @@ const ViewBag = props => {
 			golfBag: bid
 		};
 
-		apiCall(`deleteGolfclub`, body);
-	};
-
-	const apiCall = async (endpoint, body) => {
-		const url = `${GOLF_URL}${endpoint}`;
-		const promise = buildPromise(url, body);
-
-		switch (endpoint) {
-		case `getGolfBag`:
-			await getGolfBag(promise);
-			break;
-		default:
-			await genericApiCall(promise);
-			break;
-		}
-	};
-
-	const getGolfBag = async promise => {
-		promise.then(
-			data => {
-				if (data.status !== 200) {
-					console.error(JSON.parse(data.response).warning);
-					setShowError(true);
-					return;
+		apiCall(
+			{
+				endpoint: `/golf/deleteGolfclub`,
+				type: `POST`,
+				body: {
+					golfClub: clubId,
+					golfBag: bid
 				}
-
-				setBag(JSON.parse(data.response));
-			}
-		).catch(
-			reason => {
-				console.error(reason);
-				setShowError(true);
-			}
-		);
-	};
-
-	const genericApiCall = async promise => {
-		promise.then(
+			},
 			data => {
 				if (data.status !== 200) {
-					console.error(JSON.parse(data.response).warning);
 					setShowError(true);
 					return;
 				}
 
 				setUpdateBag(true);
-			}
-		).catch(
+			},
 			reason => {
-				console.error(reason);
 				setShowError(true);
 			}
 		);

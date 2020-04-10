@@ -1,29 +1,9 @@
+import apiCall from "../../api/api.js";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 
 import "./profile.scss";
-
-const USER_INFO_URL = `${window.location.protocol}//${window.location.host}/api/golf/`;
-
-const buildPromise = (url, type, body) => {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-
-		request.open(type, url);
-
-		let requestBody = body;
-
-		if (body !== null) {
-			request.setRequestHeader(`Content-type`, `application/json`);
-			requestBody = JSON.stringify(body);
-		}
-
-		request.onload = () => resolve(request);
-		request.onerror = () => reject(JSON.parse(request.response));
-		request.send(requestBody);
-	});
-};
 
 const Profile = props => {
 	const [addingBag, setAddingBag] = useState(false);
@@ -36,9 +16,11 @@ const Profile = props => {
 
 	useEffect(() => {
 		if (!updatedBags) {
-			const promise = buildPromise(`${USER_INFO_URL}getAllGolfBags`, `GET`, null);
-
-			promise.then(
+			apiCall(
+				{
+					endpoint: `/golf/getAllGolfBags`,
+					type: `GET`
+				},
 				data => {
 					if (data.status !== 200) {
 						setShowError(true);
@@ -47,8 +29,7 @@ const Profile = props => {
 					}
 
 					setBags(JSON.parse(data.response));
-				}
-			).catch(
+				},
 				() => {
 					setShowError(true);
 					setBags([]);
@@ -75,9 +56,14 @@ const Profile = props => {
 	const addBag = event => {
 		event.preventDefault();
 
-		const promise = buildPromise(`${USER_INFO_URL}createGolfBag`, `POST`, { bagName: newBagName });
-
-		promise.then(
+		apiCall(
+			{
+				endpoint: `/golf/createGolfBag`,
+				type: `POST`,
+				body: {
+					bagName: newBagName
+				}
+			},
 			data => {
 				if (data.status !== 200) {
 					setShowError(true);
@@ -86,8 +72,7 @@ const Profile = props => {
 				setNewBagName(``);
 				setAddingBag(false);
 				setUpdatedBags(false);
-			}
-		).catch(
+			},
 			() => {
 				setShowError(true);
 			}
@@ -99,20 +84,22 @@ const Profile = props => {
 
 		const id = event.target.parentElement.id;
 
-		const promise = buildPromise(`${USER_INFO_URL}deleteGolfBag`, `POST`, { golfBag: id });
-
-		promise.then(
+		apiCall(
+			{
+				endpoint: `/golf/deleteGolfBag`,
+				type: `POST`,
+				body: {
+					golfBag: id
+				}
+			},
 			data => {
 				if (data.status !== 200) {
-					console.error(data);
 					setShowError(true);
 				}
 
 				setUpdatedBags(false);
-			}
-		).catch(
-			data => {
-				console.error(data);
+			},
+			reason => {
 				setShowError(true);
 			}
 		);

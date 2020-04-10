@@ -1,3 +1,4 @@
+import apiCall from "./api/api.js";
 import React, { useState, useEffect } from "react";
 import {
 	BrowserRouter as Router,
@@ -20,19 +21,6 @@ import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
 import "./reset.scss";
-
-const SUBMIT_INFO_URL = `${window.location.protocol}//${window.location.host}/api/users/get`;
-
-const buildPromise = () => {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-
-		request.open(`GET`, SUBMIT_INFO_URL);
-		request.onload = () => resolve(request);
-		request.onerror = () => reject(JSON.parse(request.response));
-		request.send();
-	});
-};
 
 const fixCapitalization = user => {
 	const newUser = Object.assign({}, user);
@@ -59,9 +47,11 @@ const App = props => {
 
 	useEffect(() => {
 		if (initialLoad && !loggedIn) {
-			const promise = buildPromise();
-
-			promise.then(
+			apiCall(
+				{
+					endpoint: `/users/get`,
+					type: `GET`
+				},
 				data => {
 					if (data.status === 200) {
 						const userData = fixCapitalization(JSON.parse(data.response));
@@ -69,8 +59,7 @@ const App = props => {
 						setUser(userData);
 						setLoggedIn(true);
 					}
-				}
-			).catch(
+				},
 				() => {
 					return;
 				}
@@ -95,9 +84,11 @@ const App = props => {
 	};
 
 	const logIn = () => {
-		const promise = buildPromise();
-
-		promise.then(
+		apiCall(
+			{
+				endpoint: `/users/get`,
+				type: `GET`
+			},
 			data => {
 				if (data.status !== 200) {
 					console.error(JSON.parse(data.response).warning);
@@ -108,8 +99,7 @@ const App = props => {
 
 				setUser(userData);
 				setLoggedIn(true);
-			}
-		).catch(
+			},
 			reason => {
 				console.error(reason.warning);
 			}
