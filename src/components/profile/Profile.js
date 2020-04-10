@@ -99,7 +99,7 @@ const Profile = props => {
 
 				setUpdatedBags(false);
 			},
-			reason => {
+			() => {
 				setShowError(true);
 			}
 		);

@@ -40,4 +40,4 @@ export default async function apiCall(request, success, failure) {
 	const promise = buildPromise(request.endpoint, request.type, request.body);
 
 	promise.then(success).catch(failure);
-};
+}

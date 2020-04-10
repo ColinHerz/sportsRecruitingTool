@@ -41,9 +41,7 @@ const ViewBag = props => {
 
 					setBag(JSON.parse(data.response));
 				},
-				reason => {
-					setShowError(true);
-				}
+				apiError
 			);
 
 			setUpdateBag(false);
@@ -68,17 +66,8 @@ const ViewBag = props => {
 					clubType: clubType
 				}
 			},
-			data => {
-				if (data.status !== 200) {
-					setShowError(true);
-					return;
-				}
-
-				setUpdateBag(true);
-			},
-			reason => {
-				setShowError(true);
-			}
+			apiSuccess,
+			apiError
 		);
 
 		setAddClub(false);
@@ -105,19 +94,23 @@ const ViewBag = props => {
 					golfBag: bid
 				}
 			},
-			data => {
-				if (data.status !== 200) {
-					setShowError(true);
-					return;
-				}
-
-				setUpdateBag(true);
-			},
-			reason => {
-				setShowError(true);
-			}
+			apiSuccess,
+			apiError
 		);
 	};
+
+	const apiSuccess = data => {
+		if (data.status !== 200) {
+			setShowError(true);
+			return;
+		}
+
+		setUpdateBag(true);
+	}
+
+	const apiError = () => {
+		setShowError(true);
+	}
 
 	const cancelAddClub = event => {
 		event.preventDefault();
