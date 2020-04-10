@@ -191,7 +191,7 @@ const ViewBag = props => {
 
 						return (
 							<li key={club._id} id={club._id}>
-								<p>{club.clubName}: {typeName}</p>
+								<p>{club.clubName} <span className="gray-type">{typeName}</span></p>
 								<button onClick={handleDeleteClub}>Delete</button>
 							</li>
 						);
