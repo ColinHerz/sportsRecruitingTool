@@ -87,11 +87,12 @@
         properties:
           bagname:
             type: string
-            unique: False
-            trim: True
+            unique: false
+            trim: true
           golfClub:
             type: array
-            $ref:  '#/compenents/schemas/GolfClub'
+            items:
+              $ref: '#/components/schemas/GolfClub'
 
       GolfClub:
         type: object
@@ -100,22 +101,50 @@
             type: number
           clubName:
             type: string
-            trim: True
-            unique: False
+            trim: true
+            unique: false
         example:
           clubType: 3
           clubName: wood
 
-      GolfCourseSchema:
+      GolfCourse:
         type: object
         required:
-        - courseName
+          - courseName
         properties:
           courseName:
             type: string
             unique: True
         example:
           courseName: Twin Rivers
+
+      GolfSubScore:
+        type: object
+        required:
+          - score
+        properties:
+          score:
+            type: number
+          greenInRegulation:
+            type: boolean
+          fairwayHit:
+            type: boolean
+          numberOfPutts:
+            type: number
+          clubsUsed:
+            type: array
+            items:
+              $ref: '#/components/schemas/GolfClub'
+        example:
+          score: 4
+          greenInRegulation: true
+          fairwayHit: true
+          numberOfPutts: 2
+
+          
+          
+        
+
 
       
 
