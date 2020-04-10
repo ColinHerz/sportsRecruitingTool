@@ -199,13 +199,6 @@ const ViewBag = props => {
 				}
 			</ul>
 
-			<button
-				onClick={handleAddClubClick}
-				id="add-club-btn"
-			>
-				Add Club
-			</button>
-
 			{
 				addClub ?
 					<div id="add-club-div">
@@ -239,6 +232,13 @@ const ViewBag = props => {
 					</div>:
 					null
 			}
+
+			<button
+				onClick={handleAddClubClick}
+				id="add-club-btn"
+			>
+				Add Club
+			</button>
 		</main>
 	);
 };

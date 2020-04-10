@@ -135,13 +135,6 @@ const Profile = props => {
 					})
 				}
 
-				<button
-					id="add-bag"
-					onClick={showAddingBag}
-				>
-					Add Bag
-				</button>
-
 				{
 					addingBag ?
 						<div id="adding-bag-dialogue">
@@ -160,6 +153,13 @@ const Profile = props => {
 						</div>:
 						null
 				}
+
+				<button
+					id="add-bag"
+					onClick={showAddingBag}
+				>
+					Add Bag
+				</button>
 			</section>
 		</main>
 	);
