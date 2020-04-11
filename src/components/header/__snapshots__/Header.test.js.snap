@@ -31,7 +31,7 @@ exports[`Rendering renders correctly when logged in 1`] = `
     </a>
     <a
       aria-current={null}
-      href="/profile/garbage/"
+      href="/profile/"
       onClick={[Function]}
     >
       My Profile
