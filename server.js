@@ -14,11 +14,7 @@ app.use(compression());
 app.use(cookieParser());
 
 const URI =
-  'mongodb+srv://' +
-  process.env.DB_USER +
-  ':' +
-  process.env.DB_PASS +
-  '@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority';
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority`;
 
 // Connect to MongoDB Atlas
 mongoose

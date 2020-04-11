@@ -40,6 +40,14 @@ const Profile = props => {
 		}
 	}, [updatedBags]);
 
+	const [firstLoad, setFirstLoad] = useState(true);
+	useEffect(() => {
+		if (firstLoad) {
+			userInfo();
+			setFirstLoad(false);
+		}
+	}, [firstLoad]);
+
 	const showAddingBag = event => {
 		event.preventDefault();
 
@@ -79,6 +87,26 @@ const Profile = props => {
 		);
 	};
 
+	const [userData, setUserData] = useState({});
+	const userInfo = () => {
+
+		apiCall(
+			{
+				endpoint: `/users/detail/get`,
+				type: `GET`,
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+				setUserData(JSON.parse(data.response));
+			},
+			() => {
+				setShowError(true);
+			}
+		)
+	}
 	const deleteBag = event => {
 		event.preventDefault();
 
@@ -111,6 +139,7 @@ const Profile = props => {
 		setNewBagName(event.target.value);
 	};
 
+	
 	return (
 		<main id="profile">
 			{
@@ -123,11 +152,11 @@ const Profile = props => {
 				<h2>{`${props.user.firstname} ${props.user.lastname}`}</h2>
 				<p>{`${props.user.email}`}</p>
 			</section>
-
+			
 			<section id="personal-info">
-				<p><span>Height:</span> 5&apos; 10&quot;</p>
-				<p><span>Weight:</span> 140 lbs</p>
-				<p><span>Age:</span> 21</p>
+				<p><span>Height:</span> {`${userData.height}`}</p>
+				<p><span>Weight:</span>{`${userData.weight}`} lbs</p>
+				<p><span>Age:</span>{`${userData.age}`}</p>
 			</section>
 
 			<section id="bags">
