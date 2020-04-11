@@ -1,24 +1,9 @@
+import apiCall from "../../api/api.js";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import "./loginModal.scss";
-
-const SUBMIT_INFO_URL = `${window.location.host}/api/users/`;
-const SUBMIT_INFO_REGISTERING = `register`;
-const SUBMIT_INFO_LOGIN = `login`;
-
-const buildPromise = (url, body) => {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-
-		request.open(`POST`, url);
-		request.setRequestHeader(`Content-type`, `application/json`);
-		request.onload = () => resolve(request);
-		request.onerror = () => reject(request);
-		request.send(JSON.stringify(body));
-	});
-};
 
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
@@ -52,36 +37,37 @@ const LoginModal = props => {
 	const onSubmit = info => {
 		setIsError(false);
 
-		const promise = buildPromise(buildURL(), info);
-
-		promise.then(
+		apiCall(
+			{
+				endpoint: `/users/${getEndpoint()}`,
+				type: `POST`,
+				body: info
+			},
 			data => {
-				// purposefully loose matching
-				if (data.warning != undefined) {
+				if (data.status !== 200) {
+					console.error(data);
 					setIsError(true);
-					setErrorText(data.warning);
+					setErrorText(JSON.parse(data.response).warning);
 					return;
 				}
 
-				props.logIn({});
+				props.logIn();
 				props.closeModal();
-			}
-		).catch(
+			},
 			reason => {
+				console.error(reason);
 				setIsError(true);
 				setErrorText(reason.warning);
 			}
 		);
 	};
 
-	const buildURL = () => {
-		let url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
-
+	const getEndpoint = () => {
 		if (isRegistering) {
-			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_REGISTERING}`;
+			return `register`;
 		}
 
-		return url;
+		return `login`;
 	};
 
 	return (

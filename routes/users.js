@@ -152,7 +152,7 @@ exports.getUserVerify = async (req, res) => {
                 foundUser.isVerified = true;
                 foundUser
                     .save()
-                    .then(res.redirect(process.env.BASE_URL))
+                    .then(res.status(200).json({ success: true }))
                     .catch(err => res.status(400).json("Error " + err));
             }
             else {

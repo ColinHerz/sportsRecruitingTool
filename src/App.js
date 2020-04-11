@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import apiCall from "./api/api.js";
+import React, { useState, useEffect } from "react";
 import {
 	BrowserRouter as Router,
+	Redirect,
 	Route,
 	Switch
 } from "react-router-dom";
@@ -15,9 +17,26 @@ import MyEvents from "./components/myEvents/MyEvents.js";
 import NoMatch from "./components/noMatch/NoMatch.js";
 import Profile from "./components/profile/Profile.js";
 import TopScores from "./components/topScores/TopScores.js";
+import Verify from "./components/verify/Verify.js";
+import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
 
 import "./reset.scss";
+
+const fixCapitalization = user => {
+	const newUser = Object.assign({}, user);
+
+	let firstname = newUser.firstname;
+	firstname = firstname.charAt(0).toUpperCase() + firstname.slice(1);
+
+	let lastname = newUser.lastname;
+	lastname = lastname.charAt(0).toUpperCase() + lastname.slice(1);
+
+	newUser.firstname = firstname;
+	newUser.lastname = lastname;
+
+	return newUser;
+};
 
 const App = props => {
 	const [showModal, setShowModal] = useState(false);
@@ -25,6 +44,31 @@ const App = props => {
 
 	const [user, setUser] = useState({});
 	const [loggedIn, setLoggedIn] = useState(false);
+	const [initialLoad, setInitialLoad] = useState(true);
+
+	useEffect(() => {
+		if (initialLoad && !loggedIn) {
+			apiCall(
+				{
+					endpoint: `/users/get`,
+					type: `GET`
+				},
+				data => {
+					if (data.status === 200) {
+						const userData = fixCapitalization(JSON.parse(data.response));
+
+						setUser(userData);
+						setLoggedIn(true);
+					}
+				},
+				() => {
+					return;
+				}
+			);
+
+			setInitialLoad(false);
+		}
+	}, [initialLoad, loggedIn]);
 
 	const loggingIn = event => {
 		event.preventDefault();
@@ -40,9 +84,27 @@ const App = props => {
 		setClickedRegister(true);
 	};
 
-	const logIn = user => {
-		setLoggedIn(true);
-		setUser(user);
+	const logIn = () => {
+		apiCall(
+			{
+				endpoint: `/users/get`,
+				type: `GET`
+			},
+			data => {
+				if (data.status !== 200) {
+					console.error(JSON.parse(data.response).warning);
+					return;
+				}
+
+				const userData = fixCapitalization(JSON.parse(data.response));
+
+				setUser(userData);
+				setLoggedIn(true);
+			},
+			reason => {
+				console.error(reason.warning);
+			}
+		);
 	};
 
 	const logOut = event => {
@@ -85,15 +147,24 @@ const App = props => {
 				</Route>
 
 				<Route path="/MyEvents/create/">
-					<CreateEvent
-						user={user}
-					/>
+					{
+						loggedIn ?
+							<CreateEvent
+								user={user}
+							/>:
+							<Redirect to="/" />
+
+					}
 				</Route>
 
 				<Route path="/event/edit/:eid/">
-					<EditEvent
-						user={user}
-					/>
+					{
+						loggedIn ?
+							<EditEvent
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/event/:eid/">
@@ -102,16 +173,38 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/profile/:uid/">
-					<Profile
-						user={user}
-					/>
+				<Route path="/profile/bag/:bid/">
+					{
+						loggedIn ?
+							<ViewBag
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/verify/:token">
+					<Verify />
+				</Route>
+
+				<Route path="/profile/">
+					{
+						loggedIn ?
+							<Profile
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/MyEvents/">
-					<MyEvents
-						user={user}
-					/>
+					{
+						loggedIn ?
+							<MyEvents
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/TopScores/">
