@@ -184,3 +184,16 @@ exports.getUser = async (req, res) => {
         }).catch(err => res.status(500).json("Error" + err));
     });
 }
+
+exports.getUserLogout = async (req, res) => {
+	const authToken = req.cookies.session;
+
+    if (authToken)
+    {
+        return res.clearCookie('session').json({success: true});
+    }
+    else
+    {
+        return res.status(200).json({success: true});
+    }
+}
