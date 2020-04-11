@@ -11,7 +11,7 @@ const userSportsGolfSchema = new Schema({
     datePlayed: Date,
     golfMatch: [GolfSubScore.schema],
     coursePlayed: GolfCourse.schema,
-    GolfBagUsed: GolfBag.schema
+    GolfBagUsed: Schema.Types.ObjectId
     // Other details can go here
 });
 
