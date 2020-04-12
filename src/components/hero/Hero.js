@@ -13,8 +13,8 @@ const Hero = props => {
 				<p>You can view...</p>
 
 				<ul>
-					<li><Link to="/myevents/garbage/">Events</Link></li>
-					<li><Link to="/profile/garbage/">Your Profile</Link></li>
+					<li><Link to="/events/">Events</Link></li>
+					<li><Link to="/profile/">Your Profile</Link></li>
 				</ul>
 			</main>
 		);

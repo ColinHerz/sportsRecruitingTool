@@ -158,7 +158,17 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/MyEvents/create/">
+				<Route path="/events/edit/:eid/">
+					{
+						loggedIn ?
+							<EditEvent
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/events/create/">
 					{
 						loggedIn ?
 							<CreateEvent
@@ -169,17 +179,7 @@ const App = props => {
 					}
 				</Route>
 
-				<Route path="/event/edit/:eid/">
-					{
-						loggedIn ?
-							<EditEvent
-								user={user}
-							/>:
-							<Redirect to="/" />
-					}
-				</Route>
-
-				<Route path="/event/:eid/">
+				<Route path="/events/:eid/">
 					<ViewEvent
 						user={user}
 					/>
@@ -209,7 +209,7 @@ const App = props => {
 					}
 				</Route>
 
-				<Route path="/MyEvents/">
+				<Route path="/events/">
 					{
 						loggedIn ?
 							<MyEvents
