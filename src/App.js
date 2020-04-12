@@ -112,6 +112,19 @@ const App = props => {
 
 		setUser({});
 		setLoggedIn(false);
+
+		apiCall(
+			{
+				endpoint: `/users/logout`,
+				type: `GET`
+			},
+			() => {
+				return;
+			},
+			() => {
+				return;
+			}
+		);
 	};
 
 	const closeModal = () => {
