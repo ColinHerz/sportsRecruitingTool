@@ -37,37 +37,52 @@ const LoginModal = props => {
 	const onSubmit = info => {
 		setIsError(false);
 
-		apiCall(
-			{
-				endpoint: `/users/${getEndpoint()}`,
-				type: `POST`,
-				body: info
-			},
-			data => {
-				if (data.status !== 200) {
-					console.error(data);
-					setIsError(true);
-					setErrorText(JSON.parse(data.response).warning);
-					return;
-				}
-
-				props.logIn();
-				props.closeModal();
-			},
-			reason => {
-				console.error(reason);
-				setIsError(true);
-				setErrorText(reason.warning);
-			}
-		);
+		if (isRegistering) {
+			apiCall(
+				{
+					endpoint: `/users/register`,
+					type: `POST`,
+					body: info
+				},
+				data => {
+					if (isValid(data)) {
+						props.closeModal();
+					}
+					else {
+						handleError(JSON.parse(data.response));
+					}
+				},
+				handleError
+			);
+		}
+		else {
+			apiCall(
+				{
+					endpoint: `/users/login`,
+					type: `POST`,
+					body: info
+				},
+				data => {
+					if (isValid(data)) {
+						props.logIn();
+						props.closeModal();
+					}
+					else {
+						handleError(JSON.parse(data.response));
+					}
+				},
+				handleError
+			);
+		}
 	};
 
-	const getEndpoint = () => {
-		if (isRegistering) {
-			return `register`;
-		}
+	const isValid = data => {
+		return data.status === 200
+	};
 
-		return `login`;
+	const handleError = reason => {
+		setIsError(true);
+		setErrorText(reason.warning);
 	};
 
 	return (

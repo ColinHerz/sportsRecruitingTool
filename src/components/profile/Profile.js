@@ -40,6 +40,14 @@ const Profile = props => {
 		}
 	}, [updatedBags]);
 
+	const [firstLoad, setFirstLoad] = useState(true);
+	useEffect(() => {
+		if (firstLoad) {
+			userInfo();
+			setFirstLoad(false);
+		}
+	}, [firstLoad]);
+
 	const showAddingBag = event => {
 		event.preventDefault();
 
@@ -79,6 +87,79 @@ const Profile = props => {
 		);
 	};
 
+	const [userData, setUserData] = useState({});
+	const userInfo = () => {
+
+		apiCall(
+			{
+				endpoint: `/users/detail/get`,
+				type: `GET`,
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+				setUserData(JSON.parse(data.response));
+			},
+			() => {
+				setShowError(true);
+			}
+		)
+	}
+	const updateAge = event => {
+		event.preventDefault();
+		const data = Object.assign({},updateUserData);
+		data.age = parseInt(event.target.value);
+		if (isNaN(data.age))
+			return;
+		setupdatedUserData(data);
+	};
+
+	const updateWeight = event => {
+		event.preventDefault();
+		const data = Object.assign({},updateUserData);
+		data.weight = parseInt(event.target.value);
+		if (isNaN(data.weight))
+			return;
+		setupdatedUserData(data);
+	};
+
+	const updateHeight = event => {
+		event.preventDefault();
+		const data = Object.assign({},updateUserData);
+		data.height = parseInt(event.target.value);
+		if (isNaN(data.height))
+			return;
+		setupdatedUserData(data);
+	};
+
+	const [updateUserData, setupdatedUserData] = useState({});
+	const [updatedInfo, setUpdatedInfo] = useState(false);
+
+	const updateUserInfo = () => {
+
+		apiCall(
+			{
+				endpoint: `/users/detail/update`,
+				type: `POST`,
+				body: updateUserData
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					console.log(data);
+					return;
+				}
+				setFirstLoad(true);
+				
+			},
+			param => {
+				console.log(param);
+				setShowError(true);
+			}
+		)
+	}
 	const deleteBag = event => {
 		event.preventDefault();
 
@@ -104,13 +185,21 @@ const Profile = props => {
 			}
 		);
 	};
-
+	const cancelUpdateInfo = event => {
+		event.preventDefault();
+		setUpdatedInfo(false);
+	}
+	const showEditProfile = event => {
+		event.preventDefault();
+		setUpdatedInfo(true);
+	}
 	const handleBagNameChange = event => {
 		event.preventDefault();
 
 		setNewBagName(event.target.value);
 	};
 
+	
 	return (
 		<main id="profile">
 			{
@@ -123,11 +212,47 @@ const Profile = props => {
 				<h2>{`${props.user.firstname} ${props.user.lastname}`}</h2>
 				<p>{`${props.user.email}`}</p>
 			</section>
-
+			
 			<section id="personal-info">
-				<p><span>Height:</span> 5&apos; 10&quot;</p>
-				<p><span>Weight:</span> 140 lbs</p>
-				<p><span>Age:</span> 21</p>
+				<p><span>Height: </span> {`${userData.height}`}</p>
+				<p><span>Weight: </span>{`${userData.weight}`} lbs</p>
+				<p><span>Age: </span>{`${userData.age}`}</p>
+				<div><button onClick={showEditProfile}>Edit Profile</button></div>
+				{	updatedInfo ?
+					<div className="info">
+					<label className="userDetails">
+						Height:
+						<input
+							type="text"
+							value={updateUserData.height}
+							onChange={updateHeight}
+						/>
+					</label>
+					<br/>
+					<label className="userDetails">
+						Weight:
+						<input
+							type="text"
+							value={updateUserData.weight}
+							onChange={updateWeight}
+						/>
+					</label>
+					<br/>
+					<label className="userDetails">
+						Age:
+						<input
+							type="text"
+							value={updateUserData.age}
+							onChange={updateAge}
+						/>
+					</label>
+					<br/>
+
+					<button onClick={updateUserInfo}>Change</button>
+					<button onClick={cancelUpdateInfo}>Cancel</button>
+				</div>:
+				null
+				}
 			</section>
 
 			<section id="bags">
@@ -150,7 +275,7 @@ const Profile = props => {
 						})
 					}
 				</ul>
-
+				
 				{
 					addingBag ?
 						<div id="adding-bag-dialogue">
