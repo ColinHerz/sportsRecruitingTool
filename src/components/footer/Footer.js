@@ -21,7 +21,6 @@ const Footer = props => {
 
 						<ul>
 							<li><Link to="/myevents/garbage/">Events</Link></li>
-							<li><Link to="/scores/">Top Scores</Link></li>
 							<li><Link to="/profile/garbage/">My Profile</Link></li>
 							<li><button onClick={props.logOut}>Log Out</button></li>
 						</ul>

@@ -14,7 +14,6 @@ const Hero = props => {
 
 				<ul>
 					<li><Link to="/myevents/garbage/">Events</Link></li>
-					<li><Link to="/scores/">Top Scores</Link></li>
 					<li><Link to="/profile/garbage/">Your Profile</Link></li>
 				</ul>
 			</main>

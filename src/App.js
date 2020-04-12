@@ -16,7 +16,6 @@ import LoginModal from "./components/loginModal/LoginModal.js";
 import MyEvents from "./components/myEvents/MyEvents.js";
 import NoMatch from "./components/noMatch/NoMatch.js";
 import Profile from "./components/profile/Profile.js";
-import TopScores from "./components/topScores/TopScores.js";
 import Verify from "./components/verify/Verify.js";
 import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
@@ -218,10 +217,6 @@ const App = props => {
 							/>:
 							<Redirect to="/" />
 					}
-				</Route>
-
-				<Route path="/TopScores/">
-					<TopScores />
 				</Route>
 
 				<Route>

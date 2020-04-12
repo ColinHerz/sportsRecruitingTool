@@ -15,8 +15,6 @@ const Header = props => {
 					<nav>
 						<NavLink to="/myevents/garbage/">Events</NavLink>
 
-						<NavLink to="/scores/">Top Scores</NavLink>
-
 						<NavLink to="/profile/">My Profile</NavLink>
 
 						<button onClick={props.logOut}>Log Out</button>
