@@ -35,7 +35,7 @@ app.post('/api/users/login', routes.postUserLogin);
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
-app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
+app.post('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
 app.get('/api/users/logout', routes.getUserLogout);
 // User detail subdoc get and update
 app.post('/api/users/detail/update', routes.postUserDetails);

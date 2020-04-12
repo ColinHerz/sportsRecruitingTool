@@ -17,6 +17,8 @@ const Profile = props => {
 	const [newUserData, setNewUserData] = useState({});
 	const [updatingUserData, setUpdatingUserData] = useState(false);
 
+	const [verificationSent, setVerificationSent] = useState(false);
+
 	const [showError, setShowError] = useState(false);
 
 	useEffect(() => {
@@ -150,7 +152,7 @@ const Profile = props => {
 			() => {
 				setShowError(true);
 			}
-		)
+		);
 	};
 
 	const sendUserData = () => {
@@ -171,7 +173,32 @@ const Profile = props => {
 			() => {
 				setShowError(true);
 			}
-		)
+		);
+	};
+
+	const resendVerification = event => {
+		event.preventDefault();
+
+		apiCall(
+			{
+				endpoint: `/emails/resendVerificationEmail`,
+				type: `POST`,
+				body: {
+					recieverEmail: props.user.email
+				}
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+
+				setVerificationSent(true);
+			},
+			() => {
+				setShowError(true);
+			}
+		);
 	};
 
 	// Info handling and transformation functions
@@ -256,14 +283,27 @@ const Profile = props => {
 
 			<section id="login-info">
 				<h2>{`${props.user.firstname} ${props.user.lastname}`}</h2>
-				<p>{`${props.user.email}`}</p>
+
+				<p>{`${props.user.email}`}{
+					props.user.isVerified ?
+						<span id="verified"> Verified</span>:
+						<span id="not-verified"> Not Verified</span>
+				}</p>
+
+				<button onClick={resendVerification}>Click to resend verification email.</button>
+
+				{
+					verificationSent ?
+						<p id="email-confirmation">Email sent.</p>:
+						null
+				}
 			</section>
 
 			<section id="personal-info">
 				<ul>
-					<li>Age: {userData.age}</li>
-					<li>Height: {userData.height}{userData.height !== `` ? `&quot;`:null}</li>
-					<li>Weight: {userData.weight}{userData.weight !== `` ? `lbs`:null}</li>
+					<li><span>Age: </span>{userData.age}</li>
+					<li><span>Height: </span>{userData.height}{userData.height !== `` ? `"`:null}</li>
+					<li><span>Weight: </span>{userData.weight}{userData.weight !== `` ? ` lbs`:null}</li>
 				</ul>
 
 				<button id="edit-info" onClick={showEditProfile}>Edit Profile</button>

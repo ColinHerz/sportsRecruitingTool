@@ -35,25 +35,66 @@
 		margin-bottom: 1em;
 	}
 
+	ul {
+		list-style-type: none;
+		list-style-position: outside;
+		padding: 0;
+	}
+
 	#error-message {
 		color: $error;
 		font-size: 28px;
 	}
 
 	#login-info {
+		font-size: 22px;
+		color: $gray;
+
+		h2 {
+			color: $black;
+		}
+
 		p {
 			margin-top: -14px;
-			font-size: 22px;
-			color: $gray;
+			font-weight: 400;
 		}
+
+		span {
+			font-weight: 400;
+		}
+
+		#email-confirmation {
+			margin-top: 0;
+		}
+
+		button {
+			border: none;
+			background: none;
+
+			padding: 0;
+
+			color: inherit;
+			font-family: inherit;
+			font-size: inherit;
+			font-weight: inherit;
+			text-decoration: underline;
+		}
+	}
+
+	#verified {
+		color: $light-green;
+	}
+
+	#not-verified {
+		color: $light-error;
 	}
 
 	#personal-info {
 		font-size: 26px;
-	}
 
-	.stats {
-		font-size: 24px;
+		span {
+			font-weight: 600;
+		}
 	}
 
 	#past-events {
@@ -115,7 +156,7 @@
 
 	#edit-info {
 		padding-top: .1em;
-		font-size: 26px;
+		font-size: 22px;
 		font-weight: 600;
 		color: $black;
 		background-color: $orange;
@@ -134,7 +175,7 @@
 			background-color: $orange;
 			border: 2px solid $orange;
 			border-radius: 4px;
-			font-size: 18px;
+			font-size: 20px;
 			font-weight: 400;
 
 			&:last-child {
@@ -149,6 +190,7 @@
 		margin: 0.5em 0;
 		display:inline-block;
 		width: 450px;
+		font-size: 26px;
 
 		input {
 			border: 1px solid $black;
