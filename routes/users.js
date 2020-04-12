@@ -178,7 +178,8 @@ exports.getUser = async (req, res) => {
                     {
                         "firstname": foundUser.firstname,
                         "lastname": foundUser.lastname,
-                        "email": foundUser.email
+                        "email": foundUser.email,
+                        "isVerified": foundUser.isVerified
                     });
             }
         }).catch(err => res.status(500).json("Error" + err));
