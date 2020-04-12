@@ -10,12 +10,17 @@ const Profile = props => {
 	const [newBagName, setNewBagName] = useState(``);
 
 	const [bags, setBags] = useState([]);
-	const [updatedBags, setUpdatedBags] = useState(false);
+	const [updateBags, setUpdateBags] = useState(false);
+
+	const [updateUser, setUpdateUser] = useState(true);
+	const [userData, setUserData] = useState({});
+	const [newUserData, setNewUserData] = useState({});
+	const [updatingUserData, setUpdatingUserData] = useState(false);
 
 	const [showError, setShowError] = useState(false);
 
 	useEffect(() => {
-		if (!updatedBags) {
+		if (updateBags) {
 			apiCall(
 				{
 					endpoint: `/golf/getAllGolfBags`,
@@ -36,30 +41,18 @@ const Profile = props => {
 				}
 			);
 
-			setUpdatedBags(true);
+			setUpdateBags(false);
 		}
-	}, [updatedBags]);
+	}, [updateBags]);
 
-	const [firstLoad, setFirstLoad] = useState(true);
 	useEffect(() => {
-		if (firstLoad) {
+		if (updateUser) {
 			userInfo();
-			setFirstLoad(false);
+			setUpdateUser(false);
 		}
-	}, [firstLoad]);
+	}, [updateUser]);
 
-	const showAddingBag = event => {
-		event.preventDefault();
-
-		setAddingBag(true);
-	};
-
-	const cancelAddBag = event => {
-		event.preventDefault();
-
-		setNewBagName(``);
-		setAddingBag(false);
-	};
+	// API call methods
 
 	const addBag = event => {
 		event.preventDefault();
@@ -79,7 +72,7 @@ const Profile = props => {
 
 				setNewBagName(``);
 				setAddingBag(false);
-				setUpdatedBags(false);
+				setUpdateBags(true);
 			},
 			() => {
 				setShowError(true);
@@ -87,79 +80,6 @@ const Profile = props => {
 		);
 	};
 
-	const [userData, setUserData] = useState({});
-	const userInfo = () => {
-
-		apiCall(
-			{
-				endpoint: `/users/detail/get`,
-				type: `GET`,
-			},
-			data => {
-				if (data.status !== 200) {
-					setShowError(true);
-					return;
-				}
-				setUserData(JSON.parse(data.response));
-			},
-			() => {
-				setShowError(true);
-			}
-		)
-	}
-	const updateAge = event => {
-		event.preventDefault();
-		const data = Object.assign({},updateUserData);
-		data.age = parseInt(event.target.value);
-		if (isNaN(data.age))
-			return;
-		setupdatedUserData(data);
-	};
-
-	const updateWeight = event => {
-		event.preventDefault();
-		const data = Object.assign({},updateUserData);
-		data.weight = parseInt(event.target.value);
-		if (isNaN(data.weight))
-			return;
-		setupdatedUserData(data);
-	};
-
-	const updateHeight = event => {
-		event.preventDefault();
-		const data = Object.assign({},updateUserData);
-		data.height = parseInt(event.target.value);
-		if (isNaN(data.height))
-			return;
-		setupdatedUserData(data);
-	};
-
-	const [updateUserData, setupdatedUserData] = useState({});
-	const [updatedInfo, setUpdatedInfo] = useState(false);
-
-	const updateUserInfo = () => {
-
-		apiCall(
-			{
-				endpoint: `/users/detail/update`,
-				type: `POST`,
-				body: updateUserData
-			},
-			data => {
-				if (data.status !== 200) {
-					setShowError(true);
-					console.log(data);
-					return;
-				}
-				setFirstLoad(true);
-				
-			},
-			param => {
-				console.log(param);
-				setShowError(true);
-			}
-		)
-	}
 	const deleteBag = event => {
 		event.preventDefault();
 
@@ -178,28 +98,126 @@ const Profile = props => {
 					setShowError(true);
 				}
 
-				setUpdatedBags(false);
+				setUpdateBags(true);
 			},
 			() => {
 				setShowError(true);
 			}
 		);
 	};
-	const cancelUpdateInfo = event => {
-		event.preventDefault();
-		setUpdatedInfo(false);
-	}
+
+	const userInfo = () => {
+		apiCall(
+			{
+				endpoint: `/users/detail/get`,
+				type: `GET`,
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+				setUserData(JSON.parse(data.response));
+			},
+			() => {
+				setShowError(true);
+			}
+		)
+	};
+
+	const sendUserData = () => {
+		apiCall(
+			{
+				endpoint: `/users/detail/update`,
+				type: `POST`,
+				body: newUserData
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+
+				setUpdateUser(true);
+			},
+			() => {
+				setShowError(true);
+			}
+		)
+	};
+
+	// Info handling and transformation functions
+
 	const showEditProfile = event => {
 		event.preventDefault();
-		setUpdatedInfo(true);
-	}
+
+		setUpdatingUserData(true);
+	};
+
+	const updateAge = event => {
+		event.preventDefault();
+
+		const data = Object.assign({},newUserData);
+		data.age = parseInt(event.target.value);
+
+		if (isNaN(data.age)) {
+			return;
+		}
+
+		setNewUserData(data);
+	};
+
+	const updateWeight = event => {
+		event.preventDefault();
+
+		const data = Object.assign({},newUserData);
+		data.weight = parseInt(event.target.value);
+
+		if (isNaN(data.weight)) {
+			return;
+		}
+
+		setNewUserData(data);
+	};
+
+	const updateHeight = event => {
+		event.preventDefault();
+
+		const data = Object.assign({},newUserData);
+		data.height = parseInt(event.target.value);
+
+		if (isNaN(data.height)) {
+			return;
+		}
+
+		setNewUserData(data);
+	};
+
+	const cancelUpdateInfo = event => {
+		event.preventDefault();
+
+		setUpdatingUserData(false);
+	};
+
+	const showAddingBag = event => {
+		event.preventDefault();
+
+		setAddingBag(true);
+	};
+
+	const cancelAddBag = event => {
+		event.preventDefault();
+
+		setNewBagName(``);
+		setAddingBag(false);
+	};
+
 	const handleBagNameChange = event => {
 		event.preventDefault();
 
 		setNewBagName(event.target.value);
 	};
 
-	
 	return (
 		<main id="profile">
 			{
@@ -212,46 +230,46 @@ const Profile = props => {
 				<h2>{`${props.user.firstname} ${props.user.lastname}`}</h2>
 				<p>{`${props.user.email}`}</p>
 			</section>
-			
+
 			<section id="personal-info">
 				<p><span>Height: </span> {`${userData.height}`}</p>
 				<p><span>Weight: </span>{`${userData.weight}`} lbs</p>
 				<p><span>Age: </span>{`${userData.age}`}</p>
 				<div><button onClick={showEditProfile}>Edit Profile</button></div>
-				{	updatedInfo ?
-					<div className="info">
-					<label className="userDetails">
-						Height:
-						<input
-							type="text"
-							value={updateUserData.height}
-							onChange={updateHeight}
-						/>
-					</label>
-					<br/>
-					<label className="userDetails">
-						Weight:
-						<input
-							type="text"
-							value={updateUserData.weight}
-							onChange={updateWeight}
-						/>
-					</label>
-					<br/>
-					<label className="userDetails">
-						Age:
-						<input
-							type="text"
-							value={updateUserData.age}
-							onChange={updateAge}
-						/>
-					</label>
-					<br/>
+				{
+					updatingUserData ?
+						<div className="info">
+							<label className="userDetails">
+								Height:
+								<input
+									type="text"
+									value={newUserData.height}
+									onChange={updateHeight}
+								/>
+							</label>
 
-					<button onClick={updateUserInfo}>Change</button>
-					<button onClick={cancelUpdateInfo}>Cancel</button>
-				</div>:
-				null
+							<label className="userDetails">
+								Weight:
+								<input
+									type="text"
+									value={newUserData.weight}
+									onChange={updateWeight}
+								/>
+							</label>
+
+							<label className="userDetails">
+								Age:
+								<input
+									type="text"
+									value={newUserData.age}
+									onChange={updateAge}
+								/>
+							</label>
+
+							<button onClick={sendUserData}>Change</button>
+							<button onClick={cancelUpdateInfo}>Cancel</button>
+						</div>:
+						null
 				}
 			</section>
 
@@ -275,7 +293,7 @@ const Profile = props => {
 						})
 					}
 				</ul>
-				
+
 				{
 					addingBag ?
 						<div id="adding-bag-dialogue">
