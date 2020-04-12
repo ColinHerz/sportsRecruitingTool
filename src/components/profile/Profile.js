@@ -117,7 +117,35 @@ const Profile = props => {
 					setShowError(true);
 					return;
 				}
-				setUserData(JSON.parse(data.response));
+
+				const response = data.response;
+				let userData;
+
+				if (response === ``) {
+					userData = {
+						age: ``,
+						height: ``,
+						weight: ``
+					};
+				}
+				else {
+					userData = JSON.parse(data.response);
+
+					if (userData.age === undefined) {
+						userData.age = ``;
+					}
+
+					if (userData.height === undefined) {
+						userData.age = ``;
+					}
+
+					if (userData.weight === undefined) {
+						userData.age = ``;
+					}
+				}
+
+				setUserData(userData);
+				setNewUserData(userData);
 			},
 			() => {
 				setShowError(true);
@@ -232,15 +260,19 @@ const Profile = props => {
 			</section>
 
 			<section id="personal-info">
-				<p><span>Height: </span> {`${userData.height}`}</p>
-				<p><span>Weight: </span>{`${userData.weight}`} lbs</p>
-				<p><span>Age: </span>{`${userData.age}`}</p>
-				<div><button onClick={showEditProfile}>Edit Profile</button></div>
+				<ul>
+					<li>Age: {userData.age}</li>
+					<li>Height: {userData.height}{userData.height !== `` ? `&quot;`:null}</li>
+					<li>Weight: {userData.weight}{userData.weight !== `` ? `lbs`:null}</li>
+				</ul>
+
+				<button id="edit-info" onClick={showEditProfile}>Edit Profile</button>
+
 				{
 					updatingUserData ?
-						<div className="info">
+						<div id="updated-info">
 							<label className="userDetails">
-								Height:
+								Height (inches):
 								<input
 									type="text"
 									value={newUserData.height}
@@ -249,7 +281,7 @@ const Profile = props => {
 							</label>
 
 							<label className="userDetails">
-								Weight:
+								Weight (pounds):
 								<input
 									type="text"
 									value={newUserData.weight}
@@ -258,7 +290,7 @@ const Profile = props => {
 							</label>
 
 							<label className="userDetails">
-								Age:
+								Age (years):
 								<input
 									type="text"
 									value={newUserData.age}
@@ -266,8 +298,10 @@ const Profile = props => {
 								/>
 							</label>
 
-							<button onClick={sendUserData}>Change</button>
-							<button onClick={cancelUpdateInfo}>Cancel</button>
+							<div>
+								<button onClick={sendUserData}>Change</button>
+								<button onClick={cancelUpdateInfo}>Cancel</button>
+							</div>
 						</div>:
 						null
 				}
