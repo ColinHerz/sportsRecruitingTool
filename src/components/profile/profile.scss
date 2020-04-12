@@ -112,4 +112,43 @@
 
 		margin: 0.5em 0;
 	}
+
+	#personal-info {
+		div {
+			padding-top: .1em;
+			button {
+				font-size: 26px;
+				font-weight: 600;
+				color: $black;
+				background-color: $orange;
+				border: 2px solid $orange;
+				border-radius: 4px;
+			}
+		}
+		.info button {
+			color: $black;
+			background-color: $orange;
+			border: 2px solid $orange;
+			border-radius: 4px;
+			font-size: 18px;
+			font-weight: 400;
+		}
+		.info button:last-child {
+			margin-left: .5em;
+		}
+	}
+
+	.userDetails {
+    	clear: both;
+		margin-right: 15px;
+		margin: 0.5em 0;
+		display:inline-block;
+    	width: 450px;
+		input {
+			border: 1px solid $black;
+			border-radius: 4px;
+			margin: 0 0.5em;
+			float: right;
+		}
+	}
 }
