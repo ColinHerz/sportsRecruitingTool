@@ -19,11 +19,11 @@ exports.sendVerificationEmail = async (recieverEmail, token) => {
     });
 
     const mailOptions = {
-        from: '"Spota Services" <Verification@Sporta.com>', // sender address
+        from: '"Sporta Services" <Verification@Sporta.com>', // sender address
         to: recieverEmail, // list of receivers
         subject: "Verifying Your Email", // Subject line
         text: "hi", // plain text body
-        html: '<b>Please click the link to verify your email</b><a href="' + process.env.BASE_URL + "/api/users/verify/" + token + '"> Click ME</a>' // html body
+        html: '<b>Please click the link to verify your email</b><a href="' + process.env.BASE_URL + "verify/" + token + '"> Click ME</a>' // html body
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

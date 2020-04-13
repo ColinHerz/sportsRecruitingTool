@@ -1,24 +1,9 @@
+import apiCall from "../../api/api.js";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import "./loginModal.scss";
-
-const SUBMIT_INFO_URL = `${window.location.host}/api/users/`;
-const SUBMIT_INFO_REGISTERING = `register`;
-const SUBMIT_INFO_LOGIN = `login`;
-
-const buildPromise = (url, body) => {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-
-		request.open(`POST`, url);
-		request.setRequestHeader(`Content-type`, `application/json`);
-		request.onload = () => resolve(request);
-		request.onerror = () => reject(request);
-		request.send(JSON.stringify(body));
-	});
-};
 
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
@@ -52,37 +37,52 @@ const LoginModal = props => {
 	const onSubmit = info => {
 		setIsError(false);
 
-		const promise = buildPromise(buildURL(), info);
-
-		promise.then(
-			data => {
-				console.log(data);
-
-				if (data.warning != undefined) {
-					setIsError(true);
-					setErrorText(data.warning);
-					return;
-				}
-
-				props.closeModal();
-			}
-		).catch(
-			reason => {
-				console.error(reason);
-				setIsError(true);
-				setErrorText(reason.warning);
-			}
-		);
+		if (isRegistering) {
+			apiCall(
+				{
+					endpoint: `/users/register`,
+					type: `POST`,
+					body: info
+				},
+				data => {
+					if (isValid(data)) {
+						props.closeModal();
+					}
+					else {
+						handleError(JSON.parse(data.response));
+					}
+				},
+				handleError
+			);
+		}
+		else {
+			apiCall(
+				{
+					endpoint: `/users/login`,
+					type: `POST`,
+					body: info
+				},
+				data => {
+					if (isValid(data)) {
+						props.logIn();
+						props.closeModal();
+					}
+					else {
+						handleError(JSON.parse(data.response));
+					}
+				},
+				handleError
+			);
+		}
 	};
 
-	const buildURL = () => {
-		let url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
+	const isValid = data => {
+		return data.status === 200
+	};
 
-		if (isRegistering) {
-			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_REGISTERING}`;
-		}
-
-		return url;
+	const handleError = reason => {
+		setIsError(true);
+		setErrorText(reason.warning);
 	};
 
 	return (
@@ -207,6 +207,7 @@ const LoginModal = props => {
 };
 
 LoginModal.propTypes = {
+	logIn: PropTypes.func.isRequired,
 	isRegistering: PropTypes.bool.isRequired,
 	closeModal: PropTypes.func.isRequired
 };

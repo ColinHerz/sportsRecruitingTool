@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let UserEquipmentGolfClub = require("./UserEquipmentSubModels/UserEquipmentGolfClub");
+let UserEquipmentGolfClub = require("./GolfClub");
 let GolfCourse = require("../GolfMisc/GolfCourse");
 
 const userFavoriteSchema = new Schema({
