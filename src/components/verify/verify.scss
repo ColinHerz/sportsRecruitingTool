@@ -1,0 +1,26 @@
+@import "../../colors";
+
+#verify {
+	color: $black;
+	background-color: $white;
+
+	width: 60%;
+	margin: auto;
+
+	font-family: "Open Sans";
+
+	h2 {
+		font-family: "Ubuntu";
+		font-weight: 700;
+		font-size: 42px;
+	}
+
+	p {
+		font-size: 28px;
+	}
+
+	#error {
+		color: $error;
+		font-weight: 600;
+	}
+}

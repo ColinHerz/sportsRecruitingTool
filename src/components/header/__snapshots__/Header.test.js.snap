@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering renders correctly when logged in 1`] = `
+<header>
+  <a
+    aria-current="page"
+    className="active"
+    href="/"
+    id="logo"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    <h1>
+      Sporta
+    </h1>
+  </a>
+  <nav>
+    <a
+      aria-current={null}
+      href="/myevents/garbage/"
+      onClick={[Function]}
+    >
+      Events
+    </a>
+    <a
+      aria-current={null}
+      href="/scores/"
+      onClick={[Function]}
+    >
+      Top Scores
+    </a>
+    <a
+      aria-current={null}
+      href="/profile/"
+      onClick={[Function]}
+    >
+      My Profile
+    </a>
+    <button
+      onClick={[MockFunction]}
+    >
+      Log Out
+    </button>
+  </nav>
+</header>
+`;
+
+exports[`Rendering renders correctly when not logged in 1`] = `
+<header>
+  <a
+    aria-current="page"
+    className="active"
+    href="/"
+    id="logo"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    <h1>
+      Sporta
+    </h1>
+  </a>
+  <div>
+    <button
+      id="log-in"
+      onClick={[MockFunction]}
+    >
+      Log In
+    </button>
+    <button
+      id="sign-up"
+      onClick={[MockFunction]}
+    >
+      Sign Up
+    </button>
+  </div>
+</header>
+`;

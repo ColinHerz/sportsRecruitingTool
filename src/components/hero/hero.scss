@@ -1,9 +1,42 @@
 @import "../../colors";
 
-#hero {
+#hero-logged-in, #hero-logged-out {
 	background-color: $white;
 	color: $black;
+}
 
+#hero-logged-in {
+	margin: 0 auto;
+	width: 80%;
+
+	font-family: "Open Sans";
+	font-weight: 400;
+
+	h2 {
+		font-family: "Ubuntu";
+		font-weight: 700;
+		font-size: 48px;
+
+		margin-bottom: 1em;
+	}
+
+	p {
+		font-weight: 600;
+		font-size: 40px;
+		margin-bottom: 10px;
+	}
+
+	ul {
+		font-weight: 400;
+		font-size: 36px;
+
+		list-style-type: none;
+		list-style-position: outside;
+		padding: 0;
+	}
+}
+
+#hero-logged-out {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -32,7 +65,7 @@
 		border-radius: 30px;
 	}
 
-	.sign-up {
+	#sign-up {
 		background-color: $orange;
 		color: $white;
 
@@ -40,7 +73,7 @@
 		margin-bottom: 0.2em;
 	}
 
-	.log-in {
+	#log-in {
 		margin-top: 0.2em;
 	}
 }
