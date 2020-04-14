@@ -10,14 +10,21 @@ exports.postGolfMatch = async (req, res) => {
     // takes user selected golf course, equipment and user cookie, then makes a match, then sends its id
     const coursePlayed = req.body.coursePlayed; // Course name which will be used to search for course data
     const GolfBagUsed = req.body.GolfBagUsed; // id that matches up to a bag of clubs 
-    const datePlayed = req.body.datePlayed;
+    const datePlayed = new Date();
     const authToken = req.cookies.session;
+
+    var frontNineScore = 0;
+    var backNineScore = 0;
+    var totalScore = 0;
 
     // Adding the data from the request into an object
     const userSportsGolf = new UserSportsGolf({
         coursePlayed,
         GolfBagUsed,
-        datePlayed
+        datePlayed,
+        frontNineScore,
+        backNineScore,
+        totalScore
     });
 
     jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
@@ -59,7 +66,7 @@ exports.getGolfMatch = async (req, res) => {
                 const roundOfGolf = user.userSports.golf.id(golfMatch);
                 return res.status(200).json(roundOfGolf);
             })
-            .catch()
+            .catch(err => res.status(500).json("Error" + err));
     });
 }
 
@@ -72,7 +79,7 @@ exports.postGolfHoleScore = async (req, res) => {
     const greenInRegulation = req.body.greenInRegulation;
     const authToken = req.cookies.session;
 
-    
+
     // Adding the data from the request into an object
     const userSportsGolfSubScore = new UserSportsGolfSubScore({
         score,
@@ -96,6 +103,15 @@ exports.postGolfHoleScore = async (req, res) => {
                 }
                 const hole = user.userSports.golf.id(golfMatch).golfMatch.create(userSportsGolfSubScore);
                 user.userSports.golf.id(golfMatch).golfMatch.push(hole);
+                const numHolesPlayed = Object.keys(user.userSports.golf.id(golfMatch).golfMatch).length
+                if (numHolesPlayed <= 9) {
+                    user.userSports.golf.id(golfMatch).totalScore += hole.score;
+                    user.userSports.golf.id(golfMatch).frontNineScore += hole.score;
+                }
+                else {
+                    user.userSports.golf.id(golfMatch).totalScore += hole.score;
+                    user.userSports.golf.id(golfMatch).backNineScore += hole.score;
+                }
                 user.save()
                     .then(() => {
                         return res.status(200).json({ "hole": hole.score })
@@ -106,7 +122,6 @@ exports.postGolfHoleScore = async (req, res) => {
     });
 }
 
-// TODO : MAKE THIS WORK THEN MAke a change name and pw and whatnot
 exports.postGolfHoleScoreUpdate = async (req, res) => {
     const hole = req.body.hole; // this is the hole to update
     const golfMatch = req.body.golfMatch; // just the id of the match to post the score into
@@ -130,15 +145,28 @@ exports.postGolfHoleScoreUpdate = async (req, res) => {
                 if (!user) {
                     return res.status(400).json({ warning: "User Not Found" });
                 }
-                const foundHole = user.userSports.golf.id(golfMatch).golfMatch.id(hole)
+                const foundHole = user.userSports.golf.id(golfMatch).golfMatch.id(hole);
+                var index = user.userSports.golf.id(golfMatch).golfMatch.findIndex(function (item) {
+                    return item._id == hole;
+                });
+                index++;
+                oldScore = foundHole.score;
                 foundHole.score = score;
                 foundHole.clubsUsed = clubsUsed;
                 foundHole.numberOfPutts = numberOfPutts;
                 foundHole.fairwayHit = fairwayHit;
                 foundHole.greenInRegulation = greenInRegulation;
+                if (index <= 9) {
+                    user.userSports.golf.id(golfMatch).totalScore += (foundHole.score - oldScore);
+                    user.userSports.golf.id(golfMatch).frontNineScore += (foundHole.score - oldScore);
+                }
+                else {
+                    user.userSports.golf.id(golfMatch).totalScore += (foundHole.score - oldScore);
+                    user.userSports.golf.id(golfMatch).backNineScore += (foundHole.score - oldScore);
+                }
                 user.save()
                     .then(() => {
-                        return res.status(200).json({ Message : "hole updated" })
+                        return res.status(200).json({ Message: "hole updated" })
                     })
                     .catch(err => res.status(500).json("Error" + err));
             })
@@ -164,6 +192,27 @@ exports.getGolfHole = async (req, res) => {
                     return res.status(400).json({ warning: "User Not Found" });
                 }
                 return res.status(200).json(user.userSports.golf.id(match).golfMatch.id(hole));
+            })
+            .catch(err => res.status(500).json("Error" + err));
+    });
+}
+
+exports.getAllMatches = async (req, res) => {
+    const authToken = req.cookies.session;
+
+    jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
+        if (err) {
+            return res.status(401).json({ "Error": "Invalid Credentials" });
+        }
+
+        // Looking for a user with the given user id.
+        const filter = { _id: user.id };
+        User.findOne(filter)
+            .then(user => {
+                if (!user) {
+                    return res.status(400).json({ warning: "User Not Found" });
+                }
+                return res.status(200).json(user.userSports.golf.reverse());
             })
             .catch(err => res.status(500).json("Error" + err));
     });
