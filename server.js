@@ -40,6 +40,7 @@ app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
 app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
 app.get('/api/users/logout', routes.getUserLogout);
+app.get('/api/users/getUserAndDetail', routes.getUserAndDetial);
 // User detail subdoc get and update 
 app.post('/api/users/detail/update', routes.postUserDetails);
 app.get('/api/users/detail/get', routes.getUserDetails);
@@ -49,6 +50,7 @@ app.get('/api/golf/getGolfMatch/:golfMatch', routes.getGolfMatch);
 app.post('/api/golf/createHoleScore', routes.postGolfHoleScore);
 app.post('/api/golf/updateHoleScore', routes.postGolfHoleScoreUpdate);
 app.get('/api/golf/getGolfHole/:hole/:match', routes.getGolfHole);
+app.get('/api/golf/getMyMatches', routes.getAllMatches);
 // Makes a unique golf course or finds it
 app.post('/api/golf/createGolfCourse', routes.postGolfCourse);
 app.post('/api/golf/getGolfCourse', routes.getGolfCourse); // needs to be made back to get with params
@@ -63,6 +65,8 @@ app.get('/api/golf/getGolfClub/:golfClub/:golfBag', routes.getGolfClub);
 // Making an online even, then endpoints to join by sending a score, delete event, get results
 app.post('/api/golf/createGolfEvent', routes.postGolfEvent);
 app.post('/api/golf/postEventScore', routes.postGolfEventScore);
+app.get('/api/golf/getMyEvents', routes.getAllMyEvents);
+app.get('/api/golf/getEventResults/:event', routes.getEventResults);
 
 
 if (process.env.NODE_ENV === 'production') {
