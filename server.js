@@ -14,11 +14,7 @@ app.use(compression());
 app.use(cookieParser());
 
 const URI =
-  'mongodb+srv://' +
-  process.env.DB_USER +
-  ':' +
-  process.env.DB_PASS +
-  '@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority';
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority`;
 
 // Connect to MongoDB Atlas
 mongoose
@@ -33,8 +29,9 @@ mongoose
 
 
 var routes = require('./routes');
+
 // User get login register and verification
-app.get('/api/users/login', routes.getUserLogin);
+app.post('/api/users/login', routes.postUserLogin);
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
@@ -46,7 +43,7 @@ app.post('/api/users/detail/update', routes.postUserDetails);
 app.get('/api/users/detail/get', routes.getUserDetails);
 // Makes a golf match instance to add scores to, or sends back everything with get
 app.post('/api/golf/createGolfMatch', routes.postGolfMatch);
-app.get('/api/golf/getGolfMatch/:golfMatch', routes.getGolfMatch); 
+app.get('/api/golf/getGolfMatch/:golfMatch', routes.getGolfMatch);
 app.post('/api/golf/createHoleScore', routes.postGolfHoleScore);
 app.post('/api/golf/updateHoleScore', routes.postGolfHoleScoreUpdate);
 app.get('/api/golf/getGolfHole/:hole/:match', routes.getGolfHole);

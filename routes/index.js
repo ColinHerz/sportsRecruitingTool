@@ -1,13 +1,15 @@
-const { getUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetial} = require("./users");
+
+const { postUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetial} = require("./users");
 const { resendVerificationEmail } = require("./emails");
-const { postUserDetails } = require("./userdetail");
+const { getUserDetails, postUserDetails } = require("./userdetail");
 const { postGolfMatch, getGolfMatch, postGolfHoleScore, postGolfHoleScoreUpdate, getGolfHole, getAllMatches } = require("./GolfRoutes/GolfMatch");
 const { postGolfCourse, getGolfCourse } = require("./GolfRoutes/GolfCourse");
 const { postGolfBag, postGolfBagDelete, getGolfBag, getAllGolfBags, postGolfClubAdd, postGolfClubDelete, getGolfClub } = require("./GolfRoutes/GolfBag");
 const { postGolfEvent, postGolfEventScore, getAllMyEvents, getEventResults } = require("./GolfRoutes/GolfEvents");
 
-exports.getUserLogin = async (req, res) => {
-  await getUserLogin(req, res);
+
+exports.postUserLogin = async (req, res) => {
+  await postUserLogin(req, res);
 };
 exports.postUserRegister = async (req, res) => {
   await postUserRegister(req, res);
@@ -26,9 +28,6 @@ exports.postUserDetails = async (req, res) => {
 };
 exports.getUserDetails = async (req, res) => {
   await getUserDetails(req, res);
-};
-exports.postUserDetails = async (req, res) => {
-  await postUserDetails(req, res);
 };
 exports.postGolfMatch = async (req, res) => {
   await postGolfMatch(req, res);
@@ -93,4 +92,3 @@ exports.getEventResults = async (req, res) => {
 exports.getUserAndDetial = async (req, res) => {
   await getUserAndDetial(req, res);
 };
-

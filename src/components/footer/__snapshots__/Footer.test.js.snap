@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering renders correctly when logged in 1`] = `
+<footer>
+  <div
+    id="logo"
+  >
+    <h1>
+      Sporta
+    </h1>
+    <p>
+      © Sporta 
+      2020
+    </p>
+  </div>
+  <div
+    id="links"
+  >
+    <h2>
+      Menu
+    </h2>
+    <ul>
+      <li>
+        <a
+          href="/myevents/garbage/"
+          onClick={[Function]}
+        >
+          Events
+        </a>
+      </li>
+      <li>
+        <a
+          href="/scores/"
+          onClick={[Function]}
+        >
+          Top Scores
+        </a>
+      </li>
+      <li>
+        <a
+          href="/profile/garbage/"
+          onClick={[Function]}
+        >
+          My Profile
+        </a>
+      </li>
+      <li>
+        <button
+          onClick={[MockFunction]}
+        >
+          Log Out
+        </button>
+      </li>
+    </ul>
+  </div>
+</footer>
+`;
+
+exports[`Rendering renders correctly when not logged in 1`] = `
+<footer>
+  <div
+    id="logo"
+  >
+    <h1>
+      Sporta
+    </h1>
+    <p>
+      © Sporta 
+      2020
+    </p>
+  </div>
+  <div
+    id="links"
+  >
+    <h2>
+      Get Started
+    </h2>
+    <ul>
+      <li>
+        <button
+          id="log-in"
+          onClick={[MockFunction]}
+        >
+          Log In
+        </button>
+      </li>
+      <li>
+        <button
+          id="sign-up"
+          onClick={[MockFunction]}
+        >
+          Sign Up
+        </button>
+      </li>
+    </ul>
+  </div>
+</footer>
+`;

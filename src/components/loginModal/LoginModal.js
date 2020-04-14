@@ -1,18 +1,17 @@
+import apiCall from "../../api/api.js";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import "./loginModal.scss";
 
-const SUBMIT_INFO_URL = `${window.location.host}/api/users/`;
-const SUBMIT_INFO_REGISTERING = `register`;
-const SUBMIT_INFO_LOGIN = `login`;
-
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
-	const [email, setEmail] = useState(``);
-	const [password, setPassword] = useState(``);
-	const [firstName, setFirstName] = useState(``);
-	const [lastName, setLastName] = useState(``);
+	const [isError, setIsError] = useState(false);
+
+	const { register, handleSubmit, errors } = useForm();
+
+	const [errorText, setErrorText] = useState(``);
 
 	// this will not be same as submit eventually
 	const handleClose = event => {
@@ -24,79 +23,66 @@ const LoginModal = props => {
 	const registering = event => {
 		event.preventDefault();
 
+		setIsError(false);
 		setIsRegistering(true);
 	};
 
 	const loggingIn = event => {
 		event.preventDefault();
 
+		setIsError(false);
 		setIsRegistering(false);
 	};
 
-	const handleEmailChange = event => {
-		event.preventDefault();
-
-		setEmail(event.target.value);
-	};
-
-	const handlePasswordChange = event => {
-		event.preventDefault();
-
-		setPassword(event.target.value);
-	};
-
-	const handleFirstNameChange = event => {
-		event.preventDefault();
-
-		setFirstName(event.target.value);
-	};
-
-	const handleLastNameChange = event => {
-		event.preventDefault();
-
-		setLastName(event.target.value);
-	};
-
-	const handleSubmit = event => {
-		event.preventDefault();
-
-		const info = {
-			email: email,
-			password: password
-		};
-		let url;
+	const onSubmit = info => {
+		setIsError(false);
 
 		if (isRegistering) {
-			info.firstname = firstName;
-			info.lastname = lastName;
-
-			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_REGISTERING}`;
+			apiCall(
+				{
+					endpoint: `/users/register`,
+					type: `POST`,
+					body: info
+				},
+				data => {
+					if (isValid(data)) {
+						props.closeModal();
+					}
+					else {
+						handleError(JSON.parse(data.response));
+					}
+				},
+				handleError
+			);
 		}
 		else {
-			url = `http://${SUBMIT_INFO_URL}${SUBMIT_INFO_LOGIN}`;
+			apiCall(
+				{
+					endpoint: `/users/login`,
+					type: `POST`,
+					body: info
+				},
+				data => {
+					if (isValid(data)) {
+						props.logIn();
+						props.closeModal();
+					}
+					else {
+						handleError(JSON.parse(data.response));
+					}
+				},
+				handleError
+			);
 		}
+	};
 
-		const promise = new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
+	const isValid = data => {
+		return data.status === 200
+	};
 
-			request.open(`POST`, url);
-			request.setRequestHeader(`Content-type`, `application/json`)
-			request.onload = () => resolve(JSON.parse(request.responseText));
-			request.onerror = () => reject(request.statusText);
-			request.send(JSON.stringify(info));
-		});
-
-		promise.then(
-			data => {
-				console.log(data);
-			}
-		).catch(
-			reason => {
-				console.error(reason);
-			}
-		);
-
-		props.closeModal();
+	const handleError = reason => {
+		setIsError(true);
+		setErrorText(reason.warning);
 	};
 
 	return (
@@ -130,30 +116,40 @@ const LoginModal = props => {
 					</button>
 				</div>
 
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit(onSubmit)}>
 					{
+						/* First and last name names have to be all lowercase for api */
 						isRegistering ?
 							<React.Fragment>
 								<label>
 								First Name:
 									<input
 										id="first-name"
+										name="firstname"
 										type="text"
-										value={firstName}
-										required
-										onChange={handleFirstNameChange}
+										ref={
+											register({
+												required: true
+											})
+										}
 									/>
 								</label>
+								{errors.firstname && <p className="error">First name is required.</p>}
+
 								<label>
 								Last Name:
 									<input
 										id="last-name"
+										name="lastname"
 										type="text"
-										value={lastName}
-										required
-										onChange={handleLastNameChange}
+										ref={
+											register({
+												required: true
+											})
+										}
 									/>
 								</label>
+								{errors.lastname && <p className="error">Last name is required.</p>}
 							</React.Fragment>:
 							null
 					}
@@ -162,42 +158,56 @@ const LoginModal = props => {
 						Email:
 						<input
 							id="email"
+							name="email"
 							type="text"
-							value={email}
-							required
-							onChange={handleEmailChange}
+							ref={
+								register({
+									required: true,
+									pattern: /^.+@.+\..+$/
+								})
+							}
 						/>
 						{ /* matches at least on char, @, at least one char, ., at least one char in that order
 							pattern="^.+@.+\..+$"
 						*/ }
 					</label>
+					{errors.email && <p className="error">Please enter a valid email address.</p>}
 
 					<label>
 						Password:
 						<input
+							name="password"
 							type="password"
-							value={password}
-							required
-							onChange={handlePasswordChange}
+							ref={
+								register({
+									required: true,
+									minlength: 6,
+									pattern: /^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$/
+								})
+							}
 						/>
-						{ /* Matches >12 chars, 1 lowercase, 1 uppercase, 1 special, 1 digit in any order
-							minLength="8"
-							pattern="^(?=.{12,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$"
+						{ /* Matches >6 chars, 1 lowercase, 1 uppercase, 1 special, 1 digit in any order
+							minLength="6"
+							pattern="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?=.*\d).*$"
 						*/ }
 					</label>
+					{errors.password && <p className="error">Passwords must be at least 6 characters and contain 1 lowercase, 1 uppercase, 1 special character, and 1 number.</p>}
 
-					<input
-						type="submit"
-						value="Submit"
-						onClick={handleSubmit}
-					/>
+					<input type="submit" value="Submit" />
 				</form>
+
+				{
+					isError ?
+						<p id="submission-error">Error: {errorText}</p>:
+						null
+				}
 			</div>
 		</div>
 	);
 };
 
 LoginModal.propTypes = {
+	logIn: PropTypes.func.isRequired,
 	isRegistering: PropTypes.bool.isRequired,
 	closeModal: PropTypes.func.isRequired
 };

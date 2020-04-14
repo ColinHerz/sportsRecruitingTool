@@ -37,7 +37,7 @@ function validateLogin(data) {
 
     return { errors, valid: errors };
 }
-exports.getUserLogin = async (req, res) => {
+exports.postUserLogin = async (req, res) => {
     const valid = validateLogin(req.body);
     const email = req.body.email;
     const password = req.body.password;
@@ -67,12 +67,12 @@ exports.getUserLogin = async (req, res) => {
                                 .json({ success: true });
                         });
                     })
-                    .catch(err => res.status(400).json("Error" + err));
+                    .catch(err => res.status(400).json({ warning: err }));
             })
-            .catch(err => res.status(500).json("Error" + err));
+            .catch(err => res.status(500).json({ warning: err }));
     }
     else {
-        res.status(400).json("Error Validation")
+        res.status(400).json({ warning: "Invalid credentials" })
     }
 }
 
@@ -152,7 +152,7 @@ exports.getUserVerify = async (req, res) => {
                 foundUser.isVerified = true;
                 foundUser
                     .save()
-                    .then(res.redirect(process.env.BASE_URL))
+                    .then(res.status(200).json({ success: true }))
                     .catch(err => res.status(400).json("Error " + err));
             }
             else {

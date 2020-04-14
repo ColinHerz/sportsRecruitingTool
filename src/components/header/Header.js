@@ -13,23 +13,25 @@ const Header = props => {
 				// profile will need to change to logged in user
 				props.loggedIn ?
 					<nav>
-						<NavLink to="/events/">Events</NavLink>
+						<NavLink to="/myevents/garbage/">Events</NavLink>
 
 						<NavLink to="/scores/">Top Scores</NavLink>
 
-						<NavLink to="/profile/garbage/">My Profile</NavLink>
+						<NavLink to="/profile/">My Profile</NavLink>
+
+						<button onClick={props.logOut}>Log Out</button>
 					</nav>:
 					<div>
 						<button
 							id="log-in"
-							onClick={props.logIn}
+							onClick={props.loggingIn}
 						>
 						Log In
 						</button>
 
 						<button
 							id="sign-up"
-							onClick={props.register}
+							onClick={props.registering}
 						>
 						Sign Up
 						</button>
@@ -40,8 +42,9 @@ const Header = props => {
 };
 
 Header.propTypes = {
-	logIn: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired,
+	loggingIn: PropTypes.func.isRequired,
+	logOut: PropTypes.func.isRequired,
+	registering: PropTypes.func.isRequired,
 	loggedIn: PropTypes.bool.isRequired
 };
 
