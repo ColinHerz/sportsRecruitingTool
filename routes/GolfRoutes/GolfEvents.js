@@ -35,7 +35,7 @@ exports.postGolfEvent = async (req, res) => {
                 event.players = players;
                 event.save().then(() => {
                     console.log(event);
-                    return res.status(200).json({ Message: eventName + " created successfully" });
+                    return res.status(200).json({ Message: eventName + " created successfully", "event": event.id });
                 })
                     .catch(err => res.status(500).json("Error " + err));
             })
@@ -66,6 +66,13 @@ exports.postGolfEventScore = async (req, res) => {
                             return res.status(400).json({ warning: "This round was not played during the event." });
                         }
                         const score = foundEvent.scores.create({ "userScore": golfMatch, user: user.email, "datePosted": new Date() });
+
+                        // check if user has no posted to event yet
+                        const userHasPostedToEvent = foundEvent.scores.some(item => item.user === user.email);
+                        if (userHasPostedToEvent) {
+                            return res.status(400).json({ warning: "You have already posted a score to this event" });
+                        }
+
                         foundEvent.scores.push(score);
                         foundEvent.save()
                             .then(() => {
