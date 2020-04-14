@@ -59,7 +59,7 @@ exports.getGolfMatch = async (req, res) => {
                 const roundOfGolf = user.userSports.golf.id(golfMatch);
                 return res.status(200).json(roundOfGolf);
             })
-            .catch()
+            .catch(err => res.status(500).json("Error" + err));
     });
 }
 

@@ -4,7 +4,7 @@ const { postUserDetails } = require("./userdetail");
 const { postGolfMatch, getGolfMatch, postGolfHoleScore, postGolfHoleScoreUpdate, getGolfHole } = require("./GolfRoutes/GolfMatch");
 const { postGolfCourse, getGolfCourse } = require("./GolfRoutes/GolfCourse");
 const { postGolfBag, postGolfBagDelete, getGolfBag, getAllGolfBags, postGolfClubAdd, postGolfClubDelete, getGolfClub } = require("./GolfRoutes/GolfBag");
-
+const { postGolfEvent, postGolfEventScore } = require("./GolfRoutes/GolfEvents");
 
 exports.getUserLogin = async (req, res) => {
   await getUserLogin(req, res);
@@ -74,4 +74,10 @@ exports.postGolfHoleScoreUpdate = async (req, res) => {
 };
 exports.getUserLogout = async (req, res) => {
   await getUserLogout(req, res);
+};
+exports.postGolfEvent = async (req, res) => {
+  await postGolfEvent(req, res);
+};
+exports.postGolfEventScore = async (req, res) => {
+  await postGolfEventScore(req, res);
 };
