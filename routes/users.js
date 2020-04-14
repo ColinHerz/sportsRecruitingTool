@@ -197,3 +197,27 @@ exports.getUserLogout = async (req, res) => {
         return res.status(200).json({success: true});
     }
 }
+
+exports.getUserAndDetial = async (req, res) => {
+    const authToken = req.cookies.session;
+    jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
+        if (err) {
+            return res.status(401).json({ "Error": "Invalid Credentials" });
+        }
+        const filter = { _id: user.id };
+        User.findOne(filter).then(foundUser => {
+            if (!foundUser) {
+                return res.status(400).json({ warning: "User Not Found" });
+            }
+            else {
+                res.status(200).json(
+                    {
+                        "firstname": foundUser.firstname,
+                        "lastname": foundUser.lastname,
+                        "email": foundUser.email,
+                        "detials": foundUser.userDetail
+                    });
+            }
+        }).catch(err => res.status(500).json("Error" + err));
+    });
+}
