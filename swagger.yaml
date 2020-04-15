@@ -185,12 +185,7 @@
           content:
             application/json:
               schema:
-                email:
-                  type: string
-                  example: swaggertest852@gmail.com
-                password:
-                  type: string
-                  example: test
+                $ref: '#/components/schemas/User'
         security: []
         responses:
           "200":
@@ -200,7 +195,8 @@
                 type: string
                 example:  
             content:
-                
+              application/json:
+                success: true 
           "400":
             description: Invalid Login
             content:
