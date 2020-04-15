@@ -77,7 +77,7 @@ nav {
 
 		color: $black;
 
-		margin: 0.6em;
+		margin: 0.5em;
 
 		&:hover, &:focus {
 			text-decoration: underline;
@@ -88,5 +88,15 @@ nav {
 	.active {
 		font-weight: 700;
 		text-decoration: underline;
+	}
+
+	button {
+		color: $black;
+		background: none;
+		border: none;
+
+		font-family: "Open Sans";
+		font-weight: 400;
+		font-size: 18px;
 	}
 }

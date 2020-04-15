@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`No match component renders correctly 1`] = `
+<main
+  id="not-found"
+>
+  <h2>
+    404
+  </h2>
+  <h3>
+    Page Not Found
+  </h3>
+  <p>
+    The Page you are looking for doesn't exist or an error occured. Go 
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      home
+    </a>
+    .
+  </p>
+  <p>
+    Or panic. I'm not your dad.
+  </p>
+</main>
+`;

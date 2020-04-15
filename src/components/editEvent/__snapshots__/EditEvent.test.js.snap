@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering renders correctly 1`] = `
+<main
+  id="edit-event"
+>
+  <h2>
+    Event Title
+  </h2>
+  <p>
+    Course Name 
+    <span>
+      9 holes
+    </span>
+  </p>
+  <section>
+    <div>
+      <button
+        className="active"
+        id="hole-0"
+        onClick={[Function]}
+      >
+        1
+      </button>
+      <button
+        className=""
+        id="hole-1"
+        onClick={[Function]}
+      >
+        2
+      </button>
+      <button
+        className=""
+        id="hole-2"
+        onClick={[Function]}
+      >
+        3
+      </button>
+      <button
+        className=""
+        id="hole-3"
+        onClick={[Function]}
+      >
+        4
+      </button>
+      <button
+        className=""
+        id="hole-4"
+        onClick={[Function]}
+      >
+        5
+      </button>
+      <button
+        className=""
+        id="hole-5"
+        onClick={[Function]}
+      >
+        6
+      </button>
+      <button
+        className=""
+        id="hole-6"
+        onClick={[Function]}
+      >
+        7
+      </button>
+      <button
+        className=""
+        id="hole-7"
+        onClick={[Function]}
+      >
+        8
+      </button>
+      <button
+        className=""
+        id="hole-8"
+        onClick={[Function]}
+      >
+        9
+      </button>
+    </div>
+    <ul>
+      <li>
+        <label>
+          <a
+            href="/profile/Player 1"
+            onClick={[Function]}
+          >
+            Player 1
+          </a>
+          <input
+            id="score-0-Player 1"
+            onChange={[Function]}
+            type="number"
+            value={0}
+          />
+        </label>
+      </li>
+      <li>
+        <label>
+          <a
+            href="/profile/Player 2"
+            onClick={[Function]}
+          >
+            Player 2
+          </a>
+          <input
+            id="score-0-Player 2"
+            onChange={[Function]}
+            type="number"
+            value={0}
+          />
+        </label>
+      </li>
+      <li>
+        <label>
+          <a
+            href="/profile/Player 3"
+            onClick={[Function]}
+          >
+            Player 3
+          </a>
+          <input
+            id="score-0-Player 3"
+            onChange={[Function]}
+            type="number"
+            value={0}
+          />
+        </label>
+      </li>
+      <li>
+        <label>
+          <a
+            href="/profile/Player 4"
+            onClick={[Function]}
+          >
+            Player 4
+          </a>
+          <input
+            id="score-0-Player 4"
+            onChange={[Function]}
+            type="number"
+            value={0}
+          />
+        </label>
+      </li>
+    </ul>
+  </section>
+</main>
+`;

@@ -173,3 +173,28 @@ exports.postGolfClubDelete = async (req, res) => {
             .catch(err => res.status(500).json("Error" + err));
     });
 }
+
+// use this to clubs used on each hole
+exports.getGolfClub = async (req, res) => {
+    const golfClub = req.params.golfClub;
+    const golfBag = req.params.golfBag;
+    const authToken = req.cookies.session;
+
+    jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
+        if (err) {
+            return res.status(401).json({ "Error": "Invalid Credentials" });
+        }
+
+        // Looking for a user with the given user id.
+        const filter = { _id: user.id };
+        User.findOne(filter)
+            .then(user => {
+                if (!user) {
+                    return res.status(400).json({ warning: "User Not Found" });
+                }
+                const club = user.golfBags.id(golfBag).golfClub.id(golfClub);
+                return res.status(200).json(club);
+            })
+            .catch(err => res.status(500).json("Error" + err));
+    });
+}

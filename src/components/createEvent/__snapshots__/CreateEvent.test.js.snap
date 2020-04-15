@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders beginning page correctly 1`] = `
+<main
+  id="create-event"
+>
+  <h2>
+    Create An Event
+  </h2>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      Title
+      <input
+        name="title"
+        type="text"
+      />
+    </label>
+    <label>
+      Course
+      <input
+        name="course"
+        type="text"
+      />
+    </label>
+    <label>
+      Hole Count
+      <input
+        name="holeCount"
+        onChange={[Function]}
+        type="number"
+        value={1}
+      />
+    </label>
+    <h3>
+      Hole Pars
+    </h3>
+    <div
+      id="pars"
+    >
+      <label>
+        1
+        .
+        <input
+          name="par-0"
+          onChange={[Function]}
+          type="number"
+          value={3}
+        />
+      </label>
+    </div>
+    <h3>
+      Players
+    </h3>
+    <ul />
+    <button
+      onClick={[Function]}
+    >
+      Add Player
+    </button>
+    <input
+      type="submit"
+      value="Create"
+    />
+  </form>
+</main>
+`;

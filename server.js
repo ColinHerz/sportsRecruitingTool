@@ -18,11 +18,7 @@ app.use(cookieParser());
 app.use('/swagger', swaggerUi.serve);
 
 const URI =
-  'mongodb+srv://' +
-  process.env.DB_USER +
-  ':' +
-  process.env.DB_PASS +
-  '@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority';
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority`;
 
 // Connect to MongoDB Atlas
 mongoose
@@ -37,28 +33,47 @@ mongoose
 
 
 var routes = require('./routes');
+<<<<<<< HEAD
 // User get login register and verification
 app.get('/api/users/login', routes.getUserLogin);
+=======
+
+// User get login register and verification
+app.post('/api/users/login', routes.postUserLogin);
+>>>>>>> API
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
 app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
+app.get('/api/users/logout', routes.getUserLogout);
+app.get('/api/users/getUserAndDetail', routes.getUserAndDetial);
 // User detail subdoc get and update 
 app.post('/api/users/detail/update', routes.postUserDetails);
 app.get('/api/users/detail/get', routes.getUserDetails);
 // Makes a golf match instance to add scores to, or sends back everything with get
 app.post('/api/golf/createGolfMatch', routes.postGolfMatch);
-app.get('/api/golf/getGolfMatch', routes.getGolfMatch);
+app.get('/api/golf/getGolfMatch/:golfMatch', routes.getGolfMatch);
+app.post('/api/golf/createHoleScore', routes.postGolfHoleScore);
+app.post('/api/golf/updateHoleScore', routes.postGolfHoleScoreUpdate);
+app.get('/api/golf/getGolfHole/:hole/:match', routes.getGolfHole);
+app.get('/api/golf/getMyMatches', routes.getAllMatches);
 // Makes a unique golf course or finds it
 app.post('/api/golf/createGolfCourse', routes.postGolfCourse);
-app.get('/api/golf/getGolfCourse', routes.getGolfCourse);
+app.post('/api/golf/getGolfCourse', routes.getGolfCourse); // needs to be made back to get with params
 // Making a golf bag, get a bags contents, and add or remove clubs
 app.post('/api/golf/createGolfBag', routes.postGolfBag);
 app.post('/api/golf/deleteGolfBag', routes.postGolfBagDelete);
-app.get('/api/golf/getGolfBag', routes.getGolfBag);
+app.post('/api/golf/getGolfBag', routes.getGolfBag); // needs to be made back to get with params
 app.get('/api/golf/getAllGolfBags', routes.getAllGolfBags);
 app.post('/api/golf/createGolfclub', routes.postGolfClubAdd);
 app.post('/api/golf/deleteGolfclub', routes.postGolfClubDelete);
+app.get('/api/golf/getGolfClub/:golfClub/:golfBag', routes.getGolfClub);
+// Making an online even, then endpoints to join by sending a score, delete event, get results
+app.post('/api/golf/createGolfEvent', routes.postGolfEvent);
+app.post('/api/golf/postEventScore', routes.postGolfEventScore);
+app.get('/api/golf/getMyEvents', routes.getAllMyEvents);
+app.get('/api/golf/getEventResults/:event', routes.getEventResults);
+
 
 
 // Swagger set up

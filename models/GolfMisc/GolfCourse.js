@@ -4,10 +4,9 @@ const Schema = mongoose.Schema;
 const GolfCourseSchema = new Schema({
     courseName: {
         type:String,
-        unique:true,
         required: true,
-    }
-    // Course details go here.
+    },
+    par:[{type:Number}]
 });
 
 const GolfCourse = mongoose.model("GolfCourse", GolfCourseSchema);
