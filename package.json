@@ -27,6 +27,7 @@
     "AWS-Deploy": "npm run build && node server",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "apitest": "jest routes/apiTests --detectOpenHandles",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
   },
@@ -56,6 +57,14 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.5.0",
-    "react-test-renderer": "^16.13.1"
+    "jest": "^25.3.0",
+    "react-test-renderer": "^16.13.1",
+    "supertest": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }
