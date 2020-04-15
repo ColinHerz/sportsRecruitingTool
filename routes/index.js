@@ -3,7 +3,11 @@ const { getUserLogin, postUserRegister, getUserVerify, getUser } = require("./us
 =======
 
 const { postUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetial} = require("./users");
->>>>>>> API
+
+
+
+
+
 const { resendVerificationEmail } = require("./emails");
 const { getUserDetails, postUserDetails } = require("./userdetail");
 const { postGolfMatch, getGolfMatch, postGolfHoleScore, postGolfHoleScoreUpdate, getGolfHole, getAllMatches } = require("./GolfRoutes/GolfMatch");
@@ -12,13 +16,12 @@ const { postGolfBag, postGolfBagDelete, getGolfBag, getAllGolfBags, postGolfClub
 const { postGolfEvent, postGolfEventScore, getAllMyEvents, getEventResults } = require("./GolfRoutes/GolfEvents");
 
 
-<<<<<<< HEAD
-exports.getUserLogin = async (req, res) => {
-  await getUserLogin(req, res);
-=======
+
+
+  
 exports.postUserLogin = async (req, res) => {
   await postUserLogin(req, res);
->>>>>>> API
+
 };
 exports.postUserRegister = async (req, res) => {
   await postUserRegister(req, res);
