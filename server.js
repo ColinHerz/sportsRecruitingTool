@@ -33,14 +33,14 @@ mongoose
 
 
 var routes = require('./routes');
-<<<<<<< HEAD
+
 // User get login register and verification
 app.get('/api/users/login', routes.getUserLogin);
-=======
+
 
 // User get login register and verification
 app.post('/api/users/login', routes.postUserLogin);
->>>>>>> API
+
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
