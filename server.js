@@ -35,10 +35,6 @@ mongoose
 var routes = require('./routes');
 
 // User get login register and verification
-app.get('/api/users/login', routes.getUserLogin);
-
-
-// User get login register and verification
 app.post('/api/users/login', routes.postUserLogin);
 
 app.post('/api/users/register', routes.postUserRegister);
