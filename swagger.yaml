@@ -37,7 +37,7 @@
             lastname: Test
             email: swaggertest852@gmail.com
             password: test
-            isVerified: True
+            isVerified: false
 
       UserDetails:
         type: object
@@ -70,6 +70,8 @@
             $ref: '#/components/schemas/GolfSubScore'
           GolfBagUsed:
             $ref: '#/components/schemas/GolfBag'
+        example:
+          datePlayed: 10/25/2020
 
       UserFavorite:
         type: object
@@ -80,7 +82,7 @@
               favoriteGolfCourse:
                 $ref: '#/components/schemas/GolfCourse'
               favoriteGolfClub:
-                $ref: '#/compenents/schemas/UserEquipmentGolfClub'
+                $ref: '#/components/schemas/UserEquipmentGolfClub'
 
       GolfBag:
         type: object
@@ -92,9 +94,9 @@
           golfClub:
             type: array
             items:
-              $ref: '#/components/schemas/GolfClub'
+              $ref: '#/components/schemas/UserEquipmentGolfClub'
 
-      GolfClub:
+      UserEquipmentGolfClub:
         type: object
         properties:
           clubType: 
@@ -134,15 +136,98 @@
           clubsUsed:
             type: array
             items:
-              $ref: '#/components/schemas/GolfClub'
+              $ref: '#/components/schemas/UserEquipmentGolfClub'
         example:
           score: 4
           greenInRegulation: true
           fairwayHit: true
           numberOfPutts: 2
 
-          
-          
+  path:
+    /users/register:
+      post:
+        summary: Create a new user
+        tags: [Users]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        responses:
+          "200":
+            description: User Registered
+            content:
+              application/json:
+                Message:
+                  type: string
+                  example: User Registered
+          "400":
+            description: User Name Taken
+            content:
+              application/json:
+                warning:
+                  type: string
+                  example: User Name Taken
+            "400":
+                description: Invalid Character Used
+                content:
+                  application/json:
+                    warning:
+                      type: string
+                      example: Invalid Character Name
+  /users/login:
+      post:
+        summary: login to user account
+        tags: [Users]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                email:
+                  type: string
+                  example: swaggertest852@gmail.com
+                password:
+                  type: string
+                  example: test
+        security: []
+        responses:
+          "200":
+            description: User Registered - returns User schema and Login Cookie
+            headers:
+              Set-Cookie:
+                type: string
+                example:  
+            content:
+                
+          "400":
+            description: Invalid Login
+            content:
+              application/json:
+                warning:
+                  type: string
+                  example: Invalid credentials
+            "500":
+                description: Cannot connect to database
+                content:
+                  application/json:
+                    warning:
+                      type: string
+                      example: Error Json
+
+
+  securitySchemes:
+  UserAuth:
+    type: apiKey
+    in: cookie       
+    name: UserCookie
+
+  security:
+  - UserAuth: []
+
+
+
         
 
 

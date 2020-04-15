@@ -73,11 +73,11 @@ const options = {
     },
     servers: [
       {
-        url: "https://localhost8081.com/api"
+        url: "http://localhost:8081/api"
       }
     ]
   },
-  apis: ["./models/schemas.yaml"]
+  apis: ["./swagger.yaml"]
 };
 const specs = swaggerJsdoc(options);
 // API call for swagger docs 

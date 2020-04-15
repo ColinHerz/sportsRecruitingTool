@@ -37,7 +37,7 @@ function validateLogin(data) {
 
     return { errors, valid: errors };
 }
-exports.postUserLogin = async (req, res) => {
+exports.getUserLogin = async (req, res) => {
     const valid = validateLogin(req.body);
     const email = req.body.email;
     const password = req.body.password;
