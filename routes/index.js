@@ -1,6 +1,6 @@
-<<<<<<< HEAD
-const { getUserLogin, postUserRegister, getUserVerify, getUser } = require("./users");
-=======
+
+
+
 
 const { postUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetial} = require("./users");
 
