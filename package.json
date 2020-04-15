@@ -18,13 +18,10 @@
     "react-dom": "^16.13.0",
     "react-hook-form": "^5.2.0",
     "react-router-dom": "^5.1.2",
-<<<<<<< HEAD
     "swagger-jsdoc": "^4.0.0",
-    "swagger-ui-express": "^4.1.4"
-=======
+    "swagger-ui-express": "^4.1.4",
     "react-scripts": "^3.4.0",
     "serve-static": "^1.14.1"
->>>>>>> API
   },
   "scripts": {
     "start": "node server.js",
