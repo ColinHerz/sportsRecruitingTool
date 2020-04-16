@@ -132,15 +132,20 @@ exports.getEventResults = async (req, res) => {
                     }
                     resultsString += ('{ "user" : "' + element.user +
                         '", "place" :"' + placement +
-                        '", "total" :"' + element.userScore.totalScore +
-                        '", "front" :"' + element.userScore.frontNineScore +
-                        '", "back" :"' + element.userScore.backNineScore +
-                        '"}'
+                        '", "total" :"' + element.userScore.totalScore
                     );
+                    var subTotalCount = 1;
+                    for (const subTotal of element.userScore.subTotalScores) {
+                        resultsString += '", "' + subTotalCount + '" :"' + subTotal.subTotal;
+                        subTotalCount++;
+                        console.log("loop");
+                    }
+                    resultsString += '"}';
                     placement++;
                 }
 
                 resultsString += "] }";
+                console.log(resultsString);
 
                 try {
                     return res.status(200).json(JSON.parse(resultsString));
