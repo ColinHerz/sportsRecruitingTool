@@ -7,11 +7,27 @@ let GolfBag = require("../GolfBag");
 
 // A golf match consists of an array of hole scores
 // two nine hole sub scores and a total score.
+const subTotSchema = new Schema({
+    subTotal:{
+        type:Number
+    }
+})
+
 const userSportsGolfSchema = new Schema({
-    datePlayed: Date,
+    datePlayed:  {
+        type: Date,
+        required: true
+    },
     golfMatch: [GolfSubScore.schema],
-    coursePlayed: GolfCourse.schema,
-    GolfBagUsed: Schema.Types.ObjectId
+    nameOfRound: String,
+    coursePlayed:  {
+        type: String
+    },
+    GolfBagUsed: Schema.Types.ObjectId,
+    subTotalScores: [subTotSchema],
+    totalScore: {
+        type: Number
+    }
     // Other details can go here
 });
 
