@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let UserSportsGolf = require("../UserSubModels/UserSportsSubModels/UserSportsGolf");
-let GolfCourse = require("./GolfCourse");
 
 const userEntrySchema = new Schema({
     user: String, // store the user email
-    userScore: UserSportsGolf.schema, 
+    userScore: UserSportsGolf.schema,
     datePosted: Date
 });
 
@@ -17,7 +16,7 @@ const GolfEventSchema = new Schema({
     endDate: Date,
     scores: [userEntrySchema],
     players: [String],
-    course: Schema.Types.ObjectId
+    course: String
 });
 
 const golfEvent = mongoose.model("golfEvent", GolfEventSchema);
