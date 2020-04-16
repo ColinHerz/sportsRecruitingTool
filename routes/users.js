@@ -62,6 +62,9 @@ exports.postUserLogin = async (req, res) => {
                         };
 
                         jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
+                            if (err) {
+                                res.status(400).json({ error: "could not make token" })
+                            }
                             return res.status(200)
                                 .cookie('session', token, { httpOnly: true, expires: 0 })
                                 .json({ success: true });
@@ -119,24 +122,23 @@ exports.postUserRegister = async (req, res) => {
 
                                     jwt.sign(payload, process.env.JWT_KEY, { expiresIn: 7200 }, function (err, token) {
                                         if (err) {
-                                            console.log("Error " + err);
+                                            res.status(400).json({ error: "could not make token" })
                                         }
                                         // Calling the email gererator and sender
                                         EmailRoutes.sendVerificationEmail(user.email, token)
-                                            .catch(err => res.status(500).json("Error sending email " + err));
-                                    });
-
-                                    return res.json({
-                                        Message: user.email + " is now registered."
-                                    });
-                                })
-                                .catch(err => res.status(400).json("Error saving to db " + err));
+                                            .then(() => res.json({
+                                                Message: user.email + " is now registered."
+                                            }))
+                                        .catch(err => res.status(500).json("Error sending email " + err));
+                                });
                         })
-                        .catch(err => res.status(400).json("Error bcrpyt hash " + err));
+                        .catch(err => res.status(400).json("Error saving to db " + err));
                 })
-                .catch(err => res.status(400).json("Error bcrpyt salt " + err));
+                .catch(err => res.status(400).json("Error bcrpyt hash " + err));
         })
-        .catch((err => res.status(400).json("Error checking if username is valid. " + err)));
+        .catch(err => res.status(400).json("Error bcrpyt salt " + err));
+})
+        .catch ((err => res.status(400).json("Error checking if username is valid. " + err)));
 
 };
 
@@ -186,15 +188,13 @@ exports.getUser = async (req, res) => {
 }
 
 exports.getUserLogout = async (req, res) => {
-	const authToken = req.cookies.session;
+    const authToken = req.cookies.session;
 
-    if (authToken)
-    {
-        return res.clearCookie('session').json({success: true});
+    if (authToken) {
+        return res.clearCookie('session').json({ success: true });
     }
-    else
-    {
-        return res.status(200).json({success: true});
+    else {
+        return res.status(200).json({ success: true });
     }
 }
 
