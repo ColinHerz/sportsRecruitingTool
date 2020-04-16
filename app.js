@@ -37,8 +37,8 @@ app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
 app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
 app.get('/api/users/logout', routes.getUserLogout);
-app.get('/api/users/getUserAndDetail', routes.getUserAndDetial);
-// User detail subdoc get and update 
+app.get('/api/users/getUserAndDetail', routes.getUserAndDetail);
+// User detail subdoc get and update
 app.post('/api/users/detail/update', routes.postUserDetails);
 app.get('/api/users/detail/get', routes.getUserDetails);
 // Makes a golf match instance to add scores to, or sends back everything with get

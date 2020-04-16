@@ -199,7 +199,7 @@ exports.getUserLogout = async (req, res) => {
     }
 }
 
-exports.getUserAndDetial = async (req, res) => {
+exports.getUserAndDetail = async (req, res) => {
     const authToken = req.cookies.session;
     jwt.verify(authToken, process.env.JWT_KEY, function (err, user) {
         if (err) {
@@ -216,7 +216,7 @@ exports.getUserAndDetial = async (req, res) => {
                         "firstname": foundUser.firstname,
                         "lastname": foundUser.lastname,
                         "email": foundUser.email,
-                        "detials": foundUser.userDetail
+                        "details": foundUser.userDetail
                     });
             }
         }).catch(err => res.status(500).json("Error" + err));
