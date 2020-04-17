@@ -19,6 +19,7 @@ import Profile from "./components/profile/Profile.js";
 import Verify from "./components/verify/Verify.js";
 import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
+import ViewMatch from "./components/viewMatch/ViewMatch.js";
 
 import "./reset.scss";
 
@@ -161,9 +162,7 @@ const App = props => {
 				<Route path="/events/:eid/edit/">
 					{
 						loggedIn ?
-							<EditEvent
-								user={user}
-							/>:
+							<EditEvent />:
 							<Redirect to="/" />
 					}
 				</Route>
@@ -171,26 +170,20 @@ const App = props => {
 				<Route path="/events/create/">
 					{
 						loggedIn ?
-							<CreateEvent
-								user={user}
-							/>:
+							<CreateEvent />:
 							<Redirect to="/" />
 
 					}
 				</Route>
 
 				<Route path="/events/:eid/">
-					<ViewEvent
-						user={user}
-					/>
+					<ViewEvent />
 				</Route>
 
 				<Route path="/profile/bag/:bid/">
 					{
 						loggedIn ?
-							<ViewBag
-								user={user}
-							/>:
+							<ViewBag />:
 							<Redirect to="/" />
 					}
 				</Route>
@@ -212,11 +205,13 @@ const App = props => {
 				<Route path="/events/">
 					{
 						loggedIn ?
-							<MyEvents
-								user={user}
-							/>:
+							<MyEvents />:
 							<Redirect to="/" />
 					}
+				</Route>
+
+				<Route path="/match/:mid/">
+					<ViewMatch />
 				</Route>
 
 				<Route>
