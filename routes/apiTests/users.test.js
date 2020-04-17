@@ -79,6 +79,7 @@ describe("Testing the users API", () => {
       .toEqual({
         "firstname": "colin",
         "lastname": "herzberg",
+        "isVerified": false,
         "email": "colinherzberg21@gmail.com"
       });
     done()
@@ -112,7 +113,7 @@ describe("Testing the users API", () => {
     const response = await supertest(app).get('/api/users/getUserAndDetail').set('Cookie', [cookie]);
     expect(response.status)
       .toEqual(200);
-    expect({ "age": response.body.detials.age, "height": response.body.detials.height, "weight": response.body.detials.weight })
+    expect({ "age": response.body.details.age, "height": response.body.details.height, "weight": response.body.details.weight })
       .toEqual({
         "age": 69,
         "height": 69,
