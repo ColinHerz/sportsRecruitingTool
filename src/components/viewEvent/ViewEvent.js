@@ -1,53 +1,73 @@
+import apiCall from "../../api/api.js";
 import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./ViewEvent.scss";
 
 const ViewEvent = props => {
 	const { eid } = useParams();
 
+	const [firstLoad, setFirstLoad] = useState(true);
+
+	const [eventInfo, setEventInfo] = useState({});
+
+	const [showError, setShowError] = useState(false);
+
+	useEffect(() => {
+		if (firstLoad) {
+			apiCall(
+				{
+					endpoint: `/golf/getEventResults/${eid}`,
+					type: `GET`
+				},
+				data => {
+					if (data.status !== 200) {
+						setShowError(true);
+						return;
+					}
+
+					const response = JSON.parse(data.response);
+					const startDate = new Date(response.startDate);
+					const endDate = new Date(response.endDate);
+
+					response.startDate = startDate.toDateString();
+					response.endDate = endDate.toDateString();
+
+					setEventInfo(response);
+				},
+				() => {
+					setShowError(true);
+				}
+			);
+
+			setFirstLoad(false);
+		}
+	}, [firstLoad, eid]);
+
 	return (
 		<main id="event">
-			<section id="currentEvents">
-				<h2>Event Title</h2>
-				<h3><span>Course Name</span> 9 Holes</h3>
-			</section>
+			{
+				firstLoad ?
+					<p>Loading event...</p>:
+					<React.Fragment>
+						<section id="meta-event-info">
+							<h2>{eventInfo.eventName}</h2>
 
-			<Link to={`/events/${eid}/match/add/`}><button>Add a match</button></Link>
+							<h3>{eventInfo.course}</h3>
 
-			<div>
-				<section id="scores">
-					<h3>Scores</h3>
-					<h4><button>Player 1</button></h4>
-					<ol>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-					</ol>
-					<p><span>Total:</span> 20</p>
-					<h4><button>Player 2</button></h4>
-					<ol>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-					</ol>
-					<p><span>Total:</span> 20</p>
-					<h4><button>Player 3</button></h4>
-					<ol>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-						<li>3</li>
-					</ol>
-					<p><span>Total:</span> 20</p>
-				</section>
-			</div>
+							<p>Start Date: {eventInfo.startDate}</p>
+
+							<p>End Date: {eventInfo.endDate}</p>
+						</section>
+
+						<Link to={`/events/${eid}/match/add/`}><button>Add a match</button></Link>
+
+						<section id="scores">
+						</section>
+					</React.Fragment>
+			}
+
 		</main>
 	);
 };
