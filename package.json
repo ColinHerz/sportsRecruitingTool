@@ -60,11 +60,5 @@
     "jest": "24.9.0",
     "react-test-renderer": "^16.13.1",
     "supertest": "^4.0.2"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ]
   }
 }

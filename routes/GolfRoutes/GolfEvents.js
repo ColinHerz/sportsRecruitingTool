@@ -34,7 +34,6 @@ exports.postGolfEvent = async (req, res) => {
                 event.owner = user.id;
                 event.players = players;
                 event.save().then(() => {
-                    console.log(event);
                     return res.status(200).json({ Message: eventName + " created successfully", "event": event.id });
                 })
                     .catch(err => res.status(500).json("Error " + err));
@@ -135,7 +134,7 @@ exports.getEventResults = async (req, res) => {
                 };
 
                 foundEvent.scores.forEach(score => {
-                    results.push({
+                    response.results.push({
                         user: score.user,
                         place: placement++,
                         total: score.userScore.totalScore,
@@ -143,12 +142,9 @@ exports.getEventResults = async (req, res) => {
                     });
 
                     score.userScore.subTotalScores.forEach(subScore => {
-                        results[results.length-1].subTotals.push(subScore.subTotal);
-                        console.log("loop");
+                        response.results[response.results.length-1].subTotals.push(subScore.subTotal);
                     });
                 });
-
-                console.log(response);
 
                 try {
                     return res.status(200).json(response);
