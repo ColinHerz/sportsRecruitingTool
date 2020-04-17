@@ -33,7 +33,7 @@ const Verify = props => {
 
 			setFirstLoad(false);
 		}
-	}, [firstLoad]);
+	}, [firstLoad, token]);
 
 	return (
 		<main id="verify">

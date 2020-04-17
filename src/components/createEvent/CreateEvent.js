@@ -1,4 +1,4 @@
-import apiCall from "../../api/api.js"
+import apiCall from "../../api/api.js";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -93,7 +93,7 @@ const CreateEvent = props => {
 				setEventId(eid);
 				setSubmitted(true);
 			},
-			reason => {
+			() => {
 				setShowError(true);
 			}
 		);

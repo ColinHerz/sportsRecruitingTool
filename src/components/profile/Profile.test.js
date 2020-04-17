@@ -1,4 +1,5 @@
 /* eslint-env jest */
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "apiCall" }]*/
 
 import apiCall from "../../api/api.js";
 import React from "react";
@@ -16,7 +17,7 @@ const genProps = isVerified => {
 			lastname: `Smith`,
 			isVerified: isVerified
 		}
-	}
+	};
 };
 
 beforeEach(() => {

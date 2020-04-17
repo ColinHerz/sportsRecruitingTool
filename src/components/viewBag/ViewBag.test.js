@@ -1,4 +1,5 @@
 /* eslint-env jest */
+/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "apiCall" }]*/
 
 import apiCall from "../../api/api.js";
 import { MemoryRouter } from "react-router-dom";
@@ -17,7 +18,7 @@ const genProps = () => {
 			lastname: `Smith`,
 			isVerified: true
 		}
-	}
+	};
 };
 
 beforeEach(() => {
