@@ -46,7 +46,7 @@ const ViewBag = props => {
 
 			setUpdateBag(false);
 		}
-	});
+	}, [updateBag, bid]);
 
 	const submitClub = event => {
 		event.preventDefault();
@@ -80,11 +80,6 @@ const ViewBag = props => {
 
 		const clubId = event.target.parentElement.id;
 
-		const body = {
-			golfClub: clubId,
-			golfBag: bid
-		};
-
 		apiCall(
 			{
 				endpoint: `/golf/deleteGolfclub`,
@@ -106,11 +101,11 @@ const ViewBag = props => {
 		}
 
 		setUpdateBag(true);
-	}
+	};
 
 	const apiError = () => {
 		setShowError(true);
-	}
+	};
 
 	const cancelAddClub = event => {
 		event.preventDefault();

@@ -13,7 +13,7 @@ exports[`rendering renders correctly when logged in 1`] = `
   <ul>
     <li>
       <a
-        href="/myevents/garbage/"
+        href="/events/"
         onClick={[Function]}
       >
         Events
@@ -21,15 +21,7 @@ exports[`rendering renders correctly when logged in 1`] = `
     </li>
     <li>
       <a
-        href="/scores/"
-        onClick={[Function]}
-      >
-        Top Scores
-      </a>
-    </li>
-    <li>
-      <a
-        href="/profile/garbage/"
+        href="/profile/"
         onClick={[Function]}
       >
         Your Profile

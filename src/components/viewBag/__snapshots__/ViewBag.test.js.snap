@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders correctly 1`] = `
+<main
+  id="view-bag"
+>
+  <h2>
+    Loading...
+  </h2>
+  <ul />
+  <button
+    id="add-club-btn"
+    onClick={[Function]}
+  >
+    Add Club
+  </button>
+</main>
+`;

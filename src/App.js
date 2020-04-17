@@ -7,6 +7,7 @@ import {
 	Switch
 } from "react-router-dom";
 
+import AddMatch from "./components/addMatch/AddMatch.js";
 import CreateEvent from "./components/createEvent/CreateEvent.js";
 import EditEvent from "./components/editEvent/EditEvent.js";
 import Footer from "./components/footer/Footer.js";
@@ -16,7 +17,6 @@ import LoginModal from "./components/loginModal/LoginModal.js";
 import MyEvents from "./components/myEvents/MyEvents.js";
 import NoMatch from "./components/noMatch/NoMatch.js";
 import Profile from "./components/profile/Profile.js";
-import TopScores from "./components/topScores/TopScores.js";
 import Verify from "./components/verify/Verify.js";
 import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
@@ -159,7 +159,17 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/MyEvents/create/">
+				<Route path="/events/edit/:eid/">
+					{
+						loggedIn ?
+							<EditEvent
+								user={user}
+							/>:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/events/create/">
 					{
 						loggedIn ?
 							<CreateEvent
@@ -170,17 +180,13 @@ const App = props => {
 					}
 				</Route>
 
-				<Route path="/event/edit/:eid/">
-					{
-						loggedIn ?
-							<EditEvent
-								user={user}
-							/>:
-							<Redirect to="/" />
-					}
+				<Route path="/events/:eid/match/add/">
+					<AddMatch
+						user={user}
+					/>
 				</Route>
 
-				<Route path="/event/:eid/">
+				<Route path="/events/:eid/">
 					<ViewEvent
 						user={user}
 					/>
@@ -210,7 +216,7 @@ const App = props => {
 					}
 				</Route>
 
-				<Route path="/MyEvents/">
+				<Route path="/events/">
 					{
 						loggedIn ?
 							<MyEvents
@@ -218,10 +224,6 @@ const App = props => {
 							/>:
 							<Redirect to="/" />
 					}
-				</Route>
-
-				<Route path="/TopScores/">
-					<TopScores />
 				</Route>
 
 				<Route>
