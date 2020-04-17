@@ -52,6 +52,12 @@ const ViewEvent = props => {
 					<p>Loading event...</p>:
 					<React.Fragment>
 						<section id="meta-event-info">
+							{
+								showError ?
+									<p id="error-message">Something went wrong. Please try again later.</p>:
+									null
+							}
+
 							<h2>{eventInfo.eventName}</h2>
 
 							<h3>{eventInfo.course}</h3>
@@ -61,7 +67,7 @@ const ViewEvent = props => {
 							<p><span className="bolder">End Date:</span> {eventInfo.endDate}</p>
 						</section>
 
-						<Link id="add-match-btn" to={`/events/${eid}/match/add/`}>Add a match</Link>
+						<Link id="profile-link" to="/profile/">Add a match from your profile.</Link>
 
 						<section id="scores">
 						</section>

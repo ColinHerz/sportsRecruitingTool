@@ -7,7 +7,6 @@ import {
 	Switch
 } from "react-router-dom";
 
-import AddMatch from "./components/addMatch/AddMatch.js";
 import CreateEvent from "./components/createEvent/CreateEvent.js";
 import EditEvent from "./components/editEvent/EditEvent.js";
 import Footer from "./components/footer/Footer.js";
@@ -159,7 +158,7 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/events/edit/:eid/">
+				<Route path="/events/:eid/edit/">
 					{
 						loggedIn ?
 							<EditEvent
@@ -178,12 +177,6 @@ const App = props => {
 							<Redirect to="/" />
 
 					}
-				</Route>
-
-				<Route path="/events/:eid/match/add/">
-					<AddMatch
-						user={user}
-					/>
 				</Route>
 
 				<Route path="/events/:eid/">
