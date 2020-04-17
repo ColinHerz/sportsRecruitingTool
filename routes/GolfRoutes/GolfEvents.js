@@ -34,7 +34,6 @@ exports.postGolfEvent = async (req, res) => {
                 event.owner = user.id;
                 event.players = players;
                 event.save().then(() => {
-                    console.log(event);
                     return res.status(200).json({ Message: eventName + " created successfully", "event": event.id });
                 })
                     .catch(err => res.status(500).json("Error " + err));
@@ -125,30 +124,30 @@ exports.getEventResults = async (req, res) => {
 
                 // creating the new json with just the name, placement, and scores.
                 var placement = 1;
-                var resultsString = '{ "results": ['
-                for (const element of foundEvent.scores) {
-                    if (placement != 1) {
-                        resultsString += ",";
-                    }
-                    resultsString += ('{ "user" : "' + element.user +
-                        '", "place" :"' + placement +
-                        '", "total" :"' + element.userScore.totalScore
-                    );
-                    var subTotalCount = 1;
-                    for (const subTotal of element.userScore.subTotalScores) {
-                        resultsString += '", "' + subTotalCount + '" :"' + subTotal.subTotal;
-                        subTotalCount++;
-                        console.log("loop");
-                    }
-                    resultsString += '"}';
-                    placement++;
-                }
+                const response = {
+                    eventName: foundEvent.eventName,
+                    course: foundEvent.course,
+                    startDate: foundEvent.startDate,
+                    endDate: foundEvent.endDate,
+                    players: foundEvent.players,
+                    results: []
+                };
 
-                resultsString += "] }";
-                console.log(resultsString);
+                foundEvent.scores.forEach(score => {
+                    response.results.push({
+                        user: score.user,
+                        place: placement++,
+                        total: score.userScore.totalScore,
+                        subTotals: []
+                    });
+
+                    score.userScore.subTotalScores.forEach(subScore => {
+                        response.results[response.results.length-1].subTotals.push(subScore.subTotal);
+                    });
+                });
 
                 try {
-                    return res.status(200).json(JSON.parse(resultsString));
+                    return res.status(200).json(response);
                 } catch (error) {
                     return res.status(400).json("Error " + err)
                 }

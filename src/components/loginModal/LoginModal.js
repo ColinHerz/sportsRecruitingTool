@@ -77,7 +77,7 @@ const LoginModal = props => {
 	};
 
 	const isValid = data => {
-		return data.status === 200
+		return data.status === 200;
 	};
 
 	const handleError = reason => {

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let GolfCourse = require("../../GolfMisc/GolfCourse");
 let GolfSubScore = require("./UserSportsGolfSubModels/UserSportsGolfSubScore");
 let GolfBag = require("../GolfBag");
 
