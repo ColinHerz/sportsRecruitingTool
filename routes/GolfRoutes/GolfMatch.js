@@ -3,14 +3,13 @@ const jwt = require('jsonwebtoken');
 let User = require("../../models/User");
 let UserSportsGolf = require("../../models/UserSubModels/UserSportsSubModels/UserSportsGolf");
 let UserSportsGolfSubScore = require("../../models/UserSubModels/UserSportsSubModels/UserSportsGolfSubModels/UserSportsGolfSubScore");
-let GolfCourse = require("../../models/GolfMisc/GolfCourse");
 
 
 exports.postGolfMatch = async (req, res) => {
     // takes user selected golf course, equipment and user cookie, then makes a match, then sends its id
     const coursePlayed = req.body.coursePlayed; // Course name which will be used to search for course data
     const nameOfRound = req.body.nameOfRound; // Course name which will be used to search for course data
-    const GolfBagUsed = req.body.GolfBagUsed; // id that matches up to a bag of clubs 
+    const GolfBagUsed = req.body.GolfBagUsed; // id that matches up to a bag of clubs
     const datePlayed = new Date();
     const authToken = req.cookies.session;
 
@@ -170,8 +169,8 @@ exports.postGolfHoleScoreUpdate = async (req, res) => {
                 foundHole.numberOfPutts = numberOfPutts;
                 foundHole.fairwayHit = fairwayHit;
                 foundHole.greenInRegulation = greenInRegulation;
-                
-                    
+
+
                 user.save()
                     .then(() => {
                         return res.status(200).json({ Message: "hole updated" })
