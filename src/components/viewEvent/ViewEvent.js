@@ -46,7 +46,7 @@ const ViewEvent = props => {
 	}, [firstLoad, eid]);
 
 	return (
-		<main id="event">
+		<main id="view-event">
 			{
 				firstLoad ?
 					<p>Loading event...</p>:
@@ -56,12 +56,12 @@ const ViewEvent = props => {
 
 							<h3>{eventInfo.course}</h3>
 
-							<p>Start Date: {eventInfo.startDate}</p>
+							<p><span className="bolder">Start Date:</span> {eventInfo.startDate}</p>
 
-							<p>End Date: {eventInfo.endDate}</p>
+							<p><span className="bolder">End Date:</span> {eventInfo.endDate}</p>
 						</section>
 
-						<Link to={`/events/${eid}/match/add/`}><button>Add a match</button></Link>
+						<Link id="add-match-btn" to={`/events/${eid}/match/add/`}>Add a match</Link>
 
 						<section id="scores">
 						</section>
