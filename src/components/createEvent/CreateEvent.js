@@ -240,7 +240,10 @@ const CreateEvent = props => {
 							null
 					}
 
-					<button onClick={toggleShowPlayerInput}>
+					<button
+						onClick={toggleShowPlayerInput}
+						id="add-player-btn"
+					>
 						{
 							showPlayerInput ?
 								`Done`:

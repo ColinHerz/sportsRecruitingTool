@@ -89,6 +89,12 @@
 		font-size: 22px;
 	}
 
+	li {
+		span {
+			margin-right: 1em;
+		}
+	}
+
 	button, input[type="submit"] {
 		background-color: $orange;
 		font-family: "Open Sans";
@@ -105,11 +111,15 @@
 		border: none;
 		border-radius: 4px;
 
-		font-size: 22px;
+		font-size: 20px;
 		font-weight: 600;
 
 		padding: 0.1em 1em;
+	}
+
+	#add-player-btn {
 		height: 39px;
+		font-size: 22px;
 	}
 
 	input[type="submit"] {
