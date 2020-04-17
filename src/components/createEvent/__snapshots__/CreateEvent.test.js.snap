@@ -10,43 +10,49 @@ exports[`Rendering Renders beginning page correctly 1`] = `
   <form
     onSubmit={[Function]}
   >
-    <label>
-      Title
-      <input
-        name="title"
-        type="text"
-      />
-    </label>
-    <label>
-      Course
-      <input
-        name="course"
-        type="text"
-      />
-    </label>
-    <label>
-      Hole Count
-      <input
-        name="holeCount"
-        onChange={[Function]}
-        type="number"
-        value={1}
-      />
-    </label>
-    <h3>
-      Hole Pars
-    </h3>
     <div
-      id="pars"
+      className="input-group"
     >
       <label>
-        1
-        .
+        Event Name
         <input
-          name="par-0"
-          onChange={[Function]}
-          type="number"
-          value={3}
+          name="eventName"
+          type="text"
+        />
+      </label>
+    </div>
+    <div
+      className="input-group"
+    >
+      <label>
+        Course
+        <input
+          name="course"
+          type="text"
+        />
+      </label>
+    </div>
+    <div
+      className="input-group"
+    >
+      <label>
+        Start Date
+        <input
+          min="2020-function getMonth() { [native code] }1-18"
+          name="startDate"
+          type="date"
+        />
+      </label>
+    </div>
+    <div
+      className="input-group"
+    >
+      <label>
+        End Date
+        <input
+          min="2020-function getMonth() { [native code] }1-18"
+          name="endDate"
+          type="date"
         />
       </label>
     </div>
@@ -54,11 +60,16 @@ exports[`Rendering Renders beginning page correctly 1`] = `
       Players
     </h3>
     <ul />
-    <button
-      onClick={[Function]}
+    <div
+      id="add-player-section"
     >
-      Add Player
-    </button>
+      <button
+        id="add-player-btn"
+        onClick={[Function]}
+      >
+        Add Player
+      </button>
+    </div>
     <input
       type="submit"
       value="Create"

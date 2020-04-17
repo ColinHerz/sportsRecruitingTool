@@ -1,11 +1,8 @@
 /* eslint-env jest */
-/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "apiCall" }]*/
 
-import apiCall from "../../api/api.js";
 import { MemoryRouter } from "react-router-dom";
 import React from "react";
 import renderer from "react-test-renderer";
-import { shallow } from "../../../enzyme.js";
 
 import ViewBag from "./ViewBag.js";
 
