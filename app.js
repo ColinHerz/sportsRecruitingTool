@@ -24,7 +24,11 @@ mongoose
     useUnifiedTopology: true,
     useFindAndModify: false
   })
-  .then(() => console.log('MongoDB Atlas connection established successfully'))
+  .then(() => {
+    app.emit("appStarted");
+    console.log('MongoDB Atlas connection established successfully');
+    return;
+  })
   .catch(err => console.log(err));
 
 
