@@ -47,7 +47,7 @@ mongoose
       },
       servers: [
         {
-          url: "http://localhost3000.us-east-2.elasticbeanstalk.com/"
+          url: "http://localhost3000.us-east-2.elasticbeanstalk.com/api/"
         }
       ]
     },
