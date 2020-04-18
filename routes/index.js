@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-const { postUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetial} = require("./users");
-=======
-
 const { postUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetail} = require("./users");
->>>>>>> f7f39003a378de5c3573d96ca5549dc471a154dc
 const { resendVerificationEmail } = require("./emails");
 const { getUserDetails, postUserDetails } = require("./userdetail");
 const { postGolfMatch, getGolfMatch, postGolfHoleScore, postGolfHoleScoreUpdate, getGolfHole, getAllMatches } = require("./GolfRoutes/GolfMatch");

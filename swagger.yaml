@@ -702,7 +702,7 @@
           "401":
             description: Invalid Credentials
 
-  /GolfBag/getGolfClub:
+  /GolfBag/getGolfClub:/:golfClub/:golfBag:
       get:
         tags: [GolfBag]
         summary: Removes golf club from a bag - requires Cookie
@@ -1056,7 +1056,7 @@
         "500":
           description: Database Error
 
-  /GolfMatch/getGolfHole:
+  /GolfMatch/getGolfHole:/:hole/:match:
     get:
       tags: [GolfMatch]
       summary: Updates Score and Analytics for one hole
@@ -1116,6 +1116,41 @@
                     type: array
                     items:
                         $ref: '#/components/schemas/UserSportsGolf'    
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/getGolfMatch:golfMatch:
+    get:
+      tags: [GolfMatch]
+      summary: Gets Specific Match
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                golfMatch:
+                  type: string
+                  example: 1209rufn0182y               
+      responses:
+        "200":
+          description: Updated Score
+          content:
+            application/json:
+              schema:
+                properties:
+                  golfMatch:
+                    type: string
+                    example: 1209rufn0182y 
+                  GolfSubScore:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GolfSubScore'  
         "400":
           description: User not Found
         "401":
