@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import "viewMatch.scss";
+import "./viewMatch.scss";
 
 const ViewMatch = props => {
 	const { mid } = useParams;
