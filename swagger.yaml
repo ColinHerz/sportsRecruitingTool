@@ -1,0 +1,1170 @@
+  components:
+    schemas:
+      User:
+        type: object
+        required:
+          - firstname
+          - lastname
+          - email
+          - password
+          - isVerified
+        properties:
+          firstname:
+            type: string
+          lastname:
+            type: string
+          email:
+            type: string
+            format: email
+            description: Email for the user - This is the user name.
+          password:
+            type: string
+            description: Note that this is normally encrypted
+          isVerified:
+            type: boolean
+            description: E-mail Verification
+          userDetails:
+            $ref: '#/components/schemas/UserDetails'
+          userFavorite:
+            $ref: '#/components/schemas/UserFavorite'
+          golfBags:
+            type: array
+            $ref: '#/components/schemas/GolfBag'
+          userSports:
+            $ref: '#/components/schemas/UserSports'        
+        example:
+            firstname: Swagger
+            lastname: Test
+            email: swaggertest852@gmail.com
+            password: test
+            isVerified: false
+
+      UserLogin:
+        type: object
+        description: Information that would be held in cookie
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            format: email
+            description: Email for the user - This is the user name.
+          password:
+            type: string
+            description: Note that this is normally encrypted       
+        example:
+            email: swaggertest852@gmail.com
+            password: test
+
+      UserDetails:
+        type: object
+        properties:
+          age:
+            type: int
+          height:
+            type: int
+          weight:
+             type: int
+        example:
+          age: 25
+          height: 70
+          weight: 180
+
+      UserSports:
+        type: object
+        properties:
+          golf:
+            $ref: '#/components/schemas/UserSportsGolf'
+
+      UserSportsGolf:
+        type: object
+        properties:
+          datePlayed: 
+            type: string
+            format: date
+            example: 4/20/2020
+          golfMatch:
+            type: array
+            items:
+              $ref: '#/components/schemas/GolfSubScore'
+          GolfBagUsed:
+            $ref: '#/components/schemas/GolfBag'
+          frontNineScore:
+            type: number
+            example: 35
+          backNineScore:
+            type: number
+            example: 34
+          totalScore:
+            type: number
+            example: 69
+
+      UserFavorite:
+        type: object
+        properties:
+          userFavoriteGolf:
+            type: object
+            properties:
+              favoriteGolfCourse:
+                $ref: '#/components/schemas/GolfCourse'
+              favoriteGolfClub:
+                $ref: '#/components/schemas/UserEquipmentGolfClub'
+
+      GolfBag:
+        type: object
+        properties:
+          bagname:
+            type: string
+            unique: false
+            trim: true
+            example: Callaway
+          golfClub:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserEquipmentGolfClub'
+
+      UserEquipmentGolfClub:
+        type: object
+        properties:
+          clubType: 
+            type: number
+          clubName:
+            type: string
+            trim: true
+            unique: false
+        example:
+          clubType: 3
+          clubName: wood
+
+      GolfCourse:
+        type: object
+        required:
+          - courseName
+        properties:
+          courseName:
+            type: string
+            unique: True
+        example:
+          courseName: Twin Rivers
+
+      GolfSubScore:
+        type: object
+        required:
+          - score
+        properties:
+          score:
+            type: number
+          greenInRegulation:
+            type: boolean
+          fairwayHit:
+            type: boolean
+          numberOfPutts:
+            type: number
+          clubsUsed:
+            type: array
+            items:
+              $ref: '#/components/schemas/UserEquipmentGolfClub'
+        example:
+          score: 4
+          greenInRegulation: true
+          fairwayHit: true
+          numberOfPutts: 2
+
+      userEntrySchema:
+        type: object
+        required:
+          - user
+          - userScore
+          - datePosted
+        properties:
+          user:
+            type: string
+            example: swaggertest852@gmail.com
+          userScore:
+            $ref: '#/components/schemas/UserSportsGolf'
+          datePosted:
+            type: string
+            format: date
+            example: 4/20/2020
+
+      GolfEventSchema:
+        type: object
+        required:
+          - owner
+          - eventName
+          - startDate
+          - endDate
+          - scores
+          - players
+          - course
+        properties:
+          owner:
+            type: string
+            example: swaggertest852@gmail.com
+          eventName:
+            type: string
+            example: Club Tournament
+          startDate:
+            type: string
+            format: date
+            example: 4/20/2020
+          endDate:
+            type: string
+            format: date
+            example: 4/27/2020
+          scores:
+            type: array
+            items:
+              $ref: '#/components/schemas/userEntrySchema'
+          players:
+            type: array
+            items:
+              type: string
+              example: swaggertest852@gmail.com          
+          course:
+            $ref: '#/components/schemas/GolfCourse'
+
+  path:
+    /users/register:
+      post:
+        summary: Create a new user
+        tags: [Users]
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        responses:
+          "200":
+            description: 'User Registered - Success' 
+            content:
+              application/json:
+                schema:
+                  message:
+                    type: 'string'
+                  example:
+                    message: 'success'
+          "400":
+            description: User Name Taken / Invalid Character Used
+          "500":
+            description: Cannot connect to database
+
+  /users/login:
+    post:
+      summary: Logs in a user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      responses:
+        "200":
+          description: User Registered - returns User schema and Login Cookie
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                description: User Information is Stored Here
+                example: USERSESSIONID=swagger852@gmail.com; Path=/; HttpOnly
+          content:
+            application/json:
+              schema:
+                success:
+                  type: string
+                example:
+                  success: true
+        "400":
+          description: Incorrect Credentials
+        "500":
+            description: Cannot connect to database
+
+  /users/verify/:token:
+    get:
+      summary: Checks e-mail Verification *Note, requires cookie
+      tags: [Users]
+      parameters:
+      - in: query
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+        required: true
+        name: UserCookie
+        description: User info from Cookie
+      produces:
+      - 'application/json'
+      responses:
+        "200":
+          description: Changed Boolean of Verified to True 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Success:
+                  type: string
+                  example: 
+                    Success: true
+        "400":
+          description: Cannot connect to database or User not Found
+          content:
+            application/json:
+              warning:
+                type: string
+                example: This user does not exist
+  
+  /users/getUser:
+    get:
+      summary: Gets user information *Requires Cookie
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              login:
+                $ref: '#/components/schemas/UserLogin'
+      produces:
+      - 'application/json'
+      responses:
+        "200":
+          description: Return User Info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  email:
+                    type: string
+                example:
+                  firstname: Swagger
+                  lastname: Test
+                  email: swaggertest852@gmail.com               
+        "401":
+          description: Invalid Cookie
+        "500":
+          description: Connection Error
+
+  /users/getUserLogout:
+    get:
+      summary: Logs User Out - requires Cookie
+      tags: [Users]
+      security:
+        - cookieAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+        name: UserCookie
+        description: User info from Cookie
+      produces:
+      - 'application/json'
+      responses:
+        "200":
+          description: Clears User Cookie. - Either it will clear cookie or the User is logged out.
+          content:
+            application/json:
+              success:
+              type: string
+              example: true
+
+  /users/getUserandDetail:
+    get:
+      tags: [Users]
+      summary: Retrieves Details - requires cookie    
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+      required: true
+      name: UserCookie
+      description: User info from Cookie
+      produces:
+      - 'application/json'
+      responses:
+        "200":
+          description: Gets user data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  age:
+                    type: int
+                  height:
+                    type: string
+                  weight:
+                    type: int
+              example:
+                firstname: Swagger
+                lastname: Test
+                email: swaggertest852@gmail.com
+                age: 25
+                height: 70
+                weight: 180
+        "500":
+          description: Database Error
+        "400":
+          description: User not found
+        "401":
+          description: Invalid credentials
+
+  /userDetail/getUserandDetail:
+    get:
+      tags: [UserDetail]
+      summary: Retrieves Details - requires cookie    
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'       
+      required: true
+      name: UserCookie
+      description: User info from Cookie
+      produces:
+      - 'application/json'
+      responses:
+        "200":
+          description: Gets user data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  age:
+                    type: int
+                  height:
+                    type: string
+                  weight:
+                    type: int
+              example:
+                age: 25
+                height: 70
+                weight: 180
+        "500":
+          description: Database Error
+        "400":
+          description: User not found
+        "401":
+          description: Invalid Credentials
+
+  /userDetail/postUserDetail:
+    post:
+      tags: [UserDetail]
+      summary: Update/Creates Details - requires cookie    
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                age:
+                  type: int
+                  example: 23
+                height:
+                  type: int
+                  example: 70
+                weight:
+                  type: int
+                  example: 180
+      required: true
+      name: UserCookie and Details
+      description: User info from Cookie + Details
+      produces:
+      - 'application/json'
+      responses:
+        "200":
+          description: Gets user data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+              example:
+                success: true
+        "500":
+          description: Database Error
+        "400":
+          description: User not found
+        "401":
+          description: Invalid Credentials
+    
+  /emails/sendVerificationEmail:
+    post:
+      tags: [Email]
+      summary: Send Verification Email - requires cookie   
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin' 
+      responses:
+        "Error":
+          description: Console log Error
+        "Success":
+          description: Email sent
+          
+  /GolfBag/postGolfBag:
+    post:
+      tags: [GolfBag]
+      summary: Creates New Golf Bag - Requires Cookie    
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                bagName:
+                  type: string
+                  example: Callaway
+      responses:
+        "200":
+          description: Successful Add/Update of bag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bagName:
+                    type: string
+                    example: Callaway
+        "500":
+          description: Database Error
+        "400":
+          description: User not found
+        "401":
+          description: Invalid Credentials
+
+  /GolfBag/postGolfBagDelete:
+    delete:
+      tags: [GolfBag]
+      summary: Deletes Bag - Requires Cookie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                bagName:
+                  type: string
+                  example: Callaway
+      responses:
+        "200":
+          description: Deleted Bag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    example: Bag Removed
+        "500":
+          description: Database Error
+        "400":
+          description: User not found
+        "401":
+          description: Invalid Credentials
+
+  /GolfBag/getGolfBag:
+    get:
+      tags: [GolfBag]
+      summary: Retrieves Specific Bag - requires cookie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                golfBag:
+                  type: string
+                  example: Callaway
+      responses:
+        "200":
+          description: Retrieved Bag
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    $ref: '#/components/schemas/UserLogin'
+                  bagName:
+                      $ref: '#/components/schemas/GolfBag'
+        "500":
+          description: Database Error
+        "400":
+          description: User not found
+        "401":
+          description: Invalid Credentials
+
+  /GolfBag/getAllGolfBags:
+      get:
+        tags: [GolfBag]
+        summary: Gets every golf bag related to the user - requires cookie
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    $ref: '#/components/schemas/UserLogin'
+        responses:
+          "200":
+            description: Retrieved Bags
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      example: swaggertest852@gmail.com
+                    bagName:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/GolfBag'
+          "500":
+            description: Database Error
+          "400":
+            description: User not found
+          "401":
+            description: Invalid Credentials
+
+  /GolfBag/postGolfClubAdd:
+      post:
+        tags: [GolfBag]
+        summary: Adds golf club to a bag - requires Cookie
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    $ref: '#/components/schemas/UserLogin'
+                  golfBag:
+                    type: string
+                    example: Callaway
+                  clubType:
+                    type: string
+                    example: wood
+                  clubName:
+                    type: string
+                    example: 3
+        responses:
+          "200":
+            description: Added Club Successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      example: swaggertest852@gmail.com
+                    bagName:
+                      $ref: '#/components/schemas/GolfBag'
+          "500":
+            description: Database Error
+          "400":
+            description: User not found
+          "401":
+            description: Invalid Credentials
+
+  /GolfBag/getGolfClub:/:golfClub/:golfBag:
+      get:
+        tags: [GolfBag]
+        summary: Removes golf club from a bag - requires Cookie
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  login:
+                    $ref: '#/components/schemas/UserLogin'
+                  golfBag:
+                    type: string
+                    example: Callaway
+                  clubType:
+                    type: string
+                    example: wood
+                  clubName:
+                    type: string
+                    example: 3
+        responses:
+          "200":
+            description: Got club specified
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    golfBag:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            example: Callaway
+                          golfClub:
+                              $ref: '#/components/schemas/UserEquipmentGolfClub'
+          "500":
+            description: Database Error
+          "400":
+            description: User not found
+          "401":
+            description: Invalid Credentials
+
+  /GolfCourse/postGolfCourse:
+    post:
+      tags: [GolfCourse]
+      summary: Adds a golf course to database - requires cookie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                golfCouse:
+                  type: string
+                  example: Twin Rivers 
+      responses:
+        "200":
+          description: Added Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: This course was successfully added
+        "400":
+          description: Course Already Exists
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfCourse/getGolfCourse:
+    get:
+      tags: [GolfCourse]
+      summary: Adds a golf course to database - requires cookie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                courseName:
+                  type: string
+                  example: Twin Rivers 
+      responses:
+        "200":
+          description: Revtrieved Course
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  golfCourse:
+                    $ref: '#/components/schemas/GolfCourse'
+        "400":
+          description: Course Already Exists
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfEvents/postGolfEvent:
+    post:
+      tags: [GolfEvents]
+      summary: Adds a golf event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                eventName:
+                  type: string
+                  example: Club Tourney
+                startDate:
+                  type: string
+                  format: date
+                  example: 04/20/2020
+                endDate:
+                  type: string
+                  format: date
+                  example: 4/27/2020
+                course:
+                  $ref: '#/components/schemas/GolfCourse'             
+      responses:
+        "200":
+          description: Created Event Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    example: Club Tournament Created Successfully
+                  id:
+                    type: string
+                    example: dh387ahjdfkl2017dn3991
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfEvents/getAllMyEvents:
+    get:
+      tags: [GolfEvents]
+      summary: Adds a score to an event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'     
+      responses:
+        "200":
+          description: Retrieved Events
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GolfEventSchema'
+        "400":
+          description: User Not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfEvents/postGolfEventScore:
+    post:
+      tags: [GolfEvents]
+      summary: Adds a score to an event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                event:
+                  $ref: '#/components/schemas/GolfEventSchema'
+                golfmatchId:
+                  $ref: '#/components/schemas/userEntrySchema'            
+      responses:
+        "200":
+          description: Created Event Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userScore:
+                    $ref: '#/components/schemas/userEntrySchema'
+        "400":
+          description: Already entered a score/Round not during event
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfEvents/getEventsResults:
+    post:
+      tags: [GolfEvents]
+      summary: Gets Score Results
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                eventId:
+                  description: Event Schema ID
+                  type: string
+                  example: 287197HSUhiq8274oihad8                
+      security: []           
+      responses:
+        "200":
+          description: Retrieved Results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    user:
+                      type: string
+                      example: swaggertest852@gmail.com
+                    place:
+                      type: int
+                      example: 1
+                    total:
+                      type: int
+                      example: 69
+                    front:
+                      type: int
+                      example: 35
+                    back:
+                      type: int
+                      example: 34
+        "400":
+          description: Event not found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/postGolfMatch:
+    post:
+      tags: [GolfMatch]
+      summary: Creates Golf Match SubSchema
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'                     
+      responses:
+        "200":
+          description: Created Golf Match
+          content:
+            application/json:
+              schema:
+                properties:
+                  eventId:
+                    type: string
+                    example: 390127dhiawgf328
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/postGolfHoleScore:
+    post:
+      tags: [GolfMatch]
+      summary: Creates Score and Analytics for one hole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                id:
+                  description: Golf Match ID
+                  type: string
+                  example: cijn2308ufnb2308
+                subScoreAnalytics:  
+                  $ref: '#/components/schemas/GolfSubScore'                   
+      responses:
+        "200":
+          description: Posted Score
+          content:
+            application/json:
+              schema:
+                properties:
+                  hole:
+                    type: number
+                    example: 3
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/postGolfHoleScoreUpdate:
+    post:
+      tags: [GolfMatch]
+      summary: Updates Score and Analytics for one hole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                Match id:
+                  description: Golf Match ID
+                  type: string
+                  example: cijn2308ufnb2308
+                Hole id:
+                  description: Hole ID
+                  type: string
+                  example: 109onc0293u0
+                subScoreAnalytics:  
+                  $ref: '#/components/schemas/GolfSubScore'                   
+      responses:
+        "200":
+          description: Updated Score
+          content:
+            application/json:
+              schema:
+                properties:
+                  Message:
+                    type: string
+                    example: hole updated
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/getGolfHole:/:hole/:match:
+    get:
+      tags: [GolfMatch]
+      summary: Updates Score and Analytics for one hole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                Match id:
+                  description: Golf Match ID
+                  type: string
+                  example: cijn2308ufnb2308
+                Hole id:
+                  description: Hole ID
+                  type: string
+                  example: 109onc0293u0                   
+      responses:
+        "200":
+          description: Updated Score
+          content:
+            application/json:
+              schema:
+                properties:
+                  Holeid:
+                    type: number
+                    example: 109onc0293u0 
+                  subScoreAnalytics:  
+                    $ref: '#/components/schemas/GolfSubScore'
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/getAllMatches:
+    get:
+      tags: [GolfMatch]
+      summary: Updates Score and Analytics for one hole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'                
+      responses:
+        "200":
+          description: Updated Score
+          content:
+            application/json:
+              schema:
+                properties:
+                  Matches:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/UserSportsGolf'    
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+  /GolfMatch/getGolfMatch:golfMatch:
+    get:
+      tags: [GolfMatch]
+      summary: Gets Specific Match
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                login:
+                  $ref: '#/components/schemas/UserLogin'
+                golfMatch:
+                  type: string
+                  example: 1209rufn0182y               
+      responses:
+        "200":
+          description: Updated Score
+          content:
+            application/json:
+              schema:
+                properties:
+                  golfMatch:
+                    type: string
+                    example: 1209rufn0182y 
+                  GolfSubScore:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GolfSubScore'  
+        "400":
+          description: User not Found
+        "401":
+          description: Invalid token
+        "500":
+          description: Database Error
+
+        
+
+
+      
+
+      
+
+
+
+ 

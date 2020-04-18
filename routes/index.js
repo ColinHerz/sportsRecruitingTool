@@ -1,11 +1,9 @@
-
 const { postUserLogin, postUserRegister, getUserVerify, getUser, getUserLogout, getUserAndDetail} = require("./users");
 const { resendVerificationEmail } = require("./emails");
 const { getUserDetails, postUserDetails } = require("./userdetail");
 const { postGolfMatch, getGolfMatch, postGolfHoleScore, postGolfHoleScoreUpdate, getGolfHole, getAllMatches } = require("./GolfRoutes/GolfMatch");
 const { postGolfBag, postGolfBagDelete, getGolfBag, getAllGolfBags, postGolfClubAdd, postGolfClubDelete, getGolfClub } = require("./GolfRoutes/GolfBag");
 const { postGolfEvent, postGolfEventScore, getAllMyEvents, getEventResults } = require("./GolfRoutes/GolfEvents");
-
 
 exports.postUserLogin = async (req, res) => {
   await postUserLogin(req, res);

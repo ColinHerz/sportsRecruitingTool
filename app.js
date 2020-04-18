@@ -3,6 +3,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 require('dotenv').config();
 
@@ -12,6 +14,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
 app.use(cookieParser());
+app.use('/swagger', swaggerUi.serve);
 
 const URI =
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority`;
@@ -30,6 +33,27 @@ mongoose
     return;
   })
   .catch(err => console.log(err));
+
+
+  // Swagger set up
+  const options = {
+    swaggerDefinition: {
+      openapi: "3.0.0",
+      info: {
+        title: "Sporta App Documentation",
+        version: "1.0.0",
+        description:
+          "COP 4331 Spring 2020 Group 22 Project"
+      },
+      servers: [
+        {
+          url: "http://localhost3000.us-east-2.elasticbeanstalk.com/"
+        }
+      ]
+    },
+    apis: ["./swagger.yaml"]
+  };
+  const specs = swaggerJsdoc(options);
 
 
 var routes = require('./routes');
@@ -65,7 +89,7 @@ app.post('/api/golf/createGolfEvent', routes.postGolfEvent);
 app.post('/api/golf/postEventScore', routes.postGolfEventScore);
 app.get('/api/golf/getMyEvents', routes.getAllMyEvents);
 app.get('/api/golf/getEventResults/:event', routes.getEventResults);
-
+app.get('/swagger', swaggerUi.setup(specs, { explorer: true}));
 
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');
@@ -75,6 +99,5 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile('index.html', { root });
   })
 }
-
 
 module.exports = app;
