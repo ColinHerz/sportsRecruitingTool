@@ -394,6 +394,10 @@ const Profile = props => {
 					Add Bag
 				</button>
 			</section>
+
+			<section id="matches">
+				<Link to="/match/create/">Create Match</Link>
+			</section>
 		</main>
 	);
 };

@@ -7,6 +7,7 @@ import {
 	Switch
 } from "react-router-dom";
 
+import CreateMatch from "./components/createMatch/CreateMatch.js";
 import CreateEvent from "./components/createEvent/CreateEvent.js";
 import EditEvent from "./components/editEvent/EditEvent.js";
 import Footer from "./components/footer/Footer.js";
@@ -208,6 +209,10 @@ const App = props => {
 							<MyEvents />:
 							<Redirect to="/" />
 					}
+				</Route>
+
+				<Route exact path="/match/add/">
+					<CreateMatch />
 				</Route>
 
 				<Route path="/match/:mid/">
