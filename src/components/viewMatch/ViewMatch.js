@@ -42,7 +42,7 @@ const ViewMatch = props => {
 					const response = JSON.parse(data.response);
 
 					setMatchInfo(response);
-					getBagName(response.GolfBagUsed);
+					getBag(response.GolfBagUsed);
 					setUpdateMatch(false);
 					console.log(response);
 				},
@@ -53,7 +53,7 @@ const ViewMatch = props => {
 		}
 	}, [updateMatch, mid]);
 
-	const getBagName = id => {
+	const getBag = id => {
 		apiCall(
 			{
 				endpoint: `/golf/getGolfBag`,
