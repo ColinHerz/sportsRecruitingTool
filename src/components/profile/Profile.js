@@ -36,21 +36,19 @@ const Profile = props => {
 					}
 
 					setBags(JSON.parse(data.response));
+					setUpdateBags(false);
 				},
 				() => {
 					setShowError(true);
 					setBags([]);
 				}
 			);
-
-			setUpdateBags(false);
 		}
 	}, [updateBags]);
 
 	useEffect(() => {
 		if (updateUser) {
 			userInfo();
-			setUpdateUser(false);
 		}
 	}, [updateUser]);
 
@@ -148,6 +146,7 @@ const Profile = props => {
 
 				setUserData(userData);
 				setNewUserData(userData);
+				setUpdateUser(false);
 			},
 			() => {
 				setShowError(true);
