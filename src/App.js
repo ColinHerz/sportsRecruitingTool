@@ -211,7 +211,7 @@ const App = props => {
 					}
 				</Route>
 
-				<Route exact path="/match/add/">
+				<Route exact path="/match/create/">
 					<CreateMatch />
 				</Route>
 
