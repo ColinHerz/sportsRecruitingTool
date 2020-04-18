@@ -59,7 +59,7 @@ app.post('/api/golf/getGolfBag', routes.getGolfBag); // needs to be made back to
 app.get('/api/golf/getAllGolfBags', routes.getAllGolfBags);
 app.post('/api/golf/createGolfclub', routes.postGolfClubAdd);
 app.post('/api/golf/deleteGolfclub', routes.postGolfClubDelete);
-app.get('/api/golf/getGolfClub/:golfClub/:golfBag', routes.getGolfClub);
+app.get('/api/golf/getGolfClub/:golfBag/:golfClub', routes.getGolfClub);
 // Making an online even, then endpoints to join by sending a score, delete event, get results
 app.post('/api/golf/createGolfEvent', routes.postGolfEvent);
 app.post('/api/golf/postEventScore', routes.postGolfEventScore);
