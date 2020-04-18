@@ -20,6 +20,7 @@ import Profile from "./components/profile/Profile.js";
 import Verify from "./components/verify/Verify.js";
 import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
+import ViewHole from "./components/viewHole/ViewHole.js";
 import ViewMatch from "./components/viewMatch/ViewMatch.js";
 
 import "./reset.scss";
@@ -213,6 +214,10 @@ const App = props => {
 
 				<Route exact path="/match/create/">
 					<CreateMatch />
+				</Route>
+
+				<Route path="/match/:mid/:hid/">
+					<ViewHole />
 				</Route>
 
 				<Route path="/match/:mid/">
