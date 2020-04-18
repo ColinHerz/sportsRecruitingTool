@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
 app.use(cookieParser());
+app.use('/swagger', swaggerUi.serve);
 
 const URI =
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority`;
@@ -75,6 +76,28 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile('index.html', { root });
   })
 }
+
+// Swagger set up
+const options = {
+  swaggerDefinition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Sporta App Documentation",
+      version: "1.0.0",
+      description:
+        "COP 4331 Spring 2020 Group 22 Project"
+    },
+    servers: [
+      {
+        url: "http://localhost:8081/api"
+      }
+    ]
+  },
+  apis: ["./swagger.yaml"]
+};
+const specs = swaggerJsdoc(options);
+// API call for swagger docs 
+app.get("/swagger", swaggerUi.setup(specs, { explorer: true}));
 
 
 module.exports = app;
