@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 var compression = require('compression');
 var express = require('express');
 var mongoose = require('mongoose');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
 
 require('dotenv').config();
 
@@ -15,8 +12,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 app.use(compression());
 app.use(cookieParser());
-// Link used for Swagger Documentation
-app.use('/swagger', swaggerUi.serve);
 
 const URI =
   `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@colincluster-wivqx.mongodb.net/SportsApp?retryWrites=true&w=majority`;
@@ -29,7 +24,11 @@ mongoose
     useUnifiedTopology: true,
     useFindAndModify: false
   })
-  .then(() => console.log('MongoDB Atlas connection established successfully'))
+  .then(() => {
+    app.emit("appStarted");
+    console.log('MongoDB Atlas connection established successfully');
+    return;
+  })
   .catch(err => console.log(err));
 
 
@@ -37,14 +36,13 @@ var routes = require('./routes');
 
 // User get login register and verification
 app.post('/api/users/login', routes.postUserLogin);
-
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
 app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
 app.get('/api/users/logout', routes.getUserLogout);
-app.get('/api/users/getUserAndDetail', routes.getUserAndDetial);
-// User detail subdoc get and update 
+app.get('/api/users/getUserAndDetail', routes.getUserAndDetail);
+// User detail subdoc get and update
 app.post('/api/users/detail/update', routes.postUserDetails);
 app.get('/api/users/detail/get', routes.getUserDetails);
 // Makes a golf match instance to add scores to, or sends back everything with get
@@ -54,9 +52,6 @@ app.post('/api/golf/createHoleScore', routes.postGolfHoleScore);
 app.post('/api/golf/updateHoleScore', routes.postGolfHoleScoreUpdate);
 app.get('/api/golf/getGolfHole/:hole/:match', routes.getGolfHole);
 app.get('/api/golf/getMyMatches', routes.getAllMatches);
-// Makes a unique golf course or finds it
-app.post('/api/golf/createGolfCourse', routes.postGolfCourse);
-app.post('/api/golf/getGolfCourse', routes.getGolfCourse); // needs to be made back to get with params
 // Making a golf bag, get a bags contents, and add or remove clubs
 app.post('/api/golf/createGolfBag', routes.postGolfBag);
 app.post('/api/golf/deleteGolfBag', routes.postGolfBagDelete);
@@ -72,29 +67,6 @@ app.get('/api/golf/getMyEvents', routes.getAllMyEvents);
 app.get('/api/golf/getEventResults/:event', routes.getEventResults);
 
 
-
-// Swagger set up
-const options = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Sporta App Documentation",
-      version: "1.0.0",
-      description:
-        "COP 4331 Spring 2020 Group 22 Project"
-    },
-    servers: [
-      {
-        url: "http://localhost:8081/api"
-      }
-    ]
-  },
-  apis: ["./swagger.yaml"]
-};
-const specs = swaggerJsdoc(options);
-// API call for swagger docs 
-app.get("/swagger", swaggerUi.setup(specs, { explorer: true}));
-
 if (process.env.NODE_ENV === 'production') {
   const root = require('path').join(__dirname, 'build');
   console.log(root);
@@ -103,11 +75,6 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile('index.html', { root });
   })
 }
-=======
-let app = require('./app.js');
->>>>>>> f7f39003a378de5c3573d96ca5549dc471a154dc
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port: ${PORT}`);
-});
+
+module.exports = app;

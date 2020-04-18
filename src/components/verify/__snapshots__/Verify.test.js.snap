@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders correctly to start 1`] = `
+<main
+  id="verify"
+>
+  <h2>
+    Email Verification
+  </h2>
+  <p>
+    Verifying your email...
+  </p>
+</main>
+`;

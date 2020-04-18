@@ -1,20 +1,32 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let GolfCourse = require("../../GolfMisc/GolfCourse");
 let GolfSubScore = require("./UserSportsGolfSubModels/UserSportsGolfSubScore");
 let GolfBag = require("../GolfBag");
 
 // A golf match consists of an array of hole scores
 // two nine hole sub scores and a total score.
+const subTotSchema = new Schema({
+    subTotal:{
+        type:Number
+    }
+})
+
 const userSportsGolfSchema = new Schema({
-    datePlayed: Date,
+    datePlayed:  {
+        type: Date,
+        required: true
+    },
     golfMatch: [GolfSubScore.schema],
-    coursePlayed: GolfCourse.schema,
+    nameOfRound: String,
+    coursePlayed:  {
+        type: String
+    },
     GolfBagUsed: Schema.Types.ObjectId,
-    frontNineScore: Number,
-    backNineScore: Number,
-    totalScore: Number
+    subTotalScores: [subTotSchema],
+    totalScore: {
+        type: Number
+    }
     // Other details can go here
 });
 

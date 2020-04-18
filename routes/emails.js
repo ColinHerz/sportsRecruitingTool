@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 
 exports.resendVerificationEmail = async (req, res) => {
     console.log(req.body.recieverEmail);
-    this.sendVerificationEmail(req.body.recieverEmail, req.body.token)
+    this.sendVerificationEmail(req.body.recieverEmail, req.cookies.session)
         .then(() => res.status(200).json({ success: true }))
         .catch(err => res.status(400).json("Error" + err));
 }
@@ -28,9 +28,10 @@ exports.sendVerificationEmail = async (recieverEmail, token) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
+            return error;
+        }
+        else {
+            return "success";
         }
     });
 };
