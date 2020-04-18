@@ -50,7 +50,7 @@ app.post('/api/golf/createGolfMatch', routes.postGolfMatch);
 app.get('/api/golf/getGolfMatch/:golfMatch', routes.getGolfMatch);
 app.post('/api/golf/createHoleScore', routes.postGolfHoleScore);
 app.post('/api/golf/updateHoleScore', routes.postGolfHoleScoreUpdate);
-app.get('/api/golf/getGolfHole/:hole/:match', routes.getGolfHole);
+app.get('/api/golf/getGolfHole/:match/:hole', routes.getGolfHole);
 app.get('/api/golf/getMyMatches', routes.getAllMatches);
 // Making a golf bag, get a bags contents, and add or remove clubs
 app.post('/api/golf/createGolfBag', routes.postGolfBag);
