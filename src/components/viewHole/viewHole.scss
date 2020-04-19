@@ -1,0 +1,35 @@
+@import "../../colors";
+
+#view-hole {
+	width: 60%;
+	margin: auto;
+
+	color: $black;
+	background-color: $white;
+
+	font-size: 24px;
+	font-family: "Open Sans";
+
+	h2, h3 {
+		font-family: "Ubuntu";
+	}
+
+	h3 {
+		font-size: 32px;
+		margin-top: 0.4em;
+	}
+
+	h2 {
+		font-size: 40px;
+		margin-bottom: 0.4em;
+	}
+
+	.bolder {
+		font-weight: 600;
+	}
+
+	.smaller {
+		font-size: 20px;
+		color: $gray;
+	}
+}
