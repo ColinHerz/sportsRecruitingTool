@@ -167,7 +167,7 @@ const ViewMatch = props => {
 		<main id="view-match">
 			{
 				showError ?
-					<p>Something went wrong. Please try again later.</p>:
+					<p className="error-text">Something went wrong. Please try again later.</p>:
 					null
 			}
 
