@@ -63,7 +63,7 @@ app.post('/api/users/login', routes.postUserLogin);
 app.post('/api/users/register', routes.postUserRegister);
 app.get('/api/users/verify/:token', routes.getUserVerify);
 app.get('/api/users/get', routes.getUser);
-app.get('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
+app.post('/api/emails/resendVerificationEmail', routes.resendVerificationEmail);
 app.get('/api/users/logout', routes.getUserLogout);
 app.get('/api/users/getUserAndDetail', routes.getUserAndDetail);
 // User detail subdoc get and update
@@ -74,7 +74,7 @@ app.post('/api/golf/createGolfMatch', routes.postGolfMatch);
 app.get('/api/golf/getGolfMatch/:golfMatch', routes.getGolfMatch);
 app.post('/api/golf/createHoleScore', routes.postGolfHoleScore);
 app.post('/api/golf/updateHoleScore', routes.postGolfHoleScoreUpdate);
-app.get('/api/golf/getGolfHole/:hole/:match', routes.getGolfHole);
+app.get('/api/golf/getGolfHole/:match/:hole', routes.getGolfHole);
 app.get('/api/golf/getMyMatches', routes.getAllMatches);
 // Making a golf bag, get a bags contents, and add or remove clubs
 app.post('/api/golf/createGolfBag', routes.postGolfBag);
@@ -83,7 +83,7 @@ app.post('/api/golf/getGolfBag', routes.getGolfBag); // needs to be made back to
 app.get('/api/golf/getAllGolfBags', routes.getAllGolfBags);
 app.post('/api/golf/createGolfclub', routes.postGolfClubAdd);
 app.post('/api/golf/deleteGolfclub', routes.postGolfClubDelete);
-app.get('/api/golf/getGolfClub/:golfClub/:golfBag', routes.getGolfClub);
+app.get('/api/golf/getGolfClub/:golfBag/:golfClub', routes.getGolfClub);
 // Making an online even, then endpoints to join by sending a score, delete event, get results
 app.post('/api/golf/createGolfEvent', routes.postGolfEvent);
 app.post('/api/golf/postEventScore', routes.postGolfEventScore);

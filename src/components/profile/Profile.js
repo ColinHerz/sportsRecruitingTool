@@ -10,10 +10,11 @@ const Profile = props => {
 	const [newBagName, setNewBagName] = useState(``);
 
 	const [bags, setBags] = useState([]);
-	const [updateBags, setUpdateBags] = useState(false);
+	const [updateBags, setUpdateBags] = useState(true);
 
 	const [updateUser, setUpdateUser] = useState(true);
 	const [userData, setUserData] = useState({});
+
 	const [newUserData, setNewUserData] = useState({});
 	const [updatingUserData, setUpdatingUserData] = useState(false);
 
@@ -36,25 +37,50 @@ const Profile = props => {
 					}
 
 					setBags(JSON.parse(data.response));
+					setUpdateBags(false);
 				},
 				() => {
 					setShowError(true);
 					setBags([]);
 				}
 			);
-
-			setUpdateBags(false);
 		}
 	}, [updateBags]);
 
 	useEffect(() => {
 		if (updateUser) {
 			userInfo();
-			setUpdateUser(false);
 		}
 	}, [updateUser]);
 
 	// API call methods
+	const [myMatch, setMyMatch] = useState([]);
+	const [updateMatch, setUpdateMatch] = useState(true);
+
+	const getMatches = () => {
+		apiCall(
+			{
+				endpoint: `/golf/getMyMatches`,
+				type: `GET`,
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+				setMyMatch(JSON.parse(data.response));
+				setUpdateMatch(true);
+			},
+			() => {
+				setShowError(true);
+			}
+		);
+	};
+	useEffect(() => {
+		if (updateMatch) {
+			getMatches();
+		}
+	}, [updateMatch]);
 
 	const addBag = event => {
 		event.preventDefault();
@@ -148,6 +174,7 @@ const Profile = props => {
 
 				setUserData(userData);
 				setNewUserData(userData);
+				setUpdateUser(false);
 			},
 			() => {
 				setShowError(true);
@@ -169,6 +196,7 @@ const Profile = props => {
 				}
 
 				setUpdateUser(true);
+				setUpdatingUserData(false);
 			},
 			() => {
 				setShowError(true);
@@ -184,18 +212,21 @@ const Profile = props => {
 				endpoint: `/emails/resendVerificationEmail`,
 				type: `POST`,
 				body: {
-					recieverEmail: props.user.email
+					receiverEmail: props.user.email
 				}
 			},
 			data => {
 				if (data.status !== 200) {
+					console.error(data);
 					setShowError(true);
 					return;
 				}
 
+				console.log(data);
 				setVerificationSent(true);
 			},
-			() => {
+			reason => {
+				console.error(reason);
 				setShowError(true);
 			}
 		);
@@ -277,7 +308,7 @@ const Profile = props => {
 		<main id="profile">
 			{
 				showError ?
-					<p id="error-message">Something went wrong. Please try again latter.</p>:
+					<p id="error-message">Something went wrong. Please try again later.</p>:
 					null
 			}
 
@@ -312,6 +343,15 @@ const Profile = props => {
 					updatingUserData ?
 						<div id="updated-info">
 							<label className="userDetails">
+								Age (years):
+								<input
+									type="text"
+									value={newUserData.age}
+									onChange={updateAge}
+								/>
+							</label>
+
+							<label className="userDetails">
 								Height (inches):
 								<input
 									type="text"
@@ -326,15 +366,6 @@ const Profile = props => {
 									type="text"
 									value={newUserData.weight}
 									onChange={updateWeight}
-								/>
-							</label>
-
-							<label className="userDetails">
-								Age (years):
-								<input
-									type="text"
-									value={newUserData.age}
-									onChange={updateAge}
 								/>
 							</label>
 
@@ -393,6 +424,28 @@ const Profile = props => {
 				>
 					Add Bag
 				</button>
+			</section>
+
+			<section id="matches">
+				<h3>Matches</h3>
+
+				<Link id="create-match-link" to="/match/create/">Create Match</Link>
+
+				<ul>
+					{
+						myMatch.map(match=> {
+							return (
+								<li key={match._id} id={match._id}>
+									<Link
+										to={`/match/${match._id}`}
+									>
+										{match.nameOfRound}
+									</Link>
+								</li>
+							);
+						})
+					}
+				</ul>
 			</section>
 		</main>
 	);

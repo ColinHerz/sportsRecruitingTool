@@ -34,6 +34,8 @@ const ViewEvent = props => {
 					response.startDate = startDate.toDateString();
 					response.endDate = endDate.toDateString();
 
+					console.log(response);
+
 					setEventInfo(response);
 				},
 				() => {
@@ -46,24 +48,45 @@ const ViewEvent = props => {
 	}, [firstLoad, eid]);
 
 	return (
-		<main id="event">
+		<main id="view-event">
 			{
 				firstLoad ?
 					<p>Loading event...</p>:
 					<React.Fragment>
 						<section id="meta-event-info">
+							{
+								showError ?
+									<p id="error-message">Something went wrong. Please try again later.</p>:
+									null
+							}
+
 							<h2>{eventInfo.eventName}</h2>
 
 							<h3>{eventInfo.course}</h3>
 
-							<p>Start Date: {eventInfo.startDate}</p>
+							<p><span className="bolder">Start Date:</span> {eventInfo.startDate}</p>
 
-							<p>End Date: {eventInfo.endDate}</p>
+							<p><span className="bolder">End Date:</span> {eventInfo.endDate}</p>
 						</section>
 
-						<Link to={`/events/${eid}/match/add/`}><button>Add a match</button></Link>
+						<Link id="profile-link" to="/profile/">Add a match from your profile.</Link>
 
 						<section id="scores">
+							<h4>Scores</h4>
+
+							<ol>
+								{
+									eventInfo.results !== undefined ?
+										eventInfo.results.map((result, index) => {
+											return (
+												<li key={`${result.user}-${index}`}>
+													<span className="bolder">{result.user}:</span> {result.total}
+												</li>
+											);
+										}):
+										null
+								}
+							</ol>
 						</section>
 					</React.Fragment>
 			}

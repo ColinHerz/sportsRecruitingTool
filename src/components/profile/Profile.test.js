@@ -1,10 +1,7 @@
 /* eslint-env jest */
-/*eslint no-unused-vars: ["error", { "varsIgnorePattern": "apiCall" }]*/
 
-import apiCall from "../../api/api.js";
 import React from "react";
 import renderer from "react-test-renderer";
-import { shallow } from "../../../enzyme.js";
 
 import Profile from "./Profile.js";
 

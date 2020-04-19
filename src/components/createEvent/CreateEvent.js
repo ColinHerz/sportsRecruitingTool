@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 
 import "./createEvent.scss";
 
-const NOT_ENOUGH_PLAYERS = `There must be at least one player.`;
 const NOT_VALID_USER = `All users must be a valid email address.`;
 
 const date = new Date();
@@ -100,12 +99,6 @@ const CreateEvent = props => {
 	};
 
 	const playersNotValid = () => {
-		if (players.length < 1) {
-			setPlayersErrorText(NOT_ENOUGH_PLAYERS);
-			setShowPlayersError(true);
-			return true;
-		}
-
 		if (notAllEmails()) {
 			setPlayersErrorText(NOT_VALID_USER);
 			setShowPlayersError(true);
@@ -128,7 +121,7 @@ const CreateEvent = props => {
 
 				<p>Event created successfully.</p>
 
-				<p>You can view it <Link to={`/events/${eventId}`}>Here</Link></p>
+				<p>You can view it <Link to={`/events/${eventId}/`}>here</Link></p>
 			</main>
 		);
 	}
