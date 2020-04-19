@@ -31,8 +31,6 @@ const EditEvent = props => {
 
 		newScores[activeHole][player] = parseInt(event.target.value);
 
-		console.log(newScores);
-
 		setScores(newScores);
 	};
 

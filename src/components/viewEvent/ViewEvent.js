@@ -34,8 +34,6 @@ const ViewEvent = props => {
 					response.startDate = startDate.toDateString();
 					response.endDate = endDate.toDateString();
 
-					console.log(response);
-
 					setEventInfo(response);
 				},
 				() => {

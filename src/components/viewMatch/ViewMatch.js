@@ -67,7 +67,6 @@ const ViewMatch = props => {
 
 					const response = JSON.parse(data.response);
 
-					console.log(response);
 					setMatchInfo(response);
 					getBag(response.GolfBagUsed);
 					setUpdateMatch(false);

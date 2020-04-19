@@ -94,7 +94,6 @@ const App = props => {
 			},
 			data => {
 				if (data.status !== 200) {
-					console.error(JSON.parse(data.response).warning);
 					return;
 				}
 
@@ -103,8 +102,8 @@ const App = props => {
 				setUser(userData);
 				setLoggedIn(true);
 			},
-			reason => {
-				console.error(reason.warning);
+			() => {
+				return;
 			}
 		);
 	};
