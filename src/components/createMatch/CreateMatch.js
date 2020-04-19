@@ -74,7 +74,7 @@ const CreateMatch = props => {
 				matchId === `` ?
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<label>
-							Match Name
+							Match Name:
 							<input
 								type="text"
 								name="nameOfRound"
@@ -88,7 +88,7 @@ const CreateMatch = props => {
 						{errors.nameOfRound && <p className="error-text">A match name is required.</p>}
 
 						<label>
-							Course Played
+							Course Played:
 							<input
 								type="text"
 								name="coursePlayed"
@@ -102,7 +102,7 @@ const CreateMatch = props => {
 						{errors.coursePlayed && <p className="error-text">A course name is required.</p>}
 
 						<label>
-							Date Played
+							Date Played:
 							<input
 								type="date"
 								name="datePlayed"
@@ -116,7 +116,7 @@ const CreateMatch = props => {
 						{errors.datePlayed && <p className="error-text">A play date is required.</p>}
 
 						<label>
-							Bag Used
+							Bag Used:
 							<select
 								name="GolfBagUsed"
 								ref={
