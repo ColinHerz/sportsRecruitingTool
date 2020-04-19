@@ -32,6 +32,27 @@ const ViewMatch = props => {
 	const [matchSendSuccess, setMatchSendSuccess] = useState(false);
 
 	useEffect(() => {
+		const getBag = id => {
+			apiCall(
+				{
+					endpoint: `/golf/getGolfBag`,
+					type: `POST`,
+					body: {
+						golfBag: id
+					}
+				},
+				data => {
+					if (data.status !==  200) {
+						setShowError(true);
+						return;
+					}
+
+					setGolfBag(JSON.parse(data.response));
+				},
+				setShowErrorMessage
+			);
+		};
+
 		if (updateMatch) {
 			apiCall(
 				{
@@ -75,27 +96,6 @@ const ViewMatch = props => {
 			);
 		}
 	}, [updateEvents]);
-
-	const getBag = id => {
-		apiCall(
-			{
-				endpoint: `/golf/getGolfBag`,
-				type: `POST`,
-				body: {
-					golfBag: id
-				}
-			},
-			data => {
-				if (data.status !==  200) {
-					setShowError(true);
-					return;
-				}
-
-				setGolfBag(JSON.parse(data.response));
-			},
-			setShowErrorMessage
-		);
-	};
 
 	const toggleAddScore = event => {
 		event.preventDefault();

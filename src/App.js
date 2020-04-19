@@ -179,7 +179,11 @@ const App = props => {
 				</Route>
 
 				<Route path="/events/:eid/">
-					<ViewEvent />
+					{
+						loggedIn ?
+							<ViewEvent />:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/profile/bag/:bid/">
@@ -213,15 +217,27 @@ const App = props => {
 				</Route>
 
 				<Route exact path="/match/create/">
-					<CreateMatch />
+					{
+						loggedIn ?
+							<CreateMatch />:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/match/:mid/:hid/">
-					<ViewHole />
+					{
+						loggedIn ?
+							<ViewHole />:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route path="/match/:mid/">
-					<ViewMatch />
+					{
+						loggedIn ?
+							<ViewMatch />:
+							<Redirect to="/" />
+					}
 				</Route>
 
 				<Route>
