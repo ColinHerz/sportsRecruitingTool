@@ -361,7 +361,7 @@ const ViewMatch = props => {
 								null
 						}
 
-						<ol>
+						<ol id="scores-grid">
 							{
 								matchInfo.golfMatch.map(hole => {
 									return(
