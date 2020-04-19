@@ -10,7 +10,7 @@ const Profile = props => {
 	const [newBagName, setNewBagName] = useState(``);
 
 	const [bags, setBags] = useState([]);
-	const [updateBags, setUpdateBags] = useState(false);
+	const [updateBags, setUpdateBags] = useState(true);
 
 	const [updateUser, setUpdateUser] = useState(true);
 	const [userData, setUserData] = useState({});
@@ -37,7 +37,6 @@ const Profile = props => {
 					}
 
 					setBags(JSON.parse(data.response));
-					console.log(JSON.parse(data.response));
 					setUpdateBags(false);
 				},
 				() => {
@@ -424,8 +423,11 @@ const Profile = props => {
 				</button>
 			</section>
 
-			<section>
+			<section id="matches">
 				<h3>Matches</h3>
+
+				<Link id="create-match-link" to="/match/create/">Create Match</Link>
+
 				<ul>
 					{
 						myMatch.map(match=> {
@@ -441,9 +443,6 @@ const Profile = props => {
 						})
 					}
 				</ul>
-			</section>
-			<section id="matches">
-				<Link to="/match/create/">Create Match</Link>
 			</section>
 		</main>
 	);
