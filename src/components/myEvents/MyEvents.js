@@ -56,7 +56,7 @@ const MyEvents = props => {
 							return (
 								<li key={events._id} id={events._id}>
 									<Link
-										to={`/event/${events._id}`}
+										to={`/events/${events._id}/`}
 									>
 										{events.eventName}
 									</Link>

@@ -34,6 +34,8 @@ const ViewEvent = props => {
 					response.startDate = startDate.toDateString();
 					response.endDate = endDate.toDateString();
 
+					console.log(response);
+
 					setEventInfo(response);
 				},
 				() => {
@@ -70,6 +72,21 @@ const ViewEvent = props => {
 						<Link id="profile-link" to="/profile/">Add a match from your profile.</Link>
 
 						<section id="scores">
+							<h4>Scores</h4>
+
+							<ol>
+								{
+									eventInfo.results !== undefined ?
+										eventInfo.results.map((result, index) => {
+											return (
+												<li key={`${result.user}-${index}`}>
+													<span className="bolder">{result.user}:</span> {result.total}
+												</li>
+											);
+										}):
+										null
+								}
+							</ol>
 						</section>
 					</React.Fragment>
 			}
