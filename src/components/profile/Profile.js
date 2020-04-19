@@ -217,16 +217,13 @@ const Profile = props => {
 			},
 			data => {
 				if (data.status !== 200) {
-					console.error(data);
 					setShowError(true);
 					return;
 				}
 
-				console.log(data);
 				setVerificationSent(true);
 			},
-			reason => {
-				console.error(reason);
+			() => {
 				setShowError(true);
 			}
 		);
