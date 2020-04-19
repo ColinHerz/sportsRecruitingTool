@@ -212,18 +212,21 @@ const Profile = props => {
 				endpoint: `/emails/resendVerificationEmail`,
 				type: `POST`,
 				body: {
-					recieverEmail: props.user.email
+					receiverEmail: props.user.email
 				}
 			},
 			data => {
 				if (data.status !== 200) {
+					console.error(data);
 					setShowError(true);
 					return;
 				}
 
+				console.log(data);
 				setVerificationSent(true);
 			},
-			() => {
+			reason => {
+				console.error(reason);
 				setShowError(true);
 			}
 		);
