@@ -121,7 +121,7 @@ const CreateEvent = props => {
 
 				<p>Event created successfully.</p>
 
-				<p>You can view it <Link to={`/events/${eventId}`}>here</Link></p>
+				<p>You can view it <Link to={`/events/${eventId}/`}>here</Link></p>
 			</main>
 		);
 	}

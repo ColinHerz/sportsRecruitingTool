@@ -161,15 +161,7 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/events/:eid/edit/">
-					{
-						loggedIn ?
-							<EditEvent />:
-							<Redirect to="/" />
-					}
-				</Route>
-
-				<Route path="/events/create/">
+				<Route exact path="/events/create/">
 					{
 						loggedIn ?
 							<CreateEvent />:
@@ -178,40 +170,20 @@ const App = props => {
 					}
 				</Route>
 
-				<Route path="/events/:eid/">
+				<Route exact path="/events/">
 					{
 						loggedIn ?
-							<ViewEvent />:
+							<MyEvents />:
 							<Redirect to="/" />
 					}
 				</Route>
 
-				<Route path="/profile/bag/:bid/">
-					{
-						loggedIn ?
-							<ViewBag />:
-							<Redirect to="/" />
-					}
-				</Route>
-
-				<Route path="/verify/:token">
-					<Verify />
-				</Route>
-
-				<Route path="/profile/">
+				<Route exact path="/profile/">
 					{
 						loggedIn ?
 							<Profile
 								user={user}
 							/>:
-							<Redirect to="/" />
-					}
-				</Route>
-
-				<Route path="/events/">
-					{
-						loggedIn ?
-							<MyEvents />:
 							<Redirect to="/" />
 					}
 				</Route>
@@ -224,12 +196,40 @@ const App = props => {
 					}
 				</Route>
 
+				<Route path="/events/:eid/edit/">
+					{
+						loggedIn ?
+							<EditEvent />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/profile/bag/:bid/">
+					{
+						loggedIn ?
+							<ViewBag />:
+							<Redirect to="/" />
+					}
+				</Route>
+
 				<Route path="/match/:mid/:hid/">
 					{
 						loggedIn ?
 							<ViewHole />:
 							<Redirect to="/" />
 					}
+				</Route>
+
+				<Route path="/events/:eid/">
+					{
+						loggedIn ?
+							<ViewEvent />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/verify/:token">
+					<Verify />
 				</Route>
 
 				<Route path="/match/:mid/">
