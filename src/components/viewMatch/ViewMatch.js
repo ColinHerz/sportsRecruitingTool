@@ -19,12 +19,17 @@ const ViewMatch = props => {
 	const { register, handleSubmit, errors } = useForm();
 
 	const [updateMatch, setUpdateMatch] = useState(true);
+	const [updateEvents, setUpdateEvents] = useState(true);
 	const [showError, setShowError] = useState(false);
 
 	const [matchInfo, setMatchInfo] = useState({});
 	const [golfBag, setGolfBag] = useState({});
 
 	const [showAddScore, setShowAddScore] = useState(false);
+
+	const [events, setEvents] = useState([]);
+	const [showEventPicker, setShowEventPicker] = useState(false);
+	const [matchSendSuccess, setMatchSendSuccess] = useState(false);
 
 	useEffect(() => {
 		if (updateMatch) {
@@ -44,14 +49,32 @@ const ViewMatch = props => {
 					setMatchInfo(response);
 					getBag(response.GolfBagUsed);
 					setUpdateMatch(false);
-					console.log(response);
 				},
-				() => {
-					setShowError(true);
-				}
+				setShowErrorMessage
 			);
 		}
 	}, [updateMatch, mid]);
+
+	useEffect(() => {
+		if (updateEvents) {
+			apiCall(
+				{
+					endpoint: `/golf/getMyEvents`,
+					type: `GET`
+				},
+				data => {
+					if (data.status !== 200) {
+						setShowError(true);
+						return;
+					}
+
+					setEvents(JSON.parse(data.response));
+					setUpdateEvents(false);
+				},
+				setShowErrorMessage
+			);
+		}
+	}, [updateEvents]);
 
 	const getBag = id => {
 		apiCall(
@@ -70,9 +93,7 @@ const ViewMatch = props => {
 
 				setGolfBag(JSON.parse(data.response));
 			},
-			() => {
-				setShowError(true);
-			}
+			setShowErrorMessage
 		);
 	};
 
@@ -100,10 +121,46 @@ const ViewMatch = props => {
 
 				setUpdateMatch(true);
 			},
-			() => {
-				setShowError(true);
-			}
+			setShowErrorMessage
 		);
+	};
+
+	const toggleEventPicker = event => {
+		event.preventDefault();
+		setShowEventPicker(!showEventPicker);
+	};
+
+	const sendMatch = info => {
+		apiCall(
+			{
+				endpoint: `/golf/postEventScore`,
+				type: `POST`,
+				body: {
+					event: info.event,
+					golfMatch: mid
+				}
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+
+				setMatchSendSuccess(true);
+				setShowEventPicker(false);
+			},
+			setShowErrorMessage
+		);
+	};
+
+	const cancelSendMatch = event => {
+		event.preventDefault();
+
+		setShowEventPicker(false);
+	};
+
+	const setShowErrorMessage = () => {
+		setShowError(true);
 	};
 
 	return (
@@ -121,6 +178,50 @@ const ViewMatch = props => {
 						<h2>{matchInfo.nameOfRound}</h2>
 
 						<h3>{matchInfo.coursePlayed}</h3>
+
+						<button onClick={toggleEventPicker}>Send Match to an Event</button>
+
+						{
+							showEventPicker ?
+								<form onSubmit={handleSubmit(sendMatch)}>
+									<label>
+										Select an Event:
+										<select
+											name="event"
+											ref={
+												register({
+													required: true
+												})
+											}
+										>
+											<option disabled>Please select an Event</option>
+
+											{
+												events.map(event => {
+													return (
+														<option
+															key={event._id}
+															value={event._id}
+														>
+															{event.eventName}
+														</option>
+													);
+												})
+											}
+										</select>
+									</label>
+
+									<input type="submit" value="Send" />
+									<button onClick={cancelSendMatch}>Cancel</button>
+								</form>:
+								null
+						}
+
+						{
+							matchSendSuccess ?
+								<p>Match sent successfully.</p>:
+								null
+						}
 
 						<p><span className="bolder">Date Played:</span> {(new Date(matchInfo.datePlayed)).toDateString()}</p>
 
