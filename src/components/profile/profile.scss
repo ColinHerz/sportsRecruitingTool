@@ -36,8 +36,7 @@
 	}
 
 	ul {
-		list-style-type: none;
-		list-style-position: outside;
+		list-style: none;
 		padding: 0;
 	}
 
@@ -198,10 +197,18 @@
 		}
 	}
 
+	#matches {
+		font-size: 22px;
+
+		ul {
+			margin-bottom: 0.5em;
+		}
+	}
+
 	#create-match-link {
 		color: $black;
 		background-color: $orange;
-		border: none;
+		border: 2px solid $orange;
 		border-radius: 4px;
 
 		font-size: 22px;
