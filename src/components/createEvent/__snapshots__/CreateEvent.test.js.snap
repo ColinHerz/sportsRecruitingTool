@@ -38,7 +38,7 @@ exports[`Rendering Renders beginning page correctly 1`] = `
       <label>
         Start Date
         <input
-          min="2020-function getMonth() { [native code] }1-18"
+          min="2020-function getMonth() { [native code] }1-20"
           name="startDate"
           type="date"
         />
@@ -50,7 +50,7 @@ exports[`Rendering Renders beginning page correctly 1`] = `
       <label>
         End Date
         <input
-          min="2020-function getMonth() { [native code] }1-18"
+          min="2020-function getMonth() { [native code] }1-20"
           name="endDate"
           type="date"
         />

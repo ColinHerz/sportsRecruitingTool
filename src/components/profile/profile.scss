@@ -36,8 +36,7 @@
 	}
 
 	ul {
-		list-style-type: none;
-		list-style-position: outside;
+		list-style: none;
 		padding: 0;
 	}
 
@@ -132,14 +131,15 @@
 		}
 	}
 
+	input {
+		margin: 0 0.5em;
+		padding: 0.1em;
+		border: 2px solid $black;
+		border-radius: 4px;
+	}
+
 	#adding-bag-dialogue {
 		margin: 0.5em 0;
-
-		input {
-			margin: 0 0.5em;
-			border: 1px solid $black;
-			border-radius: 4px;
-		}
 
 		button {
 			margin: 0.2em;
@@ -190,20 +190,25 @@
 		margin: 0.5em 0;
 		display:inline-block;
 		width: 450px;
-		font-size: 26px;
+		font-size: 24px;
 
 		input {
-			border: 1px solid $black;
-			border-radius: 4px;
-			margin: 0 0.5em;
 			float: right;
+		}
+	}
+
+	#matches {
+		font-size: 22px;
+
+		ul {
+			margin-bottom: 0.5em;
 		}
 	}
 
 	#create-match-link {
 		color: $black;
 		background-color: $orange;
-		border: none;
+		border: 2px solid $orange;
 		border-radius: 4px;
 
 		font-size: 22px;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders beginning page correctly 1`] = `
+<main
+  id="view-match"
+>
+  <p>
+    Loading...
+  </p>
+</main>
+`;

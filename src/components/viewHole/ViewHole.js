@@ -138,7 +138,7 @@ const ViewHole = props => {
 
 										return (
 											<li key={clubInfo._id}>
-												{clubInfo.clubName} ({clubs[clubInfo.clubType]})
+												{clubInfo.clubName} <span className="smaller">({clubs[clubInfo.clubType]})</span>
 											</li>
 										);
 									}):
