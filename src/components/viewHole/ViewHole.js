@@ -113,7 +113,7 @@ const ViewHole = props => {
 
 			{
 				showError ?
-					<p>Something went wrong. Please try again later.</p>:
+					<p id="error-text">Something went wrong. Please try again later.</p>:
 					null
 			}
 

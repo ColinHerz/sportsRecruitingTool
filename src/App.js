@@ -9,7 +9,6 @@ import {
 
 import CreateMatch from "./components/createMatch/CreateMatch.js";
 import CreateEvent from "./components/createEvent/CreateEvent.js";
-import EditEvent from "./components/editEvent/EditEvent.js";
 import Footer from "./components/footer/Footer.js";
 import Header from "./components/header/Header.js";
 import Hero from "./components/hero/Hero.js";
@@ -94,7 +93,6 @@ const App = props => {
 			},
 			data => {
 				if (data.status !== 200) {
-					console.error(JSON.parse(data.response).warning);
 					return;
 				}
 
@@ -103,8 +101,8 @@ const App = props => {
 				setUser(userData);
 				setLoggedIn(true);
 			},
-			reason => {
-				console.error(reason.warning);
+			() => {
+				return;
 			}
 		);
 	};
@@ -192,14 +190,6 @@ const App = props => {
 					{
 						loggedIn ?
 							<CreateMatch />:
-							<Redirect to="/" />
-					}
-				</Route>
-
-				<Route path="/events/:eid/edit/">
-					{
-						loggedIn ?
-							<EditEvent />:
 							<Redirect to="/" />
 					}
 				</Route>
