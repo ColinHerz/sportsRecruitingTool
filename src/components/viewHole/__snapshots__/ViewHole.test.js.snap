@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders beginning page correctly 1`] = `
+<main
+  id="view-hole"
+>
+  <h2>
+    View Hole Score
+  </h2>
+  <p>
+    Loading...
+  </p>
+</main>
+`;

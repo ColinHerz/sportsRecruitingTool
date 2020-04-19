@@ -10,10 +10,6 @@ const genProps = () => {
 	};
 };
 
-beforeEach(() => {
-	jest.resetModules();
-});
-
 describe(`Rendering`, () => {
 	it(`Renders beginning page correctly`, () => {
 		const props = genProps();

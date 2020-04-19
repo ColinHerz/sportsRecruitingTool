@@ -161,7 +161,6 @@ const ViewBag = props => {
 							typeName = `Putter`;
 							break;
 						default:
-							console.error(`Incorrect putter type`);
 							setShowError(true);
 							break;
 						}

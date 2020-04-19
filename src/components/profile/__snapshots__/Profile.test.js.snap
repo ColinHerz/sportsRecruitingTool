@@ -67,6 +67,21 @@ exports[`Rendering Renders correctly when not verified 1`] = `
       Add Bag
     </button>
   </section>
+  <section
+    id="matches"
+  >
+    <h3>
+      Matches
+    </h3>
+    <ul />
+    <a
+      href="/match/create/"
+      id="create-match-link"
+      onClick={[Function]}
+    >
+      Create Match
+    </a>
+  </section>
 </main>
 `;
 
@@ -136,6 +151,21 @@ exports[`Rendering Renders correctly when verified 1`] = `
     >
       Add Bag
     </button>
+  </section>
+  <section
+    id="matches"
+  >
+    <h3>
+      Matches
+    </h3>
+    <ul />
+    <a
+      href="/match/create/"
+      id="create-match-link"
+      onClick={[Function]}
+    >
+      Create Match
+    </a>
   </section>
 </main>
 `;

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders the basic page correctly 1`] = `
+<main
+  id="create-match"
+>
+  <h2>
+    Create a Match
+  </h2>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      Match Name:
+      <input
+        name="nameOfRound"
+        type="text"
+      />
+    </label>
+    <label>
+      Course Played:
+      <input
+        name="coursePlayed"
+        type="text"
+      />
+    </label>
+    <label>
+      Date Played:
+      <input
+        name="datePlayed"
+        type="date"
+      />
+    </label>
+    <label>
+      Bag Used:
+      <select
+        name="GolfBagUsed"
+      >
+        <option
+          disabled={true}
+        >
+          Please select a bag
+        </option>
+      </select>
+    </label>
+    <input
+      type="submit"
+      value="Create"
+    />
+  </form>
+</main>
+`;

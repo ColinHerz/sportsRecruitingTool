@@ -217,16 +217,13 @@ const Profile = props => {
 			},
 			data => {
 				if (data.status !== 200) {
-					console.error(data);
 					setShowError(true);
 					return;
 				}
 
-				console.log(data);
 				setVerificationSent(true);
 			},
-			reason => {
-				console.error(reason);
+			() => {
 				setShowError(true);
 			}
 		);
@@ -429,8 +426,6 @@ const Profile = props => {
 			<section id="matches">
 				<h3>Matches</h3>
 
-				<Link id="create-match-link" to="/match/create/">Create Match</Link>
-
 				<ul>
 					{
 						myMatch.map(match=> {
@@ -446,6 +441,8 @@ const Profile = props => {
 						})
 					}
 				</ul>
+
+				<Link id="create-match-link" to="/match/create/">Create Match</Link>
 			</section>
 		</main>
 	);
