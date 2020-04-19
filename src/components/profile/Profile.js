@@ -14,7 +14,7 @@ const Profile = props => {
 
 	const [updateUser, setUpdateUser] = useState(true);
 	const [userData, setUserData] = useState({});
-	
+
 	const [newUserData, setNewUserData] = useState({});
 	const [updatingUserData, setUpdatingUserData] = useState(false);
 
@@ -423,20 +423,20 @@ const Profile = props => {
 					Add Bag
 				</button>
 			</section>
-			
+
 			<section>
 				<h3>Matches</h3>
 				<ul>
-				{
-					myMatch.map(match=> {
-						return (
-							<li key={match._id} id={match._id}>
-								<Link
-									to={`/match/${match._id}`}
-								>
+					{
+						myMatch.map(match=> {
+							return (
+								<li key={match._id} id={match._id}>
+									<Link
+										to={`/match/${match._id}`}
+									>
 										{match.nameOfRound}
-								</Link>
-							</li>
+									</Link>
+								</li>
 							);
 						})
 					}

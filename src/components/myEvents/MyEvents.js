@@ -40,21 +40,27 @@ const MyEvents = props => {
 		<main id="my-events">
 			<h2>My Events</h2>
 
+			{
+				showError ?
+					<p>Something went wrong. Please try again later.</p>:
+					null
+			}
+
 			<button><Link to="/events/create/">Create Event</Link></button>
 
 			<section id="in">
 				<h3>Events</h3>
 				<ul>
 					{
-					myEvent.map(events=> {
-						return (
-							<li key={events._id} id={events._id}>
-								<Link
-									to={`/event/${events._id}`}
-								>
+						myEvent.map(events=> {
+							return (
+								<li key={events._id} id={events._id}>
+									<Link
+										to={`/event/${events._id}`}
+									>
 										{events.eventName}
-								</Link>
-							</li>
+									</Link>
+								</li>
 							);
 						})
 					}
