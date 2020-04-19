@@ -14,6 +14,7 @@ const Profile = props => {
 
 	const [updateUser, setUpdateUser] = useState(true);
 	const [userData, setUserData] = useState({});
+	
 	const [newUserData, setNewUserData] = useState({});
 	const [updatingUserData, setUpdatingUserData] = useState(false);
 
@@ -54,6 +55,33 @@ const Profile = props => {
 	}, [updateUser]);
 
 	// API call methods
+	const [myMatch, setMyMatch] = useState([]);
+	const [updateMatch, setUpdateMatch] = useState(true);
+
+	const getMatches = () => {
+		apiCall(
+			{
+				endpoint: `/golf/getMyMatches`,
+				type: `GET`,
+			},
+			data => {
+				if (data.status !== 200) {
+					setShowError(true);
+					return;
+				}
+				setMyMatch(JSON.parse(data.response));
+				setUpdateMatch(true);
+			},
+			() => {
+				setShowError(true);
+			}
+		);
+	};
+	useEffect(() => {
+		if (updateMatch) {
+			getMatches();
+		}
+	}, [updateMatch]);
 
 	const addBag = event => {
 		event.preventDefault();
@@ -278,7 +306,7 @@ const Profile = props => {
 		<main id="profile">
 			{
 				showError ?
-					<p id="error-message">Something went wrong. Please try again latter.</p>:
+					<p id="error-message">Something went wrong. Please try again later.</p>:
 					null
 			}
 
@@ -395,7 +423,25 @@ const Profile = props => {
 					Add Bag
 				</button>
 			</section>
-
+			
+			<section>
+				<h3>Matches</h3>
+				<ul>
+				{
+					myMatch.map(match=> {
+						return (
+							<li key={match._id} id={match._id}>
+								<Link
+									to={`/match/${match._id}`}
+								>
+										{match.nameOfRound}
+								</Link>
+							</li>
+							);
+						})
+					}
+				</ul>
+			</section>
 			<section id="matches">
 				<Link to="/match/create/">Create Match</Link>
 			</section>
