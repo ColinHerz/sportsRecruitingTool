@@ -34,8 +34,6 @@ const ViewEvent = props => {
 					response.startDate = startDate.toDateString();
 					response.endDate = endDate.toDateString();
 
-					console.log(response);
-
 					setEventInfo(response);
 				},
 				() => {
@@ -54,13 +52,13 @@ const ViewEvent = props => {
 					<p>Loading event...</p>:
 					<React.Fragment>
 						<section id="meta-event-info">
+							<h2>{eventInfo.eventName}</h2>
+
 							{
 								showError ?
 									<p id="error-message">Something went wrong. Please try again later.</p>:
 									null
 							}
-
-							<h2>{eventInfo.eventName}</h2>
 
 							<h3>{eventInfo.course}</h3>
 

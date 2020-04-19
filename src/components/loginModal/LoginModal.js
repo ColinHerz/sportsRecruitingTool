@@ -8,6 +8,7 @@ import "./loginModal.scss";
 const LoginModal = props => {
 	const [isRegistering, setIsRegistering] = useState(props.isRegistering);
 	const [isError, setIsError] = useState(false);
+	const [registerSuccess, setRegisterSuccess] = useState(false);
 
 	const { register, handleSubmit, errors } = useForm();
 
@@ -46,7 +47,7 @@ const LoginModal = props => {
 				},
 				data => {
 					if (isValid(data)) {
-						props.closeModal();
+						setRegisterSuccess(true);
 					}
 					else {
 						handleError(JSON.parse(data.response));
@@ -90,7 +91,6 @@ const LoginModal = props => {
 			<div id="login-modal">
 				<h2>Sporta</h2>
 
-				{ /* This will have to be improved */ }
 				<button
 					id="close"
 					onClick={handleClose}
@@ -195,6 +195,12 @@ const LoginModal = props => {
 
 					<input type="submit" value="Submit" />
 				</form>
+
+				{
+					registerSuccess ?
+						<p id="register-success">Success! You can now log in.</p>:
+						null
+				}
 
 				{
 					isError ?
