@@ -36,6 +36,7 @@ const Profile = props => {
 					}
 
 					setBags(JSON.parse(data.response));
+					console.log(JSON.parse(data.response));
 					setUpdateBags(false);
 				},
 				() => {
@@ -168,6 +169,7 @@ const Profile = props => {
 				}
 
 				setUpdateUser(true);
+				setUpdatingUserData(false);
 			},
 			() => {
 				setShowError(true);
@@ -311,6 +313,15 @@ const Profile = props => {
 					updatingUserData ?
 						<div id="updated-info">
 							<label className="userDetails">
+								Age (years):
+								<input
+									type="text"
+									value={newUserData.age}
+									onChange={updateAge}
+								/>
+							</label>
+
+							<label className="userDetails">
 								Height (inches):
 								<input
 									type="text"
@@ -325,15 +336,6 @@ const Profile = props => {
 									type="text"
 									value={newUserData.weight}
 									onChange={updateWeight}
-								/>
-							</label>
-
-							<label className="userDetails">
-								Age (years):
-								<input
-									type="text"
-									value={newUserData.age}
-									onChange={updateAge}
 								/>
 							</label>
 
