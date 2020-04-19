@@ -1,6 +1,6 @@
 @import "../../colors";
 
-#event {
+#view-event {
 	margin: auto;
 	width: 60%;
 
@@ -13,16 +13,33 @@
 	color: $black;
 
 	font-family: "Open Sans";
+	font-size: 24px;
+
+	#error-message {
+		color: $error;
+	}
 
 	h2 {
 		font-family: "Ubuntu";
 		font-size: 48px;
+		font-weight: 700;
 	}
 
 	h3 {
-		font-family: "Open Sans";
-		color: $gray;
+		font-family: "Ubuntu";
+		font-size: 30px;
+		font-weight: 500;
+
 		margin-top: -.4em;
+		margin: -0.4em auto 0.5em;
+	}
+
+	.bolder {
+		font-weight: 600;
+	}
+
+	#profile-link {
+		margin: 1em 0;
 	}
 
 	#scores {
@@ -40,14 +57,15 @@
 	}
 
 	ol li {
-		font-size: 24px;
 		float: left;
 		margin: 0 12px;
 		padding: 0px 20px 0px 0;
 	}
+
 	ol {
 		margin-left: -25px;
 	}
+
 	p {
 		font-weight: 400;
 	}

@@ -74,7 +74,7 @@ exports.postGolfHoleScore = async (req, res) => {
     const score = req.body.score;
     const clubsUsed = req.body.clubsUsed;
     const numberOfPutts = req.body.numberOfPutts;
-    const fairwayHit = req.body.fairwaysHit;
+    const fairwayHit = req.body.fairwayHit;
     const greenInRegulation = req.body.greenInRegulation;
     const authToken = req.cookies.session;
 

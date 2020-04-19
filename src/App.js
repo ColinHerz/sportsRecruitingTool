@@ -7,7 +7,7 @@ import {
 	Switch
 } from "react-router-dom";
 
-import AddMatch from "./components/addMatch/AddMatch.js";
+import CreateMatch from "./components/createMatch/CreateMatch.js";
 import CreateEvent from "./components/createEvent/CreateEvent.js";
 import EditEvent from "./components/editEvent/EditEvent.js";
 import Footer from "./components/footer/Footer.js";
@@ -20,6 +20,8 @@ import Profile from "./components/profile/Profile.js";
 import Verify from "./components/verify/Verify.js";
 import ViewBag from "./components/viewBag/ViewBag.js";
 import ViewEvent from "./components/viewEvent/ViewEvent.js";
+import ViewHole from "./components/viewHole/ViewHole.js";
+import ViewMatch from "./components/viewMatch/ViewMatch.js";
 
 import "./reset.scss";
 
@@ -159,54 +161,24 @@ const App = props => {
 					/>
 				</Route>
 
-				<Route path="/events/edit/:eid/">
+				<Route exact path="/events/create/">
 					{
 						loggedIn ?
-							<EditEvent
-								user={user}
-							/>:
-							<Redirect to="/" />
-					}
-				</Route>
-
-				<Route path="/events/create/">
-					{
-						loggedIn ?
-							<CreateEvent
-								user={user}
-							/>:
+							<CreateEvent />:
 							<Redirect to="/" />
 
 					}
 				</Route>
 
-				<Route path="/events/:eid/match/add/">
-					<AddMatch
-						user={user}
-					/>
-				</Route>
-
-				<Route path="/events/:eid/">
-					<ViewEvent
-						user={user}
-					/>
-				</Route>
-
-				<Route path="/profile/bag/:bid/">
+				<Route exact path="/events/">
 					{
 						loggedIn ?
-							<ViewBag
-								user={user}
-							/>:
+							<MyEvents />:
 							<Redirect to="/" />
 					}
 				</Route>
 
-				<Route path="/verify/:token">
-					<Verify />
-				</Route>
-
-				<Route path="/profile/">
+				<Route exact path="/profile/">
 					{
 						loggedIn ?
 							<Profile
@@ -216,12 +188,54 @@ const App = props => {
 					}
 				</Route>
 
-				<Route path="/events/">
+				<Route exact path="/match/create/">
 					{
 						loggedIn ?
-							<MyEvents
-								user={user}
-							/>:
+							<CreateMatch />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/events/:eid/edit/">
+					{
+						loggedIn ?
+							<EditEvent />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/profile/bag/:bid/">
+					{
+						loggedIn ?
+							<ViewBag />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/match/:mid/:hid/">
+					{
+						loggedIn ?
+							<ViewHole />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/events/:eid/">
+					{
+						loggedIn ?
+							<ViewEvent />:
+							<Redirect to="/" />
+					}
+				</Route>
+
+				<Route path="/verify/:token">
+					<Verify />
+				</Route>
+
+				<Route path="/match/:mid/">
+					{
+						loggedIn ?
+							<ViewMatch />:
 							<Redirect to="/" />
 					}
 				</Route>

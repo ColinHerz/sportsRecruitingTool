@@ -40,11 +40,10 @@ const ViewBag = props => {
 					}
 
 					setBag(JSON.parse(data.response));
+					setUpdateBag(false);
 				},
 				apiError
 			);
-
-			setUpdateBag(false);
 		}
 	}, [updateBag, bid]);
 
