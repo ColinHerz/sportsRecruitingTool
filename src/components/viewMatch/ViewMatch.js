@@ -179,7 +179,7 @@ const ViewMatch = props => {
 
 						<h3>{matchInfo.coursePlayed}</h3>
 
-						<button onClick={toggleEventPicker}>Send Match to an Event</button>
+						<button id="send-match-btn" onClick={toggleEventPicker}>Send Match to an Event</button>
 
 						{
 							showEventPicker ?
@@ -233,12 +233,12 @@ const ViewMatch = props => {
 
 						<p>Click on a score for more info.</p>
 
-						<button onClick={toggleAddScore}>Add Score</button>
+						<button id="add-score-btn" onClick={toggleAddScore}>Add Score</button>
 
 						{
 							showAddScore ?
 								<form onSubmit={handleSubmit(onSubmit)}>
-									<label>
+									<label className="wide-label">
 										Score
 										<input
 											type="number"
@@ -253,7 +253,7 @@ const ViewMatch = props => {
 									</label>
 									{errors.score && <p className="error-text">A score is required.</p>}
 
-									<label>
+									<label className="wide-label">
 										Number of Putts
 										<input
 											type="number"
@@ -269,11 +269,11 @@ const ViewMatch = props => {
 									{errors.numberOfPutts && <p className="error-text">A putt count is required.</p>}
 
 									<h5>Fairway Hit</h5>
-									<label>
-										Yes
+									<div>
 										<input
 											type="radio"
 											name="fairwayHit"
+											id="yes-fairway"
 											value={true}
 											ref={
 												register({
@@ -281,12 +281,14 @@ const ViewMatch = props => {
 												})
 											}
 										/>
-									</label>
-									<label>
-										No
+										<label htmlFor="yes-fairway">Yes</label>
+									</div>
+
+									<div>
 										<input
 											type="radio"
 											name="fairwayHit"
+											id="no-fairway"
 											value={false}
 											ref={
 												register({
@@ -294,15 +296,16 @@ const ViewMatch = props => {
 												})
 											}
 										/>
-									</label>
+										<label htmlFor="no-fairway">No</label>
+									</div>
 									{errors.fairwayHit && <p className="error-text">Fairway hit is required.</p>}
 
 									<h5>Green in Regulation</h5>
-									<label>
-										Yes
+									<div>
 										<input
 											type="radio"
 											name="greenInRegulation"
+											id="yes-green"
 											value={true}
 											ref={
 												register({
@@ -310,12 +313,14 @@ const ViewMatch = props => {
 												})
 											}
 										/>
-									</label>
-									<label>
-										No
+										<label htmlFor="yes-green">Yes</label>
+									</div>
+
+									<div>
 										<input
 											type="radio"
 											name="greenInRegulation"
+											id="no-green"
 											value={false}
 											ref={
 												register({
@@ -323,17 +328,18 @@ const ViewMatch = props => {
 												})
 											}
 										/>
-									</label>
+										<label htmlFor="no-green">No</label>
+									</div>
 									{errors.greenInRegulation && <p className="error-text">Green in regulation is required.</p>}
 
 									<h5>Clubs Used</h5>
 									{
 										golfBag.golfClub.map(club => (
-											<label key={club._id}>
-												{club.clubName} ({clubs[club.clubType]})
+											<div key={club._id}>
 												<input
 													type="checkbox"
 													name="clubsUsed"
+													id={club._id}
 													value={club._id}
 													ref={
 														register({
@@ -341,13 +347,16 @@ const ViewMatch = props => {
 														})
 													}
 												/>
-											</label>
+												<label htmlFor={club._id}>{club.clubName} ({clubs[club.clubType]})</label>
+											</div>
 										))
 									}
 									{errors.clubsUsed && <p className="error-text">Clubs used is required.</p>}
 
-									<input type="submit" value="Done" />
-									<button onClick={toggleAddScore}>Cancel</button>
+									<div id="submission-btns">
+										<input type="submit" value="Done" />
+										<button onClick={toggleAddScore}>Cancel</button>
+									</div>
 								</form>:
 								null
 						}
