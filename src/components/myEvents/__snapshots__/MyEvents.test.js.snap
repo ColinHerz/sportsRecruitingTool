@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering Renders beginning page correctly 1`] = `
+<main
+  id="my-events"
+>
+  <h2>
+    My Events
+  </h2>
+  <button>
+    <a
+      href="/events/create/"
+      onClick={[Function]}
+    >
+      Create Event
+    </a>
+  </button>
+  <section
+    id="in"
+  >
+    <h3>
+      Events
+    </h3>
+    <ul />
+  </section>
+</main>
+`;
