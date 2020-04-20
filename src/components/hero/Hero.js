@@ -22,7 +22,7 @@ const Hero = props => {
 
 	return (
 		<main id="hero-logged-out">
-			<p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy.</p>
+			<p>Create events and play with your friends! Manage your scorecards, equipment, and stats with one easy interface.</p>
 
 			<button
 				id="sign-up"
