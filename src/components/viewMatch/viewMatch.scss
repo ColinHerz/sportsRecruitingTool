@@ -131,4 +131,39 @@
 		align-content: center;
 		grid-auto-flow: row;
 	}
+
+	#event-picker-form {
+		select {
+			font-size: inherit;
+			font-family: inherit;
+			color: $black;
+
+			padding: 0.1em;
+
+			border: 2px solid $black;
+			border-radius: 4px;
+
+			margin: 0.4em;
+		}
+
+		input, button {
+			font-size: inherit;
+			background-color: $orange;
+			color: $black;
+
+			border: 2px solid $orange;
+			border-radius: 4px;
+
+			padding: 0.1em 0.5em;
+			margin-bottom: 1em;
+		}
+
+		input {
+			margin-right: 0.2em;
+		}
+
+		button {
+			margin-left: 0.2em;
+		}
+	}
 }
