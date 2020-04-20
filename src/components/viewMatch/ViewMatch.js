@@ -183,7 +183,7 @@ const ViewMatch = props => {
 
 						{
 							showEventPicker ?
-								<form onSubmit={handleSubmit(sendMatch)}>
+								<form id="event-picker-form" onSubmit={handleSubmit(sendMatch)}>
 									<label>
 										Select an Event:
 										<select
@@ -211,8 +211,10 @@ const ViewMatch = props => {
 										</select>
 									</label>
 
-									<input type="submit" value="Send" />
-									<button onClick={cancelSendMatch}>Cancel</button>
+									<div>
+										<input type="submit" value="Send" />
+										<button onClick={cancelSendMatch}>Cancel</button>
+									</div>
 								</form>:
 								null
 						}
